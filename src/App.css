@@ -3,7 +3,6 @@
 }
 
 .App-logo {
-  height: 40vmin;
   pointer-events: none;
 }
 
@@ -14,18 +13,59 @@
 }
 
 .App-header {
-  background-color: #282c34;
+  background-color: white;
   min-height: 100vh;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
-  color: white;
+  color: black;
 }
 
-.App-link {
-  color: #61dafb;
+.App-content {
+  display: flex;
+  align-items: center;
+}
+
+.App-text {
+  margin-left: 20px;
+  text-align: left;
+}
+
+.App-text h1 {
+  font-size: 5.25em;
+  text-decoration: underline;
+  font-family: "Segoe UI", sans-serif;
+}
+
+.App-text p {
+  font-family: "Segoe UI", sans-serif;
+  font-style: italic;
+  margin-top: -60px; /* Reduced by 75% */
+  color: #607D8B; /* Blue-gray color */
+}
+
+.App-button {
+  background-color: #4285F4; /* Blue toned color */
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 25px; /* Rounded corners */
+  font-size: 1em;
+  cursor: pointer;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); /* Shadows */
+  transition: background-color 0.3s, box-shadow 0.3s;
+  margin-top: 20px; /* Space below slogan */
+}
+
+.App-button:hover {
+  background-color: #3367D6; /* Darker blue on hover */
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 12px 40px 0 rgba(0, 0, 0, 0.19);
+}
+
+.App-button .arrow {
+  margin-left: 10px;
 }
 
 @keyframes App-logo-spin {
@@ -35,4 +75,25 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.App-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.App-modal-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  z-index: 1001;
 }

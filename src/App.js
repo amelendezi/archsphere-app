@@ -1,23 +1,34 @@
-import logo from './logo.svg';
+import logo from './archsphere160.png';
 import './App.css';
+import React, { useState } from 'react';
+import SetupInitialState from './components/SetupInitialState';
 
 function App() {
+  const [showSetup, setShowSetup] = useState(false);
+
+  const handleButtonClick = () => {
+    setShowSetup(true);
+  };
+
+  const handleCloseSetup = () => {
+    setShowSetup(false);
+  };
+
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <div className="App-content">
+          <img src={logo} className="App-logo" alt="logo" />
+          <div className="App-text">
+            <h1>ArchSphere</h1>
+            <p>Supporting architects scope and design better solutions.</p>
+            <button className="App-button" onClick={handleButtonClick}>
+              Work with Applications <span className="arrow">&#9658;</span>
+            </button>
+          </div>
+        </div>
       </header>
+      {showSetup && <SetupInitialState onClose={handleCloseSetup} />}
     </div>
   );
 }
