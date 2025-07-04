@@ -21,7 +21,7 @@ function App() {
           <img src={logo} className="App-logo" alt="logo" />
           <div className="App-text">
             <h1>ArchSphere</h1>
-            <p>Supporting architects scope and design better solutions.</p>
+            <p>Supporting architects with application landscape context.</p>
             <button className="App-button" onClick={handleButtonClick}>
               Work with Applications <span className="arrow">&#9658;</span>
             </button>
