@@ -15,7 +15,7 @@ function UploadState({ nextStep, onClose }) {
 
     if (file) {
       parseStateJson(file, async (applications) => {
-        await addApplications(applications);
+        await addApplications(applications, 'env_applications');
         setLoadedCount(applications.length);
       });
     }
