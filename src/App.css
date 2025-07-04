@@ -34,7 +34,7 @@
 }
 
 .App-text h1 {
-  font-size: 5.25em;
+  font-size: 2em;
   text-decoration: underline;
   font-family: "Segoe UI", sans-serif;
 }
@@ -42,17 +42,18 @@
 .App-text p {
   font-family: "Segoe UI", sans-serif;
   font-style: italic;
-  margin-top: -60px; /* Reduced by 75% */
+  margin-top: -30px; /* Reduced by 75% */
   color: #607D8B; /* Blue-gray color */
+  font-size: 0.7em;
 }
 
 .App-button {
   background-color: #4285F4; /* Blue toned color */
   color: white;
-  padding: 10px 20px;
+  padding: 7.5px 15px;
   border: none;
   border-radius: 25px; /* Rounded corners */
-  font-size: 1em;
+  font-size: 0.75em;
   cursor: pointer;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); /* Shadows */
   transition: background-color 0.3s, box-shadow 0.3s;
@@ -96,7 +97,7 @@
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   z-index: 1001;
-  width: 30vw;
+  width: 50vw;
   display: flex;
   flex-direction: column;
   justify-content: space-between;

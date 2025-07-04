@@ -12,11 +12,11 @@ export const parseEnvironmentJsonFile = (file, callback) => {
         }));
         callback(applicationsWithId);
       } else {
-        console.error('parseStateJson: JSON file is missing the "applications" property.');
+        
         callback([]); // Ensure callback is always called
       }
     } catch (error) {
-      console.error('parseStateJson: Error parsing JSON file:', error);
+      
       callback([]); // Ensure callback is always called on error
     }
   };

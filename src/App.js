@@ -23,7 +23,7 @@ function App() {
             <h1>ArchSphere</h1>
             <p>Supporting architects with application landscape context.</p>
             <button className="App-button" onClick={handleButtonClick}>
-              Work with Applications <span className="arrow">&#9658;</span>
+              Let's get started ... <span className="arrow">&#9658;</span>
             </button>
           </div>
         </div>

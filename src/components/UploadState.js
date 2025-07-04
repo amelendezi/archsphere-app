@@ -14,17 +14,17 @@ function UploadState({ nextStep, onClose }) {
   const handleFileChange = (event) => {
     const file = event.target.files[0];
     setSelectedFile(file);
-    console.log('UploadState: File selected:', file);
+    
     setLoadedCount(null);
 
     if (file) {
-      console.log('UploadState: Calling parseEnvironmentJsonFile for file:', file.name);
+      
       parseEnvironmentJsonFile(file, async (applications) => {
-        console.log('UploadState: parseEnvironmentJsonFile callback received applications:', applications);
+        
         await addApplications(applications, 'env_applications');
-        console.log('UploadState: addApplications completed.');
+        
         setLoadedCount(applications.length);
-        console.log('UploadState: Loaded count set to:', applications.length);
+        
       });
     }
   };
@@ -32,17 +32,17 @@ function UploadState({ nextStep, onClose }) {
   const handleNewApplicationsFileChange = (event) => {
     const file = event.target.files[0];
     setSelectedNewApplicationsFile(file);
-    console.log('UploadState: New Applications File selected:', file);
+    
     setLoadedNewApplicationsCount(null);
 
     if (file) {
-      console.log('UploadState: Calling parseNewApplicationsFile for file:', file.name);
+      
       parseNewApplicationsFile(file, async (applications) => {
-        console.log('UploadState: parseNewApplicationsFile callback received applications:', applications);
+        
         await addNewApplications(applications);
-        console.log('UploadState: addNewApplications completed.');
+        
         setLoadedNewApplicationsCount(applications.length);
-        console.log('UploadState: New Applications Loaded count set to:', applications.length);
+        
       });
     }
   };
