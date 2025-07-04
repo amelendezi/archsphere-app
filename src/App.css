@@ -97,3 +97,54 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   z-index: 1001;
 }
+
+.UploadState-button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 25px;
+  font-size: 1em;
+  cursor: pointer;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  transition: background-color 0.3s, box-shadow 0.3s;
+  margin: 10px;
+}
+
+.UploadState-button-next {
+  background-color: #4285F4;
+  color: white;
+}
+
+.UploadState-button-next:hover {
+  background-color: #3367D6;
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 12px 40px 0 rgba(0, 0, 0, 0.19);
+}
+
+.UploadState-button-choose-file {
+  background-color: #adb5bd;
+  color: white;
+  padding: 5px 10px; /* Smaller padding */
+  font-size: 0.8em; /* Smaller font size */
+  border-radius: 25px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  transition: background-color 0.3s, box-shadow 0.3s;
+  cursor: pointer;
+}
+
+.UploadState-file-selection-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.UploadState-file-name {
+  margin-left: 10px;
+  font-style: italic;
+  color: #555;
+}
+
+.UploadState-buttons-row {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 20px;
+}
