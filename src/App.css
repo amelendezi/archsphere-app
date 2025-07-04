@@ -96,6 +96,10 @@
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   z-index: 1001;
+  width: 30vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .UploadState-button {
@@ -133,7 +137,10 @@
 .UploadState-file-selection-row {
   display: flex;
   align-items: center;
+  justify-content: flex-start;
   margin-bottom: 20px;
+  width: 80%; /* Match the width of the horizontal line */
+  margin-left: 10%; /* Align with the start of the horizontal line */
 }
 
 .UploadState-file-name {
@@ -145,6 +152,6 @@
 .UploadState-buttons-row {
   display: flex;
   justify-content: space-between;
-  width: 100%;
-  margin-top: 20px;
+  width: 80%; /* Match the width of the horizontal line */
+  margin: 20px auto 0 auto; /* Center the row and add top margin */
 }
