@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/static/css/main.383ead51.css",
+    "main.js": "/static/js/main.694c72ca.js",
+    "static/js/453.f99c03df.chunk.js": "/static/js/453.f99c03df.chunk.js",
+    "static/media/archsphere160.png": "/static/media/archsphere160.78e1614c96fb9fa5df8e.png",
+    "index.html": "/index.html",
+    "main.383ead51.css.map": "/static/css/main.383ead51.css.map",
+    "main.694c72ca.js.map": "/static/js/main.694c72ca.js.map",
+    "453.f99c03df.chunk.js.map": "/static/js/453.f99c03df.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.383ead51.css",
+    "static/js/main.694c72ca.js"
+  ]
+}
