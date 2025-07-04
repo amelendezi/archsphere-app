@@ -56,19 +56,29 @@ function UploadState({ nextStep, onClose }) {
   return (
     <div>
       <h2>Setup Environment</h2>
+      <div style={{ width: '80%', margin: '0 auto' }}>
+        <p style={{ textAlign: 'justify', marginBottom: '20px' }}>
+          You can optionally upload a previously saved environment file (environment.json) to configure the setup.
+          Additionally, you may upload an updated list of applications from ServiceNow (applications.json).
+          In the next step, any differences between the files will be reconciled, if necessary.
+        </p>
+      </div>
       <div style={{ borderBottom: '1px solid grey', width: '80%', margin: '0 auto 20px auto' }}></div>
-      <UploadEnvironmentFile
+      <div style={{ width: '80%', margin: '0 auto' }}>
+        <UploadEnvironmentFile
         selectedFile={selectedFile}
         handleFileChange={handleFileChange}
         loadedCount={loadedCount}
         fileInputId="environment-file-upload"
       />
+      <div style={{ marginBottom: '20px' }}></div>
       <UploadNewApplicationsFile
         selectedFile={selectedNewApplicationsFile}
         handleFileChange={handleNewApplicationsFileChange}
         loadedCount={loadedNewApplicationsCount}
         fileInputId="new-applications-file-upload"
       />
+      </div>
       <div style={{ flexGrow: 1 }}></div> {/* This will push the content to the bottom */}
       <div style={{ borderBottom: '1px solid grey', width: '80%', margin: '20px auto 0 auto' }}></div>
       <div className="UploadState-buttons-row">
