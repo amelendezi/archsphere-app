@@ -4,18 +4,25 @@ import { useIndexedDB } from '../hooks/useIndexedDB';
 
 function UploadState({ nextStep, onClose }) {
   const [selectedFile, setSelectedFile] = useState(null);
+  const [loadedCount, setLoadedCount] = useState(null);
   const { addApplications } = useIndexedDB();
 
   const handleFileChange = (event) => {
-    setSelectedFile(event.target.files[0]);
+    const file = event.target.files[0];
+    setSelectedFile(file);
+    setLoadedCount(null);
+
+    if (file) {
+      parseStateJson(file, async (applications) => {
+        await addApplications(applications);
+        setLoadedCount(applications.length);
+      });
+    }
   };
 
   const handleNext = () => {
     if (selectedFile) {
-      parseStateJson(selectedFile, async (applications) => {
-        await addApplications(applications);
-        onClose();
-      });
+      onClose();
     }
   };
 
@@ -31,6 +38,11 @@ function UploadState({ nextStep, onClose }) {
           {selectedFile ? selectedFile.name : 'No file selected'}
         </span>
       </div>
+      {loadedCount !== null && (
+        <p style={{ textAlign: 'center', marginTop: '1rem' }}>
+          Number of applications loaded: {loadedCount}
+        </p>
+      )}
       <div className="UploadState-buttons-row">
         <button className="UploadState-button UploadState-button-close" onClick={onClose}>Close</button>
         <button
