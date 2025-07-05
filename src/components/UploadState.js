@@ -4,12 +4,20 @@ import { useIndexedDB } from '../hooks/useIndexedDB';
 import UploadEnvironmentFile from './UploadEnvironmentFile';
 import UploadNewApplicationsFile from './UploadNewApplicationsFile';
 
-function UploadState({ nextStep, onClose }) {
-  const [selectedFile, setSelectedFile] = useState(null);
-  const [loadedCount, setLoadedCount] = useState(null);
-  const [selectedNewApplicationsFile, setSelectedNewApplicationsFile] = useState(null);
-  const [loadedNewApplicationsCount, setLoadedNewApplicationsCount] = useState(null);
-  const [isNewApplicationsFileValid, setIsNewApplicationsFileValid] = useState(false);
+function UploadState({
+  nextStep,
+  onClose,
+  selectedFile,
+  setSelectedFile,
+  loadedCount,
+  setLoadedCount,
+  selectedNewApplicationsFile,
+  setSelectedNewApplicationsFile,
+  loadedNewApplicationsCount,
+  setLoadedNewApplicationsCount,
+  isNewApplicationsFileValid,
+  setIsNewApplicationsFileValid,
+}) {
   const { addApplications, addNewApplications } = useIndexedDB();
 
   const handleFileChange = (event) => {
