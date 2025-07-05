@@ -80,5 +80,15 @@ export const useIndexedDB = () => {
     await tx.done;
   };
 
-  return { addApplications, addNewApplications, getStoreCount, addConflict, clearStore };
+  const clearStores = async (storeNames) => {
+    const db = await getDbPromise();
+    for (const storeName of storeNames) {
+      const tx = db.transaction(storeName, 'readwrite');
+      const store = tx.objectStore(storeName);
+      await store.clear();
+      await tx.done;
+    }
+  };
+
+  return { addApplications, addNewApplications, getStoreCount, addConflict, clearStore, clearStores };
 };

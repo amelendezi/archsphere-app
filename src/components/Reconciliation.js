@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useIndexedDB } from '../hooks/useIndexedDB';
 import { getNewApplicationsCount, getUnresolvedConflictCount } from '../utils/reconciliationUtility';
-import { handleAddAllNewApplications, handleUndoAddAllNewApplications, handleAssumeAllConflicts } from '../controllers/ReconciliationController';
+import { handleAddAllNewApplications, handleUndoAddAllNewApplications, handleAssumeAllConflicts, handleBackFromReconciliation } from '../controllers/ReconciliationController';
 
-function Reconciliation({ onBack, onClose }) {
-  const { getStoreCount } = useIndexedDB();
+function Reconciliation({ onBack, onClose, setSelectedFile, setSelectedNewApplicationsFile, setLoadedCount, setLoadedNewApplicationsCount, setIsNewApplicationsFileValid }) {
+  const { getStoreCount, clearStores } = useIndexedDB();
   const [newApplicationsCount, setNewApplicationsCount] = useState(0);
   const [totalApplicationsCount, setTotalApplicationsCount] = useState(0);
   const [conflictCount, setConflictCount] = useState(0);
@@ -105,7 +105,7 @@ function Reconciliation({ onBack, onClose }) {
                   onMouseEnter={() => setShowTooltipEnvironmentApplications(true)}
                   onMouseLeave={() => setShowTooltipEnvironmentApplications(false)}
                 >
-                  <span style={{ display: 'inline-block', width: '16px', height: '16px', borderRadius: '50%', border: '1px solid #4285F4', textAlign: 'center', lineHeight: '14px', fontSize: '12px', fontWeight: 'bold', cursor: 'help', color: '#4285F4' }}>i</span>
+                  <span style={{ display: 'inline-inlinblock', width: '16px', height: '16px', borderRadius: '50%', border: '1px solid #4285F4', textAlign: 'center', lineHeight: '14px', fontSize: '12px', fontWeight: 'bold', cursor: 'help', color: '#4285F4' }}>i</span>
                   <span style={{
                     width: '250px',
                     backgroundColor: '#E0E0E0',
@@ -163,7 +163,7 @@ function Reconciliation({ onBack, onClose }) {
       <div style={{ flexGrow: 1 }}></div>
       <div style={{ borderBottom: '1px solid grey', width: '80%', margin: '20px auto 0 auto' }}></div>
       <div className="UploadState-buttons-row">
-        <button className="UploadState-button UploadState-button-close" onClick={onBack}>Back</button>
+        <button className="UploadState-button UploadState-button-close" onClick={() => handleBackFromReconciliation(clearStores, onBack, setSelectedFile, setSelectedNewApplicationsFile, setLoadedCount, setLoadedNewApplicationsCount, setIsNewApplicationsFileValid)}>Back</button>
         <button
           className="UploadState-button UploadState-button-next"
           onClick={onClose}

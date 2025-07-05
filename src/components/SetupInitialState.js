@@ -41,7 +41,17 @@ function SetupInitialState({ onClose }) {
                 />
               );
             case 2:
-              return <Reconciliation onBack={prevStep} onClose={onClose} />;
+              return (
+                <Reconciliation
+                  onBack={prevStep}
+                  onClose={onClose}
+                  setSelectedFile={setSelectedFile}
+                  setSelectedNewApplicationsFile={setSelectedNewApplicationsFile}
+                  setLoadedCount={setLoadedCount}
+                  setLoadedNewApplicationsCount={setLoadedNewApplicationsCount}
+                  setIsNewApplicationsFileValid={setIsNewApplicationsFileValid}
+                />
+              );
             default:
               return null;
           }
