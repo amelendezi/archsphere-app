@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import UploadState from './UploadState';
+import UploadFiles from './UploadFiles';
 import Reconciliation from './Reconciliation';
 
 function SetupInitialState({ onClose }) {
@@ -25,7 +25,7 @@ function SetupInitialState({ onClose }) {
           switch (step) {
             case 1:
               return (
-                <UploadState
+                <UploadFiles
                   nextStep={nextStep}
                   onClose={onClose}
                   selectedFile={selectedFile}
