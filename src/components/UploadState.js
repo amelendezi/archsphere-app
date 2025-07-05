@@ -58,8 +58,12 @@ function UploadState({ nextStep, onClose }) {
       <h2>Setup Environment</h2>
       <div style={{ width: '80%', margin: '0 auto' }}>
         <p style={{ textAlign: 'justify', marginBottom: '20px' }}>
-          You can optionally upload a previously saved environment file (environment.json) to configure the setup.
-          Additionally, you may upload an updated list of applications from ServiceNow (applications.json).
+          You can <strong>optionally</strong> upload a previously saved environment file (environment.json) to configure the setup.
+          Use this to continue working with a previously saved application landscape.
+          If this is the first time working with this application, do not upload any file.          
+        </p>
+        <p style={{ textAlign: 'justify', marginBottom: '20px' }}>
+          Additionally, you may <strong>optionally</strong> upload an updated list of applications from ServiceNow (applications.json).
           In the next step, any differences between the files will be reconciled, if necessary.
         </p>
       </div>
