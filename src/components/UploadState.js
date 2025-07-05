@@ -3,6 +3,7 @@ import { parseEnvironmentJsonFile, parseNewApplicationsFile } from '../utils/par
 import { useIndexedDB } from '../hooks/useIndexedDB';
 import UploadEnvironmentFile from './UploadEnvironmentFile';
 import UploadNewApplicationsFile from './UploadNewApplicationsFile';
+import { calculateAndStoreConflicts } from '../utils/uploadStateUtility';
 
 function UploadState({
   nextStep,
@@ -22,17 +23,12 @@ function UploadState({
 
   const handleFileChange = (file) => {
     setSelectedFile(file);
-    
     setLoadedCount(null);
-
     if (file) {
-      
       parseEnvironmentJsonFile(file, async (applications) => {
-        
         await addApplications(applications, 'env_applications');
-        
         setLoadedCount(applications.length);
-        
+        await calculateAndStoreConflicts();
       });
     }
   };
@@ -45,17 +41,12 @@ function UploadState({
       return;
     }
     setSelectedNewApplicationsFile(file);
-    
     setLoadedNewApplicationsCount(null);
-
     if (file) {
-      
       parseNewApplicationsFile(file, async (applications) => {
-        
         await addNewApplications(applications);
-        
         setLoadedNewApplicationsCount(applications.length);
-        
+        await calculateAndStoreConflicts();
       });
     }
   };

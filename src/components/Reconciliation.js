@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useIndexedDB } from '../hooks/useIndexedDB';
-import { reconcileApplications, getNewApplicationsCount, addAllNewApplications, undoAddAllNewApplications, assumeAllConflicts } from '../utils/reconciliationUtility';
+import { countConflicts, getNewApplicationsCount, addAllNewApplications, undoAddAllNewApplications, assumeAllConflicts, getUnresolvedConflictCount } from '../utils/reconciliationUtility';
 
 function Reconciliation({ onBack, onClose }) {
   const { getStoreCount } = useIndexedDB();
@@ -32,8 +32,8 @@ function Reconciliation({ onBack, onClose }) {
 
   const handleAssumeAllConflicts = async () => {
     await assumeAllConflicts();
-    const conflictsFound = await reconcileApplications();
-    setConflictCount(conflictsFound);
+    const unresolvedConflicts = await getUnresolvedConflictCount();
+    setConflictCount(unresolvedConflicts);
     const totalAppCount = await getStoreCount('env_applications');
     setTotalApplicationsCount(totalAppCount);
   };
@@ -46,8 +46,8 @@ function Reconciliation({ onBack, onClose }) {
       const totalAppCount = await getStoreCount('env_applications');
       setTotalApplicationsCount(totalAppCount);
 
-      const conflictsFound = await reconcileApplications();
-      setConflictCount(conflictsFound);
+      const unresolvedConflicts = await getUnresolvedConflictCount();
+      setConflictCount(unresolvedConflicts);
     };
     fetchCountsAndConflicts();
   }, [getStoreCount]);
