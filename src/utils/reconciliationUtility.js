@@ -103,5 +103,12 @@ export const addAllNewApplications = async () => {
   }
   await envApplicationsWriteTx.done;
 
+  const recNewApplicationsTx = db.transaction('rec_new_applications', 'readwrite');
+  const recNewApplicationsStore = recNewApplicationsTx.objectStore('rec_new_applications');
+  for (const app of applicationsToAdd) {
+    await recNewApplicationsStore.put(app);
+  }
+  await recNewApplicationsTx.done;
+
   return applicationsToAdd.length;
 };

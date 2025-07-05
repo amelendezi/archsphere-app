@@ -15,6 +15,9 @@ const dbPromise = openDB(DB_NAME, DB_VERSION, {
     if (!db.objectStoreNames.contains('new_env_conflicts')) {
       db.createObjectStore('new_env_conflicts', { keyPath: 'ID' });
     }
+    if (!db.objectStoreNames.contains('rec_new_applications')) {
+      db.createObjectStore('rec_new_applications', { keyPath: 'ID' });
+    }
   },
 });
 
