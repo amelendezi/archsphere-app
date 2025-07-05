@@ -40,6 +40,7 @@ export const reconcileApplications = async () => {
               'Property Name': key,
               'Old Value': envApp[key],
               'New Value': newApp[key],
+              Status: 'unresolved',
             };
             conflicts.push(conflict);
           }
