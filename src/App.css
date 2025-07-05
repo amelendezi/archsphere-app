@@ -124,8 +124,14 @@
   box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 12px 40px 0 rgba(0, 0, 0, 0.19);
 }
 
+.UploadState-button-next:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
 .UploadState-button-choose-file {
-  background-color: #adb5bd;
+  background-color: #4285F4;
   color: white;
   padding: 5px 10px; /* Smaller padding */
   font-size: 0.8em; /* Smaller font size */

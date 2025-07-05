@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import UploadState from './UploadState';
+import Reconciliation from './Reconciliation';
 
 function SetupInitialState({ onClose }) {
   const [step, setStep] = useState(1);
@@ -19,6 +20,8 @@ function SetupInitialState({ onClose }) {
           switch (step) {
             case 1:
               return <UploadState nextStep={nextStep} onClose={onClose} />;
+            case 2:
+              return <Reconciliation onBack={prevStep} onClose={onClose} />;
             default:
               return null;
           }

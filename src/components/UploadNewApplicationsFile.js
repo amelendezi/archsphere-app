@@ -7,7 +7,7 @@ import applicationSchema from '../application.schema.json';
 const ajv = new Ajv();
 const validate = ajv.compile(applicationSchema);
 
-function UploadNewApplicationsFile({ selectedFile, handleFileChange, loadedCount, fileInputId }) {
+function UploadNewApplicationsFile({ selectedFile, handleFileChange, loadedCount, fileInputId, onValidationChange }) {
   const [showTooltip, setShowTooltip] = useState(false);
   const [validationError, setValidationError] = useState(null);
 
@@ -22,9 +22,11 @@ function UploadNewApplicationsFile({ selectedFile, handleFileChange, loadedCount
           if (!isValid) {
             setValidationError("Invalid File");
             handleFileChange(null);
+            onValidationChange(false);
           } else {
             setValidationError(null);
             handleFileChange(event);
+            onValidationChange(true);
           }
         } catch (error) {
           setValidationError("Invalid JSON format");

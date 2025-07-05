@@ -9,6 +9,7 @@ function UploadState({ nextStep, onClose }) {
   const [loadedCount, setLoadedCount] = useState(null);
   const [selectedNewApplicationsFile, setSelectedNewApplicationsFile] = useState(null);
   const [loadedNewApplicationsCount, setLoadedNewApplicationsCount] = useState(null);
+  const [isNewApplicationsFileValid, setIsNewApplicationsFileValid] = useState(false);
   const { addApplications, addNewApplications } = useIndexedDB();
 
   const handleFileChange = (event) => {
@@ -33,6 +34,7 @@ function UploadState({ nextStep, onClose }) {
     if (!event) {
       setSelectedNewApplicationsFile(null);
       setLoadedNewApplicationsCount(null);
+      setIsNewApplicationsFileValid(false);
       return;
     }
     const file = event.target.files[0];
@@ -52,9 +54,13 @@ function UploadState({ nextStep, onClose }) {
     }
   };
 
+  const handleNewApplicationsValidationChange = (isValid) => {
+    setIsNewApplicationsFileValid(isValid);
+  };
+
   const handleNext = () => {
     if (selectedFile || selectedNewApplicationsFile) {
-      onClose();
+      nextStep();
     }
   };
 
@@ -86,6 +92,7 @@ function UploadState({ nextStep, onClose }) {
         handleFileChange={handleNewApplicationsFileChange}
         loadedCount={loadedNewApplicationsCount}
         fileInputId="new-applications-file-upload"
+        onValidationChange={handleNewApplicationsValidationChange}
       />
       </div>
       <div style={{ flexGrow: 1 }}></div> {/* This will push the content to the bottom */}
@@ -95,7 +102,7 @@ function UploadState({ nextStep, onClose }) {
         <button
           className="UploadState-button UploadState-button-next"
           onClick={handleNext}
-          disabled={!selectedFile && !selectedNewApplicationsFile}
+          disabled={!selectedFile || !selectedNewApplicationsFile || !isNewApplicationsFileValid}
         >
           Next
         </button>
