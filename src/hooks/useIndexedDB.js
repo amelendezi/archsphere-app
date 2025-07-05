@@ -4,7 +4,7 @@ import { openDB } from 'idb';
 const DB_NAME = 'ArchSphereDB';
 const DB_VERSION = 9;
 
-const dbPromise = openDB(DB_NAME, DB_VERSION, {
+const getDbPromise = () => openDB(DB_NAME, DB_VERSION, {
   upgrade(db) {
     if (!db.objectStoreNames.contains('env_applications')) {
       db.createObjectStore('env_applications', { keyPath: 'ID' });
@@ -26,8 +26,7 @@ const dbPromise = openDB(DB_NAME, DB_VERSION, {
 
 export const useIndexedDB = () => {
   const addApplications = async (applications, storeName) => {
-    
-    const db = await dbPromise;
+    const db = await getDbPromise();
     const tx = db.transaction(storeName, 'readwrite');
     const store = tx.objectStore(storeName);
     for (const app of applications) {
@@ -42,7 +41,7 @@ export const useIndexedDB = () => {
   };
 
   const addNewApplications = async (applications) => {
-    const db = await dbPromise;
+    const db = await getDbPromise();
     const tx = db.transaction('new_applications', 'readwrite');
     const store = tx.objectStore('new_applications');
     for (const app of applications) {
@@ -57,7 +56,7 @@ export const useIndexedDB = () => {
   };
 
   const getStoreCount = async (storeName) => {
-    const db = await dbPromise;
+    const db = await getDbPromise();
     const tx = db.transaction(storeName, 'readonly');
     const store = tx.objectStore(storeName);
     const count = await store.count();
@@ -66,7 +65,7 @@ export const useIndexedDB = () => {
   };
 
   const addConflict = async (conflict) => {
-    const db = await dbPromise;
+    const db = await getDbPromise();
     const tx = db.transaction('new_env_conflicts', 'readwrite');
     const store = tx.objectStore('new_env_conflicts');
     await store.put(conflict);
@@ -74,7 +73,7 @@ export const useIndexedDB = () => {
   };
 
   const clearStore = async (storeName) => {
-    const db = await dbPromise;
+    const db = await getDbPromise();
     const tx = db.transaction(storeName, 'readwrite');
     const store = tx.objectStore(storeName);
     await store.clear();

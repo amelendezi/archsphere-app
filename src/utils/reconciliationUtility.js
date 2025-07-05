@@ -3,10 +3,10 @@ import { openDB } from 'idb';
 const DB_NAME = 'ArchSphereDB';
 const DB_VERSION = 9;
 
-const dbPromise = openDB(DB_NAME, DB_VERSION);
+const getDbPromise = () => openDB(DB_NAME, DB_VERSION);
 
 export const reconcileApplications = async () => {
-  const db = await dbPromise;
+  const db = await getDbPromise();
 
   // Clear existing conflicts
   await db.transaction('new_env_conflicts', 'readwrite').objectStore('new_env_conflicts').clear();
@@ -40,7 +40,6 @@ export const reconcileApplications = async () => {
               'Property Name': key,
               'Old Value': envApp[key],
               'New Value': newApp[key],
-              Status: 'unresolved',
             };
             conflicts.push(conflict);
           }
@@ -60,7 +59,7 @@ export const reconcileApplications = async () => {
 };
 
 export const getNewApplicationsCount = async () => {
-  const db = await dbPromise;
+  const db = await getDbPromise();
 
   const newApplicationsTx = db.transaction('new_applications', 'readonly');
   const newApplicationsStore = newApplicationsTx.objectStore('new_applications');
@@ -80,7 +79,7 @@ export const getNewApplicationsCount = async () => {
 };
 
 export const addAllNewApplications = async () => {
-  const db = await dbPromise;
+  const db = await getDbPromise();
 
   const newApplicationsTx = db.transaction('new_applications', 'readonly');
   const newApplicationsStore = newApplicationsTx.objectStore('new_applications');
@@ -114,7 +113,7 @@ export const addAllNewApplications = async () => {
 };
 
 export const undoAddAllNewApplications = async () => {
-  const db = await dbPromise;
+  const db = await getDbPromise();
 
   const recNewApplicationsTx = db.transaction('rec_new_applications', 'readonly');
   const recNewApplicationsStore = recNewApplicationsTx.objectStore('rec_new_applications');
@@ -149,17 +148,13 @@ export const updateIndividualApplication = async (tx, applicationId, propertyNam
     await envApplicationsStore.put(oldApplication);
   }
 
-  // Update new_env_conflicts status
+  // Update new_env_conflicts
   const conflictId = `${applicationId}-${propertyName}`;
-  const conflict = await newEnvConflictsStore.get(conflictId);
-  if (conflict) {
-    conflict.Status = 'resolved';
-    await newEnvConflictsStore.put(conflict);
-  }
+  await newEnvConflictsStore.delete(conflictId);
 };
 
 export const assumeAllConflicts = async () => {
-  const db = await dbPromise;
+  const db = await getDbPromise();
   const tx = db.transaction(['new_env_conflicts', 'env_applications', 'old_env_applications'], 'readwrite');
 
   const newEnvConflictsStore = tx.objectStore('new_env_conflicts');
@@ -167,10 +162,8 @@ export const assumeAllConflicts = async () => {
 
   let resolvedConflictsCount = 0;
   for (const conflict of conflicts) {
-    if (conflict.Status === 'unresolved') {
-      await updateIndividualApplication(tx, conflict['Business Application ID'], conflict['Property Name'], conflict['New Value']);
-      resolvedConflictsCount++;
-    }
+    await updateIndividualApplication(tx, conflict['Business Application ID'], conflict['Property Name'], conflict['New Value']);
+    resolvedConflictsCount++;
   }
   await tx.done;
   return resolvedConflictsCount;
