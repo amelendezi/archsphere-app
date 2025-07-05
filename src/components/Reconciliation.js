@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useIndexedDB } from '../hooks/useIndexedDB';
-import { countConflicts, getNewApplicationsCount, addAllNewApplications, undoAddAllNewApplications, assumeAllConflicts, getUnresolvedConflictCount } from '../utils/reconciliationUtility';
+import { getNewApplicationsCount, addAllNewApplications, undoAddAllNewApplications, assumeAllConflicts, getUnresolvedConflictCount } from '../utils/reconciliationUtility';
 
 function Reconciliation({ onBack, onClose }) {
   const { getStoreCount } = useIndexedDB();
