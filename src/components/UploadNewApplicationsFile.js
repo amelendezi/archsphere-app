@@ -28,7 +28,7 @@ function UploadNewApplicationsFile({ selectedFile, handleFileChange, loadedCount
             onValidationChange(false);
           } else {
             setValidationError(null);
-            handleFileChange(event);
+            handleFileChange(file);
             onValidationChange(true);
           }
         } catch (error) {

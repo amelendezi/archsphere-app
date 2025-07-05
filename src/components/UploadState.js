@@ -20,8 +20,7 @@ function UploadState({
 }) {
   const { addApplications, addNewApplications } = useIndexedDB();
 
-  const handleFileChange = (event) => {
-    const file = event.target.files[0];
+  const handleFileChange = (file) => {
     setSelectedFile(file);
     
     setLoadedCount(null);
@@ -38,14 +37,13 @@ function UploadState({
     }
   };
 
-  const handleNewApplicationsFileChange = (event) => {
-    if (!event) {
+  const handleNewApplicationsFileChange = (file) => {
+    if (!file) {
       setSelectedNewApplicationsFile(null);
       setLoadedNewApplicationsCount(null);
       setIsNewApplicationsFileValid(false);
       return;
     }
-    const file = event.target.files[0];
     setSelectedNewApplicationsFile(file);
     
     setLoadedNewApplicationsCount(null);

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useIndexedDB } from '../hooks/useIndexedDB';
-import { reconcileApplications, getNewApplicationsCount, addAllNewApplications, undoAddAllNewApplications } from '../utils/reconciliationUtility';
+import { reconcileApplications, getNewApplicationsCount, addAllNewApplications, undoAddAllNewApplications, assumeAllConflicts } from '../utils/reconciliationUtility';
 
 function Reconciliation({ onBack, onClose }) {
   const { getStoreCount } = useIndexedDB();
@@ -28,6 +28,14 @@ function Reconciliation({ onBack, onClose }) {
     const newAppCount = await getNewApplicationsCount();
     setNewApplicationsCount(newAppCount);
     setShowUndoButton(false);
+  };
+
+  const handleAssumeAllConflicts = async () => {
+    await assumeAllConflicts();
+    const conflictsFound = await reconcileApplications();
+    setConflictCount(conflictsFound);
+    const totalAppCount = await getStoreCount('env_applications');
+    setTotalApplicationsCount(totalAppCount);
   };
 
   useEffect(() => {
@@ -168,7 +176,11 @@ function Reconciliation({ onBack, onClose }) {
                 </button>
               )}
             </td>
-            <td style={{ border: '1px solid #ddd', padding: '8px' }}></td>
+            <td style={{ border: '1px solid #ddd', padding: '8px' }}>
+              <button className="reconciliationButtonPrimary" onClick={handleAssumeAllConflicts}>
+                Assume All
+              </button>
+            </td>
             <td style={{ border: '1px solid #ddd', padding: '8px' }}></td>
           </tr>
         </tbody>

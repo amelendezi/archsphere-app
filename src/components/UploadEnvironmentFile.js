@@ -9,7 +9,7 @@ function UploadEnvironmentFile({ selectedFile, handleFileChange, loadedCount, fi
 
   const handleInternalFileChange = async (event) => {
     await clearStore('env_applications');
-    handleFileChange(event);
+    handleFileChange(event.target.files[0]);
   };
 
   return (

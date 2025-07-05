@@ -2,7 +2,7 @@
 import { openDB } from 'idb';
 
 const DB_NAME = 'ArchSphereDB';
-const DB_VERSION = 8;
+const DB_VERSION = 9;
 
 const dbPromise = openDB(DB_NAME, DB_VERSION, {
   upgrade(db) {
@@ -17,6 +17,9 @@ const dbPromise = openDB(DB_NAME, DB_VERSION, {
     }
     if (!db.objectStoreNames.contains('rec_new_applications')) {
       db.createObjectStore('rec_new_applications', { keyPath: 'ID' });
+    }
+    if (!db.objectStoreNames.contains('old_env_applications')) {
+      db.createObjectStore('old_env_applications', { keyPath: 'ID' });
     }
   },
 });
