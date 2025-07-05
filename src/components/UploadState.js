@@ -1,4 +1,3 @@
-import React, { useState } from 'react';
 import { parseEnvironmentJsonFile, parseNewApplicationsFile } from '../utils/parseJsonUtility';
 import { useIndexedDB } from '../hooks/useIndexedDB';
 import UploadEnvironmentFile from './UploadEnvironmentFile';
