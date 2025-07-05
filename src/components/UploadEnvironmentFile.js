@@ -19,9 +19,9 @@ function UploadEnvironmentFile({ selectedFile, handleFileChange, loadedCount, fi
                 <span style={{ display: 'inline-block', width: '16px', height: '16px', borderRadius: '50%', border: '1px solid #4285F4', textAlign: 'center', lineHeight: '14px', fontSize: '12px', fontWeight: 'bold', cursor: 'help', color: '#4285F4' }}>i</span>
                 <span style={{
                   width: '250px',
-                  backgroundColor: '#555',
-                  color: '#fff',
-                  textAlign: 'justify',
+                  backgroundColor: '#E0E0E0',
+                  color: '#000',
+                  textAlign: 'left',
                   borderRadius: '6px',
                   padding: '10px',
                   position: 'absolute',
@@ -32,8 +32,9 @@ function UploadEnvironmentFile({ selectedFile, handleFileChange, loadedCount, fi
                   opacity: showTooltip ? '1' : '0',
                   visibility: showTooltip ? 'visible' : 'hidden',
                   transition: 'opacity 0.375s',
-                  border: '1px solid #555',
-                  boxShadow: '0 2px 5px rgba(0,0,0,0.3)'
+                  border: '1px solid #E0E0E0',
+                  boxShadow: '0 2px 5px rgba(0,0,0,0.3)',
+                  fontSize: '0.8em'
                 }}>
                   You must upload a compatible environment.json file. If this is the first time working with this application, do not upload any file. After working with the application you can download an environment.json that you can later use to upload here, and continue with the work.
                 </span>

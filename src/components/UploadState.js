@@ -30,6 +30,11 @@ function UploadState({ nextStep, onClose }) {
   };
 
   const handleNewApplicationsFileChange = (event) => {
+    if (!event) {
+      setSelectedNewApplicationsFile(null);
+      setLoadedNewApplicationsCount(null);
+      return;
+    }
     const file = event.target.files[0];
     setSelectedNewApplicationsFile(file);
     
