@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useIndexedDB } from '../hooks/useIndexedDB';
-import { getNewApplicationsCount, addAllNewApplications, undoAddAllNewApplications, assumeAllConflicts, getUnresolvedConflictCount } from '../utils/reconciliationUtility';
+import { getNewApplicationsCount, getUnresolvedConflictCount } from '../utils/reconciliationUtility';
+import { handleAddAllNewApplications, handleUndoAddAllNewApplications, handleAssumeAllConflicts } from '../controllers/ReconciliationController';
 
 function Reconciliation({ onBack, onClose }) {
   const { getStoreCount } = useIndexedDB();
@@ -11,32 +12,6 @@ function Reconciliation({ onBack, onClose }) {
   const [showTooltipConflicts, setShowTooltipConflicts] = useState(false);
   const [showTooltipEnvironmentApplications, setShowTooltipEnvironmentApplications] = useState(false);
   const [showUndoButton, setShowUndoButton] = useState(false);
-
-  const handleAddAllNewApplications = async () => {
-    await addAllNewApplications();
-    const totalAppCount = await getStoreCount('env_applications');
-    setTotalApplicationsCount(totalAppCount);
-    const newAppCount = await getNewApplicationsCount();
-    setNewApplicationsCount(newAppCount);
-    setShowUndoButton(true);
-  };
-
-  const handleUndoAddAllNewApplications = async () => {
-    await undoAddAllNewApplications();
-    const totalAppCount = await getStoreCount('env_applications');
-    setTotalApplicationsCount(totalAppCount);
-    const newAppCount = await getNewApplicationsCount();
-    setNewApplicationsCount(newAppCount);
-    setShowUndoButton(false);
-  };
-
-  const handleAssumeAllConflicts = async () => {
-    await assumeAllConflicts();
-    const unresolvedConflicts = await getUnresolvedConflictCount();
-    setConflictCount(unresolvedConflicts);
-    const totalAppCount = await getStoreCount('env_applications');
-    setTotalApplicationsCount(totalAppCount);
-  };
 
   useEffect(() => {
     const fetchCountsAndConflicts = async () => {
@@ -167,17 +142,17 @@ function Reconciliation({ onBack, onClose }) {
           <tr>
             <td style={{ border: '1px solid #ddd', padding: '8px' }}>
               {showUndoButton ? (
-                <button className="reconciliationButtonPrimary" style={{ backgroundColor: 'grey' }} onClick={handleUndoAddAllNewApplications}>
+                <button className="reconciliationButtonPrimary" style={{ backgroundColor: 'grey' }} onClick={() => handleUndoAddAllNewApplications(getStoreCount, setTotalApplicationsCount, setNewApplicationsCount, setShowUndoButton)}>
                   Undo Add All
                 </button>
               ) : (
-                <button className="reconciliationButtonPrimary" onClick={handleAddAllNewApplications}>
+                <button className="reconciliationButtonPrimary" onClick={() => handleAddAllNewApplications(getStoreCount, setTotalApplicationsCount, setNewApplicationsCount, setShowUndoButton)}>
                   Add All
                 </button>
               )}
             </td>
             <td style={{ border: '1px solid #ddd', padding: '8px' }}>
-              <button className="reconciliationButtonPrimary" onClick={handleAssumeAllConflicts}>
+              <button className="reconciliationButtonPrimary" onClick={() => handleAssumeAllConflicts(getStoreCount, setConflictCount, setTotalApplicationsCount)}>
                 Assume All
               </button>
             </td>
