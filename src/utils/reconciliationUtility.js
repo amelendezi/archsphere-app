@@ -78,3 +78,30 @@ export const getNewApplicationsCount = async () => {
 
   return newOnlyApplications.length;
 };
+
+export const addAllNewApplications = async () => {
+  const db = await dbPromise;
+
+  const newApplicationsTx = db.transaction('new_applications', 'readonly');
+  const newApplicationsStore = newApplicationsTx.objectStore('new_applications');
+  const newApplications = await newApplicationsStore.getAll();
+  await newApplicationsTx.done;
+
+  const envApplicationsTx = db.transaction('env_applications', 'readonly');
+  const envApplicationsStore = envApplicationsTx.objectStore('env_applications');
+  const envApplications = await envApplicationsStore.getAll();
+  await envApplicationsTx.done;
+
+  const envApplicationsIds = new Set(envApplications.map(app => app.ID));
+
+  const applicationsToAdd = newApplications.filter(app => !envApplicationsIds.has(app.ID));
+
+  const envApplicationsWriteTx = db.transaction('env_applications', 'readwrite');
+  const envApplicationsWriteStore = envApplicationsWriteTx.objectStore('env_applications');
+  for (const app of applicationsToAdd) {
+    await envApplicationsWriteStore.put(app);
+  }
+  await envApplicationsWriteTx.done;
+
+  return applicationsToAdd.length;
+};
