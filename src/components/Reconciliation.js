@@ -1,20 +1,25 @@
 import React, { useState, useEffect } from 'react';
 import { useIndexedDB } from '../hooks/useIndexedDB';
+import { compareNewWithEnvironmentApplications } from '../utils/compareNewWithEnvironmentApplications';
 
 function Reconciliation({ onBack, onClose }) {
   const { getStoreCount } = useIndexedDB();
   const [newApplicationsCount, setNewApplicationsCount] = useState(0);
   const [totalApplicationsCount, setTotalApplicationsCount] = useState(0);
+  const [conflictCount, setConflictCount] = useState(0);
 
   useEffect(() => {
-    const fetchCounts = async () => {
+    const fetchCountsAndConflicts = async () => {
       const newAppCount = await getStoreCount('new_applications');
       setNewApplicationsCount(newAppCount);
 
       const totalAppCount = await getStoreCount('env_applications');
       setTotalApplicationsCount(totalAppCount);
+
+      const conflictsFound = await compareNewWithEnvironmentApplications();
+      setConflictCount(conflictsFound);
     };
-    fetchCounts();
+    fetchCountsAndConflicts();
   }, [getStoreCount]);
   return (
     <div style={{ backgroundColor: '#f8f8f8', padding: '20px', borderRadius: '8px' }}>
@@ -30,7 +35,7 @@ function Reconciliation({ onBack, onClose }) {
         <tbody>
           <tr>
             <td style={{ border: '1px solid #ddd', padding: '8px' }}>{newApplicationsCount}</td>
-            <td style={{ border: '1px solid #ddd', padding: '8px' }}></td>
+            <td style={{ border: '1px solid #ddd', padding: '8px' }}>{conflictCount}</td>
             <td style={{ border: '1px solid #ddd', padding: '8px' }}>{totalApplicationsCount}</td>
           </tr>
           <tr>

@@ -2,7 +2,7 @@
 import { openDB } from 'idb';
 
 const DB_NAME = 'ArchSphereDB';
-const DB_VERSION = 7;
+const DB_VERSION = 8;
 
 const dbPromise = openDB(DB_NAME, DB_VERSION, {
   upgrade(db) {
@@ -11,6 +11,9 @@ const dbPromise = openDB(DB_NAME, DB_VERSION, {
     }
     if (!db.objectStoreNames.contains('new_applications')) {
       db.createObjectStore('new_applications', { keyPath: 'ID' });
+    }
+    if (!db.objectStoreNames.contains('new_env_conflicts')) {
+      db.createObjectStore('new_env_conflicts', { keyPath: 'ID' });
     }
   },
 });
@@ -56,5 +59,13 @@ export const useIndexedDB = () => {
     return count;
   };
 
-  return { addApplications, addNewApplications, getStoreCount };
+  const addConflict = async (conflict) => {
+    const db = await dbPromise;
+    const tx = db.transaction('new_env_conflicts', 'readwrite');
+    const store = tx.objectStore('new_env_conflicts');
+    await store.put(conflict);
+    await tx.done;
+  };
+
+  return { addApplications, addNewApplications, getStoreCount, addConflict };
 };
