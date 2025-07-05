@@ -1,8 +1,8 @@
-import { parseEnvironmentJsonFile, parseNewApplicationsFile } from '../utils/parseJsonUtility';
+import React from 'react';
 import { useIndexedDB } from '../hooks/useIndexedDB';
 import UploadEnvironmentFile from './UploadEnvironmentFile';
 import UploadNewApplicationsFile from './UploadNewApplicationsFile';
-import { calculateAndStoreConflicts } from '../utils/uploadStateUtility';
+import { handleEnvironmentFileChange, handleNewApplicationsFileChange, handleNewApplicationsValidationChange, handleNext } from '../controllers/SetupEnvironmentController';
 
 function UploadState({
   nextStep,
@@ -19,46 +19,6 @@ function UploadState({
   setIsNewApplicationsFileValid,
 }) {
   const { addApplications, addNewApplications } = useIndexedDB();
-
-  const handleFileChange = (file) => {
-    setSelectedFile(file);
-    setLoadedCount(null);
-    if (file) {
-      parseEnvironmentJsonFile(file, async (applications) => {
-        await addApplications(applications, 'env_applications');
-        setLoadedCount(applications.length);
-        await calculateAndStoreConflicts();
-      });
-    }
-  };
-
-  const handleNewApplicationsFileChange = (file) => {
-    if (!file) {
-      setSelectedNewApplicationsFile(null);
-      setLoadedNewApplicationsCount(null);
-      setIsNewApplicationsFileValid(false);
-      return;
-    }
-    setSelectedNewApplicationsFile(file);
-    setLoadedNewApplicationsCount(null);
-    if (file) {
-      parseNewApplicationsFile(file, async (applications) => {
-        await addNewApplications(applications);
-        setLoadedNewApplicationsCount(applications.length);
-        await calculateAndStoreConflicts();
-      });
-    }
-  };
-
-  const handleNewApplicationsValidationChange = (isValid) => {
-    setIsNewApplicationsFileValid(isValid);
-  };
-
-  const handleNext = () => {
-    if (selectedFile || selectedNewApplicationsFile) {
-      nextStep();
-    }
-  };
 
   return (
     <div>
@@ -78,17 +38,17 @@ function UploadState({
       <div style={{ width: '80%', margin: '0 auto' }}>
         <UploadEnvironmentFile
         selectedFile={selectedFile}
-        handleFileChange={handleFileChange}
+        handleFileChange={(file) => handleEnvironmentFileChange(file, addApplications, setSelectedFile, setLoadedCount)}
         loadedCount={loadedCount}
         fileInputId="environment-file-upload"
       />
       <div style={{ marginBottom: '20px' }}></div>
       <UploadNewApplicationsFile
         selectedFile={selectedNewApplicationsFile}
-        handleFileChange={handleNewApplicationsFileChange}
+        handleFileChange={(file) => handleNewApplicationsFileChange(file, addNewApplications, setSelectedNewApplicationsFile, setLoadedNewApplicationsCount, setIsNewApplicationsFileValid)}
         loadedCount={loadedNewApplicationsCount}
         fileInputId="new-applications-file-upload"
-        onValidationChange={handleNewApplicationsValidationChange}
+        onValidationChange={(isValid) => handleNewApplicationsValidationChange(isValid, setIsNewApplicationsFileValid)}
       />
       </div>
       <div style={{ flexGrow: 1 }}></div> {/* This will push the content to the bottom */}
@@ -97,7 +57,7 @@ function UploadState({
         <button className="UploadState-button UploadState-button-close" onClick={onClose}>Close</button>
         <button
           className="UploadState-button UploadState-button-next"
-          onClick={handleNext}
+          onClick={() => handleNext(selectedFile, selectedNewApplicationsFile, nextStep)}
           disabled={!selectedFile || !selectedNewApplicationsFile || !isNewApplicationsFileValid}
         >
           Next
