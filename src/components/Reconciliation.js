@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useIndexedDB } from '../hooks/useIndexedDB';
-import { reconcileApplications, getNewApplicationsCount, addAllNewApplications } from '../utils/reconciliationUtility';
+import { reconcileApplications, getNewApplicationsCount, addAllNewApplications, undoAddAllNewApplications } from '../utils/reconciliationUtility';
 
 function Reconciliation({ onBack, onClose }) {
   const { getStoreCount } = useIndexedDB();
@@ -10,6 +10,7 @@ function Reconciliation({ onBack, onClose }) {
   const [showTooltipNewApplications, setShowTooltipNewApplications] = useState(false);
   const [showTooltipConflicts, setShowTooltipConflicts] = useState(false);
   const [showTooltipEnvironmentApplications, setShowTooltipEnvironmentApplications] = useState(false);
+  const [showUndoButton, setShowUndoButton] = useState(false);
 
   const handleAddAllNewApplications = async () => {
     await addAllNewApplications();
@@ -17,6 +18,16 @@ function Reconciliation({ onBack, onClose }) {
     setTotalApplicationsCount(totalAppCount);
     const newAppCount = await getNewApplicationsCount();
     setNewApplicationsCount(newAppCount);
+    setShowUndoButton(true);
+  };
+
+  const handleUndoAddAllNewApplications = async () => {
+    await undoAddAllNewApplications();
+    const totalAppCount = await getStoreCount('env_applications');
+    setTotalApplicationsCount(totalAppCount);
+    const newAppCount = await getNewApplicationsCount();
+    setNewApplicationsCount(newAppCount);
+    setShowUndoButton(false);
   };
 
   useEffect(() => {
@@ -147,9 +158,15 @@ function Reconciliation({ onBack, onClose }) {
           </tr>
           <tr>
             <td style={{ border: '1px solid #ddd', padding: '8px' }}>
-              <button className="reconciliationButtonPrimary" onClick={handleAddAllNewApplications}>
-                Add All
-              </button>
+              {showUndoButton ? (
+                <button className="reconciliationButtonPrimary" style={{ backgroundColor: 'grey' }} onClick={handleUndoAddAllNewApplications}>
+                  Undo Add All
+                </button>
+              ) : (
+                <button className="reconciliationButtonPrimary" onClick={handleAddAllNewApplications}>
+                  Add All
+                </button>
+              )}
             </td>
             <td style={{ border: '1px solid #ddd', padding: '8px' }}></td>
             <td style={{ border: '1px solid #ddd', padding: '8px' }}></td>

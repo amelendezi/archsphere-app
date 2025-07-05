@@ -1,9 +1,16 @@
 
 
 import React, { useState } from 'react';
+import { useIndexedDB } from '../hooks/useIndexedDB';
 
 function UploadEnvironmentFile({ selectedFile, handleFileChange, loadedCount, fileInputId }) {
   const [showTooltip, setShowTooltip] = useState(false);
+  const { clearStore } = useIndexedDB();
+
+  const handleInternalFileChange = async (event) => {
+    await clearStore('env_applications');
+    handleFileChange(event);
+  };
 
   return (
     <table style={{ width: '100%', borderCollapse: 'collapse', backgroundColor: '#f8f8f8' }}>
@@ -46,7 +53,7 @@ function UploadEnvironmentFile({ selectedFile, handleFileChange, loadedCount, fi
             <label htmlFor={fileInputId} className="UploadState-button UploadState-button-choose-file">
               Choose File
             </label>
-            <input id={fileInputId} type="file" accept=".json" style={{ display: 'none' }} onChange={handleFileChange} />
+            <input id={fileInputId} type="file" accept=".json" style={{ display: 'none' }} onChange={handleInternalFileChange} />
           </td>
           <td style={{ padding: '8px', verticalAlign: 'middle', textAlign: 'left', width: '15%' }}>
             <span className="UploadState-file-name" style={{ fontSize: '0.8em' }}>

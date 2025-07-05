@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import Ajv from 'ajv';
 import applicationSchema from '../application.schema.json';
+import { useIndexedDB } from '../hooks/useIndexedDB';
 
 const ajv = new Ajv();
 const validate = ajv.compile(applicationSchema);
@@ -10,10 +11,12 @@ const validate = ajv.compile(applicationSchema);
 function UploadNewApplicationsFile({ selectedFile, handleFileChange, loadedCount, fileInputId, onValidationChange }) {
   const [showTooltip, setShowTooltip] = useState(false);
   const [validationError, setValidationError] = useState(null);
+  const { clearStore } = useIndexedDB();
 
-  const handleInternalFileChange = (event) => {
+  const handleInternalFileChange = async (event) => {
     const file = event.target.files[0];
     if (file) {
+      await clearStore('new_applications');
       const reader = new FileReader();
       reader.onload = (e) => {
         try {
