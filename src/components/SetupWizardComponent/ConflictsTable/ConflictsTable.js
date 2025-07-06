@@ -4,7 +4,7 @@ import { DB_NAME, DB_VERSION, SETUP_CONFLICTS_STORE_NAME } from '../../../config
 
 const getDbPromise = () => openDB(DB_NAME, DB_VERSION);
 
-function ConflictsTable() {
+function ConflictsTable({ refreshTrigger }) {
   const [conflicts, setConflicts] = useState([]);
 
   useEffect(() => {
@@ -17,7 +17,7 @@ function ConflictsTable() {
     };
 
     fetchConflicts();
-  }, []);
+  }, [refreshTrigger]);
 
   return (
     <div style={{ marginTop: '20px', backgroundColor: '#f8f8f8', padding: '20px', borderRadius: '8px' }}>

@@ -16,6 +16,7 @@ function Reconciliation({ onBack, onClose, setSelectedFile, setSelectedNewApplic
   const [showTooltipEnvironmentApplications, setShowTooltipEnvironmentApplications] = useState(false);
   const [showUndoButton, setShowUndoButton] = useState(false);
   const [showUndoAssumeAllButton, setShowUndoAssumeAllButton] = useState(false);
+  const [refreshConflictsTable, setRefreshConflictsTable] = useState(false);
 
   useEffect(() => {
     const fetchCountsAndConflicts = async () => {
@@ -157,11 +158,11 @@ const totalAppCount = await getStoreCount(SETUP_ENV_APPLICATIONS_STORE_NAME);
             </td>
             <td style={{ border: '1px solid #ddd', padding: '8px' }}>
               {showUndoAssumeAllButton ? (
-                <button className="reconciliationButtonPrimary" style={{ backgroundColor: 'grey' }} onClick={() => onUndoAssumeAllConflicts(getStoreCount, setConflictCount, setTotalApplicationsCount, setShowUndoAssumeAllButton)}>
+                <button className="reconciliationButtonPrimary" style={{ backgroundColor: 'grey' }} onClick={() => onUndoAssumeAllConflicts(getStoreCount, setConflictCount, setTotalApplicationsCount, setShowUndoAssumeAllButton, setRefreshConflictsTable)}>
                   Undo Assume All
                 </button>
               ) : (
-                <button className="reconciliationButtonPrimary" onClick={() => onAssumeAllConflicts(getStoreCount, setConflictCount, setTotalApplicationsCount, setShowUndoAssumeAllButton)}>
+                <button className="reconciliationButtonPrimary" onClick={() => onAssumeAllConflicts(getStoreCount, setConflictCount, setTotalApplicationsCount, setShowUndoAssumeAllButton, setRefreshConflictsTable)}>
                   Assume All
                 </button>
               )}
@@ -171,7 +172,7 @@ const totalAppCount = await getStoreCount(SETUP_ENV_APPLICATIONS_STORE_NAME);
         </tbody>
       </table>      
       <div style={{ width: '80%', margin: '0 auto' }}>
-        <ConflictsTable />
+        <ConflictsTable refreshTrigger={refreshConflictsTable} />
       </div>
       <div style={{ flexGrow: 1 }}></div>
       <div style={{ borderBottom: '1px solid grey', width: '80%', margin: '20px auto 0 auto' }}></div>

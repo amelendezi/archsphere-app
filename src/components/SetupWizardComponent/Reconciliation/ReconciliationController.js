@@ -24,22 +24,24 @@ export const onUndoAddAllNewApplications = async (getStoreCount, setTotalApplica
   setShowUndoButton(false);
 };
 
-export const onAssumeAllConflicts = async (getStoreCount, setConflictCount, setTotalApplicationsCount, setShowUndoAssumeAllButton) => {
+export const onAssumeAllConflicts = async (getStoreCount, setConflictCount, setTotalApplicationsCount, setShowUndoAssumeAllButton, setRefreshConflictsTable) => {
   await resolveAssumeAllApplicationConflictsCommand();
   const unresolvedConflicts = await countUnresolvedConflictsQuery();
   setConflictCount(unresolvedConflicts);
   const totalAppCount = await getStoreCount(SETUP_ENV_APPLICATIONS_STORE_NAME);
   setTotalApplicationsCount(totalAppCount);
   setShowUndoAssumeAllButton(true);
+  setRefreshConflictsTable(prev => !prev);
 };
 
-export const onUndoAssumeAllConflicts = async (getStoreCount, setConflictCount, setTotalApplicationsCount, setShowUndoAssumeAllButton) => {
+export const onUndoAssumeAllConflicts = async (getStoreCount, setConflictCount, setTotalApplicationsCount, setShowUndoAssumeAllButton, setRefreshConflictsTable) => {
   await unresolveAssumeAllApplicationConflictsCommand();
   const unresolvedConflicts = await countUnresolvedConflictsQuery();
   setConflictCount(unresolvedConflicts);
   const totalAppCount = await getStoreCount(SETUP_ENV_APPLICATIONS_STORE_NAME);
   setTotalApplicationsCount(totalAppCount);
   setShowUndoAssumeAllButton(false);
+  setRefreshConflictsTable(prev => !prev);
 };
 
 export const onBackFromReconciliation = async (clearStores, onBack, setSelectedFile, setSelectedNewApplicationsFile, setLoadedCount, setLoadedNewApplicationsCount, setIsNewApplicationsFileValid) => {
