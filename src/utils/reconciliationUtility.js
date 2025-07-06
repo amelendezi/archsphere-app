@@ -5,7 +5,19 @@ const DB_VERSION = 9;
 
 const getDbPromise = () => openDB(DB_NAME, DB_VERSION);
 
-export const updateIndividualApplication = async (tx, applicationId, propertyName, newValue) => {
+export const resolveSingleConflict = async (transaction, applicationId, propertyName, newValue) => {
+  let db;
+  let tx;
+  let isNewTransaction = false;
+
+  if (transaction) {
+    tx = transaction;
+  } else {
+    db = await getDbPromise();
+    tx = db.transaction(['env_applications', 'new_env_conflicts'], 'readwrite');
+    isNewTransaction = true;
+  }
+
   const envApplicationsStore = tx.objectStore('env_applications');
   const newEnvConflictsStore = tx.objectStore('new_env_conflicts');
 
@@ -23,6 +35,10 @@ export const updateIndividualApplication = async (tx, applicationId, propertyNam
     conflict.Status = 'resolved';
     await newEnvConflictsStore.put(conflict);
   }
+
+  if (isNewTransaction) {
+    await tx.done;
+  }
 };
 
 export const assumeAllConflicts = async () => {
@@ -35,7 +51,7 @@ export const assumeAllConflicts = async () => {
   let resolvedConflictsCount = 0;
   for (const conflict of conflicts) {
     if (conflict.Status === 'unresolved') {
-      await updateIndividualApplication(tx, conflict['Business Application ID'], conflict['Property Name'], conflict['New Value']);
+      await resolveSingleConflict(tx, conflict['Business Application ID'], conflict['Property Name'], conflict['New Value']);
       resolvedConflictsCount++;
     }
   }
