@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useIndexedDB } from '../../../hooks/useIndexedDB';
-import { onNewApplicationsFileChange } from './controllers/UploadNewApplicationsFileController';
+import { onNewApplicationsFileChange } from './UploadNewApplicationsFileController';
 
 function UploadNewApplicationsFile({ selectedFile, handleFileChange, loadedCount, fileInputId, onValidationChange }) {
   const [showTooltip, setShowTooltip] = useState(false);

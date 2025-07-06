@@ -2,7 +2,7 @@ import React from 'react';
 import { useIndexedDB } from '../../../hooks/useIndexedDB';
 import UploadEnvironmentFile from './UploadEnvironmentFile';
 import UploadNewApplicationsFile from './UploadNewApplicationsFile';
-import { processEnvironmentFileUpload, processNewApplicationsFileUpload, handleNewApplicationsValidationChange, handleNext } from './controllers/UploadFilesController';
+import { processEnvironmentFileUpload, processNewApplicationsFileUpload, handleNewApplicationsValidationChange, handleNext } from './UploadFilesController';
 
 function UploadState({
   nextStep,
