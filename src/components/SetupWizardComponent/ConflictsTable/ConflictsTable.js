@@ -6,7 +6,7 @@ function ConflictsTable({ refreshTrigger }) {
     {
       key: 'Business Application ID',
       header: 'Application ID',
-      minWidth: '120px',
+      minWidth: '110px',
       flexGrow: 2,
     },
     {
@@ -36,8 +36,8 @@ function ConflictsTable({ refreshTrigger }) {
     {
       key: 'Status',
       header: 'Status',
-      minWidth: '80px',
-      maxWidth: '100px',
+      minWidth: '110px',
+      maxWidth: '110px',
       flexGrow: 0,
     },
   ];
