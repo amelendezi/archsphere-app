@@ -23,6 +23,7 @@ function Reconciliation({ onBack, onClose, setSelectedFile, setSelectedNewApplic
       setTotalApplicationsCount(totalAppCount);
 
       const conflicts = await countApplicationConflictsQuery();
+      setConflictCount(conflicts);
     };
     fetchCountsAndConflicts();
   }, [getStoreCount]);
