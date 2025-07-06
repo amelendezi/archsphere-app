@@ -1,6 +1,6 @@
-import { calculateAndStoreConflicts } from '../../../utils/uploadStateUtility';
 
-import { orchestrateConflictCalculation } from '../../../utils/uploadStateUtility';
+
+import { calculateApplicationConflictsService } from '../../../services/calculateApplicationConflictsService';
 
 export const parseEnvironmentJsonFile = (file, callback) => {
   const reader = new FileReader();
@@ -59,7 +59,7 @@ export const processEnvironmentFileUpload = (file, addApplications, setSelectedF
     parseEnvironmentJsonFile(file, async (applications) => {
       await addApplications(applications, 'env_applications');
       setLoadedCount(applications.length);
-      await orchestrateConflictCalculation();
+      await calculateApplicationConflictsService();
     });
   }
 };
@@ -77,7 +77,7 @@ export const processNewApplicationsFileUpload = (file, addNewApplications, setSe
     parseNewApplicationsFile(file, async (applications) => {
       await addNewApplications(applications);
       setLoadedNewApplicationsCount(applications.length);
-      await orchestrateConflictCalculation();
+      await calculateApplicationConflictsService();
     });
   }
 };
