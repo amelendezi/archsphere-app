@@ -32,7 +32,7 @@ const totalAppCount = await getStoreCount(SETUP_ENV_APPLICATIONS_STORE_NAME);
     fetchCountsAndConflicts();
   }, [getStoreCount, conflictCount]);
   return (
-    <div style={{ backgroundColor: '#f8f8f8', padding: '20px', borderRadius: '8px' }}>
+    <div style={{ backgroundColor: 'white', padding: '20px', borderRadius: '8px' }}>
       <h2 style={{ color: 'black' }}>Reconcile New Applications</h2>      
       <table style={{ width: '80%', borderCollapse: 'collapse', border: '1px solid #ddd', margin: '0 auto' }}>
         <thead>
