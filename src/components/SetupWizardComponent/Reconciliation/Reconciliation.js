@@ -171,7 +171,9 @@ const totalAppCount = await getStoreCount(SETUP_ENV_APPLICATIONS_STORE_NAME);
           </tr>
         </tbody>
       </table>      
-      
+      <div style={{ width: '80%', margin: '0 auto' }}>
+        <ConflictsTable refreshTrigger={refreshConflictsTable} />
+      </div>
       <div style={{ flexGrow: 1 }}></div>
       <div style={{ borderBottom: '1px solid grey', width: '80%', margin: '20px auto 0 auto' }}></div>
       <div className="UploadState-buttons-row">
