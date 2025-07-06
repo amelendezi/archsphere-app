@@ -35,7 +35,7 @@ const DB_VERSION = 9;
 
 const getDbPromise = () => openDB(DB_NAME, DB_VERSION);
 
-export const calculateApplicationConflictsService = async () => {
+export const calculateApplicationConflictsCommand = async () => {
   try {
     const db = await getDbPromise();
     const envTx = db.transaction('env_applications', 'readonly');
