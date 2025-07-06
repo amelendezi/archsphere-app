@@ -1,8 +1,7 @@
 import { openDB } from 'idb';
 import { resolveSingleConflictCommand } from './resolveSingleApplicationConflictCommand';
 
-const DB_NAME = 'ArchSphereDB';
-const DB_VERSION = 9;
+import { DB_NAME, DB_VERSION } from '../../config/dbConfig';
 
 const getDbPromise = () => openDB(DB_NAME, DB_VERSION);
 
