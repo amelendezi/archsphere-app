@@ -20,9 +20,9 @@ function ConflictsTable({ refreshTrigger }) {
   }, [refreshTrigger]);
 
   return (
-    <div style={{ marginTop: '20px', backgroundColor: '#f8f8f8', padding: '20px', borderRadius: '8px' }}>
-      <h3 style={{ color: 'black' }}>Conflict Details</h3>
-      <table style={{ width: '100%', borderCollapse: 'collapse', border: '1px solid #ddd' }}>
+    <div style={{ marginTop: '20px', backgroundColor: '#f8f8f8', borderRadius: '8px' }}>
+      <h3 style={{ color: 'black', padding: '20px 20px 0px 20px' }}>Conflict Details</h3>
+      <table style={{ width: '100%', borderCollapse: 'collapse', border: '1px solid #ddd', padding: '0px 20px 20px 20px' }}>
         <thead>
           <tr>            
             <th style={{ border: '1px solid #ddd', padding: '8px', fontWeight: 'bold', fontSize: '0.9em' }}>Business Application ID</th>
