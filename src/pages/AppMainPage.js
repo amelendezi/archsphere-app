@@ -1,0 +1,36 @@
+import logo from '../archsphere160.png';
+import '../App.css';
+import React, { useState } from 'react';
+import SetupInitialState from '../components/SetupWizardComponent/SetupInitialState';
+
+function AppMainPage() {
+  const [showSetup, setShowSetup] = useState(false);
+
+  const handleButtonClick = () => {
+    setShowSetup(true);
+  };
+
+  const handleCloseSetup = () => {
+    setShowSetup(false);
+  };
+
+  return (
+    <div className="App">
+      <header className="App-header">
+        <div className="App-content">
+          <img src={logo} className="App-logo" alt="logo" />
+          <div className="App-text">
+            <h1>ArchSphere</h1>
+            <p>Supporting architects with application landscape context.</p>
+            <button className="App-button" onClick={handleButtonClick}>
+              Let's get started ... <span className="arrow">&#9658;</span>
+            </button>
+          </div>
+        </div>
+      </header>
+      {showSetup && <SetupInitialState onClose={handleCloseSetup} />}
+    </div>
+  );
+}
+
+export default AppMainPage;
