@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { useIndexedDB } from '../hooks/useIndexedDB';
-import { getNewApplicationsCount, getUnresolvedConflictCount } from '../utils/reconciliationUtility';
-import { handleAddAllNewApplications, handleUndoAddAllNewApplications, handleAssumeAllConflicts, handleBackFromReconciliation } from '../controllers/ReconciliationController';
+import { useIndexedDB } from '../../hooks/useIndexedDB';
+import { getNewApplicationsCount, getUnresolvedConflictCount } from '../../utils/reconciliationUtility';
+import { handleAddAllNewApplications, handleUndoAddAllNewApplications, handleAssumeAllConflicts, handleBackFromReconciliation } from '../../controllers/ReconciliationController';
 
 function Reconciliation({ onBack, onClose, setSelectedFile, setSelectedNewApplicationsFile, setLoadedCount, setLoadedNewApplicationsCount, setIsNewApplicationsFileValid }) {
   const { getStoreCount, clearStores } = useIndexedDB();

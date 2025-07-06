@@ -1,46 +1,15 @@
 
 
 import React, { useState } from 'react';
-import Ajv from 'ajv';
-import applicationSchema from '../application.schema.json';
-import { useIndexedDB } from '../hooks/useIndexedDB';
+import { useIndexedDB } from '../../hooks/useIndexedDB';
 
-const ajv = new Ajv();
-const validate = ajv.compile(applicationSchema);
-
-function UploadNewApplicationsFile({ selectedFile, handleFileChange, loadedCount, fileInputId, onValidationChange }) {
+function UploadEnvironmentFile({ selectedFile, handleFileChange, loadedCount, fileInputId }) {
   const [showTooltip, setShowTooltip] = useState(false);
-  const [validationError, setValidationError] = useState(null);
   const { clearStore } = useIndexedDB();
 
   const handleInternalFileChange = async (event) => {
-    const file = event.target.files[0];
-    if (file) {
-      await clearStore('new_applications');
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        try {
-          const fileContent = JSON.parse(e.target.result);
-          const isValid = validate(fileContent);
-          if (!isValid) {
-            setValidationError("Invalid File");
-            handleFileChange(null);
-            onValidationChange(false);
-          } else {
-            setValidationError(null);
-            handleFileChange(file);
-            onValidationChange(true);
-          }
-        } catch (error) {
-          setValidationError("Invalid JSON format");
-          handleFileChange(null);
-        }
-      };
-      reader.readAsText(file);
-    } else {
-      setValidationError(null);
-      handleFileChange(null);
-    }
+    await clearStore('env_applications');
+    handleFileChange(event.target.files[0]);
   };
 
   return (
@@ -54,7 +23,7 @@ function UploadNewApplicationsFile({ selectedFile, handleFileChange, loadedCount
                 onMouseEnter={() => setShowTooltip(true)}
                 onMouseLeave={() => setShowTooltip(false)}
               >
-                <span style={{ display: 'inline-block', width: '16px', height: '16px', borderRadius: '50%', border: '1px solid #4285F4', textAlign: 'center', lineHeight: '14px', fontSize: '12px', fontWeight: 'bold', cursor: 'help', color: '#4285F4'}}>i</span>
+                <span style={{ display: 'inline-block', width: '16px', height: '16px', borderRadius: '50%', border: '1px solid #4285F4', textAlign: 'center', lineHeight: '14px', fontSize: '12px', fontWeight: 'bold', cursor: 'help', color: '#4285F4' }}>i</span>
                 <span style={{
                   width: '250px',
                   backgroundColor: '#E0E0E0',
@@ -74,10 +43,10 @@ function UploadNewApplicationsFile({ selectedFile, handleFileChange, loadedCount
                   boxShadow: '0 2px 5px rgba(0,0,0,0.3)',
                   fontSize: '0.8em'
                 }}>
-                  Ensure the applications.json file complies with the expected JSON schema.
+                  You must upload a compatible environment.json file. If this is the first time working with this application, do not upload any file. After working with the application you can download an environment.json that you can later use to upload here, and continue with the work.
                 </span>
               </div>
-              <span style={{ color: 'black' }}>Upload new applications.</span>
+              <span style={{ color: 'black' }}>Upload a saved environment.</span>
             </div>
           </td>
           <td style={{ padding: '8px', verticalAlign: 'middle', width: '25%' }}>
@@ -92,16 +61,10 @@ function UploadNewApplicationsFile({ selectedFile, handleFileChange, loadedCount
             </span>
           </td>
           <td style={{ padding: '8px', verticalAlign: 'middle', textAlign: 'right', width: '15%' }}>
-            {validationError ? (
-              <span style={{ color: 'red', fontSize: '0.8em' }}>
-                {validationError}
+            {loadedCount !== null && (
+              <span style={{ color: 'green', fontSize: '0.8em' }}>
+                {loadedCount} applications
               </span>
-            ) : (
-              loadedCount !== null && (
-                <span style={{ color: 'green', fontSize: '0.8em' }}>
-                  {loadedCount} applications
-                </span>
-              )
             )}
           </td>
         </tr>
@@ -110,4 +73,4 @@ function UploadNewApplicationsFile({ selectedFile, handleFileChange, loadedCount
   );
 }
 
-export default UploadNewApplicationsFile;
+export default UploadEnvironmentFile;

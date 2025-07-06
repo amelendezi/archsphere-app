@@ -1,7 +1,7 @@
 import logo from './archsphere160.png';
 import './App.css';
 import React, { useState } from 'react';
-import SetupInitialState from './components/SetupInitialState';
+import SetupInitialState from './components/SetupWizardComponent/SetupInitialState';
 
 function App() {
   const [showSetup, setShowSetup] = useState(false);
