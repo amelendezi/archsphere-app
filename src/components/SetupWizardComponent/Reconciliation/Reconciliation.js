@@ -108,7 +108,7 @@ const totalAppCount = await getStoreCount(SETUP_ENV_APPLICATIONS_STORE_NAME);
                   onMouseEnter={() => setShowTooltipEnvironmentApplications(true)}
                   onMouseLeave={() => setShowTooltipEnvironmentApplications(false)}
                 >
-                  <span style={{ display: 'inline-inlinblock', width: '16px', height: '16px', borderRadius: '50%', border: '1px solid #4285F4', textAlign: 'center', lineHeight: '14px', fontSize: '12px', fontWeight: 'bold', cursor: 'help', color: '#4285F4' }}>i</span>
+                  <span style={{ display: 'inline-block', width: '16px', height: '16px', borderRadius: '50%', border: '1px solid #4285F4', textAlign: 'center', lineHeight: '14px', fontSize: '12px', fontWeight: 'bold', cursor: 'help', color: '#4285F4' }}>i</span>
                   <span style={{
                     width: '250px',
                     backgroundColor: '#E0E0E0',
