@@ -1,6 +1,6 @@
 import { addAllNewApplicationsCommand } from '../../../services/command/addAllNewApplicationsCommand';
 import { undoAddAllNewApplicationsCommand } from '../../../services/command/undoAllNewApplicationsCommand';
-import { assumeAllConflicts } from '../../../utils/reconciliationUtility';
+import { resolveAssumeAllApplicationConflictsCommand } from '../../../services/command/resolveAssumeAllApplicationConflictsCommand';
 import { countUnresolvedConflictsQuery } from '../../../services/query/countUnresolvedConflictsQuery';
 import { countNewApplicationsQuery } from '../../../services/query/countNewApplicationsQuery';
 
@@ -23,7 +23,7 @@ export const onUndoAddAllNewApplications = async (getStoreCount, setTotalApplica
 };
 
 export const onAssumeAllConflicts = async (getStoreCount, setConflictCount, setTotalApplicationsCount) => {
-  await assumeAllConflicts();
+  await resolveAssumeAllApplicationConflictsCommand();
   const unresolvedConflicts = await countUnresolvedConflictsQuery();
   setConflictCount(unresolvedConflicts);
   const totalAppCount = await getStoreCount('env_applications');
