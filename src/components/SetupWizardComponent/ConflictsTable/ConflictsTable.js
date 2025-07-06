@@ -5,7 +5,7 @@ function ConflictsTable({ refreshTrigger }) {
   const conflictColumns = [
     {
       key: 'Business Application ID',
-      header: 'Business Application ID',
+      header: 'Application ID',
       minWidth: '120px',
       flexGrow: 2,
     },
@@ -17,19 +17,19 @@ function ConflictsTable({ refreshTrigger }) {
     },
     {
       key: 'Property Name',
-      header: 'Property Name',
+      header: 'Property',
       minWidth: '100px',
       flexGrow: 1,
     },
     {
       key: 'Old Value',
-      header: 'Old Value',
+      header: 'Old',
       minWidth: '80px',
       flexGrow: 1,
     },
     {
       key: 'New Value',
-      header: 'New Value',
+      header: 'New',
       minWidth: '80px',
       flexGrow: 1,
     },
