@@ -29,21 +29,13 @@ export const assumeAllConflicts = async () => {
   const db = await getDbPromise();
   const tx = db.transaction(['new_env_conflicts', 'env_applications'], 'readwrite');
   const newEnvConflictsStore = tx.objectStore('new_env_conflicts');
-  const envApplicationsStore = tx.objectStore('env_applications');
 
   const conflicts = await newEnvConflictsStore.getAll();
 
   let resolvedConflictsCount = 0;
   for (const conflict of conflicts) {
     if (conflict.Status === 'unresolved') {
-      const application = await envApplicationsStore.get(conflict['Business Application ID']);
-      if (application) {
-        application[conflict['Property Name']] = conflict['New Value'];
-        await envApplicationsStore.put(application);
-      }
-      
-      conflict.Status = 'resolved';
-      await newEnvConflictsStore.put(conflict);
+      await updateIndividualApplication(tx, conflict['Business Application ID'], conflict['Property Name'], conflict['New Value']);
       resolvedConflictsCount++;
     }
   }
