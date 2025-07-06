@@ -47,7 +47,7 @@ function ConflictsTable({ refreshTrigger }) {
   };
 
   return (
-    <div style={{ marginTop: '20px', backgroundColor: '#f8f8f8', borderRadius: '8px', padding: '0px 20px 20px 20px' }}>
+    <div style={{ marginTop: '20px', backgroundColor: '#f8f8f8', borderRadius: '8px' }}>
       <h3 style={{ color: 'black', padding: '20px 0px 0px 0px' }}>Conflict Details</h3>
       <ItemList
         dataFetcher={conflictDataFetcher}
@@ -56,7 +56,7 @@ function ConflictsTable({ refreshTrigger }) {
         refreshTrigger={refreshTrigger}
         headerStyle={{
           border: '1px solid #ddd',
-          padding: '8px',
+          padding: '8px 20px',
           fontWeight: 'bold',
           fontSize: '0.9em',
           backgroundColor: '#f2f2f2',
@@ -66,7 +66,7 @@ function ConflictsTable({ refreshTrigger }) {
         }}
         cellStyle={{
           border: '1px solid #ddd',
-          padding: '8px',
+          padding: '8px 20px',
           fontSize: '0.8em',
         }}
       />

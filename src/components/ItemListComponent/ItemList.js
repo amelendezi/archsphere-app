@@ -113,7 +113,6 @@ function ItemList({ dataFetcher, columns, listMaxWidth, listStyle, headerStyle, 
             style={{
               width: calculatedColumnWidths.get(col.key) ? `${calculatedColumnWidths.get(col.key)}px` : 'auto',
               fontWeight: 'bold',
-              padding: '8px',
               border: '1px solid #ddd',
               whiteSpace: 'nowrap',
               overflow: 'hidden',
