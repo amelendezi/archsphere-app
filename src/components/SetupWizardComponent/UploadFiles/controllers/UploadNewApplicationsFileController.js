@@ -4,7 +4,7 @@ import applicationSchema from '../../../../application.schema.json';
 const ajv = new Ajv();
 const validate = ajv.compile(applicationSchema);
 
-export const handleUploadNewApplicationsFileChange = async (event, clearStore, handleFileChange, onValidationChange, setValidationError) => {
+export const onNewApplicationsFileChange = async (event, clearStore, handleFileChange, onValidationChange, setValidationError) => {
   const file = event.target.files[0];
   if (file) {
     await clearStore('new_applications');

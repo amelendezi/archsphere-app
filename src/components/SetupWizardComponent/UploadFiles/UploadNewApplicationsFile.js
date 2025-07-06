@@ -1,45 +1,11 @@
 import React, { useState } from 'react';
-import Ajv from 'ajv';
-import applicationSchema from '../../../application.schema.json';
 import { useIndexedDB } from '../../../hooks/useIndexedDB';
-
-const ajv = new Ajv();
-const validate = ajv.compile(applicationSchema);
+import { onNewApplicationsFileChange } from './controllers/UploadNewApplicationsFileController';
 
 function UploadNewApplicationsFile({ selectedFile, handleFileChange, loadedCount, fileInputId, onValidationChange }) {
   const [showTooltip, setShowTooltip] = useState(false);
   const [validationError, setValidationError] = useState(null);
   const { clearStore } = useIndexedDB();
-
-  const handleInternalFileChange = async (event) => {
-    const file = event.target.files[0];
-    if (file) {
-      await clearStore('new_applications');
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        try {
-          const fileContent = JSON.parse(e.target.result);
-          const isValid = validate(fileContent);
-          if (!isValid) {
-            setValidationError("Invalid File");
-            handleFileChange(null);
-            onValidationChange(false);
-          } else {
-            setValidationError(null);
-            handleFileChange(file);
-            onValidationChange(true);
-          }
-        } catch (error) {
-          setValidationError("Invalid JSON format");
-          handleFileChange(null);
-        }
-      };
-      reader.readAsText(file);
-    } else {
-      setValidationError(null);
-      handleFileChange(null);
-    }
-  };
 
   return (
     <table style={{ width: '100%', borderCollapse: 'collapse', backgroundColor: '#f8f8f8' }}>
@@ -82,7 +48,7 @@ function UploadNewApplicationsFile({ selectedFile, handleFileChange, loadedCount
             <label htmlFor={fileInputId} className="UploadState-button UploadState-button-choose-file">
               Choose File
             </label>
-            <input id={fileInputId} type="file" accept=".json" style={{ display: 'none' }} onChange={handleInternalFileChange} />
+            <input id={fileInputId} type="file" accept=".json" style={{ display: 'none' }} onChange={(event) => onNewApplicationsFileChange(event, clearStore, handleFileChange, onValidationChange, setValidationError)} />
           </td>
           <td style={{ padding: '8px', verticalAlign: 'middle', textAlign: 'left', width: '15%' }}>
             <span className="UploadState-file-name" style={{ fontSize: '0.8em' }}>
