@@ -1,6 +1,6 @@
 import { addAllNewApplications, getNewApplicationsCount, undoAddAllNewApplications, assumeAllConflicts, getUnresolvedConflictCount } from '../../../utils/reconciliationUtility';
 
-export const handleAddAllNewApplications = async (getStoreCount, setTotalApplicationsCount, setNewApplicationsCount, setShowUndoButton) => {
+export const onAddAllNewApplications = async (getStoreCount, setTotalApplicationsCount, setNewApplicationsCount, setShowUndoButton) => {
   await addAllNewApplications();
   const totalAppCount = await getStoreCount('env_applications');
   setTotalApplicationsCount(totalAppCount);
@@ -9,7 +9,7 @@ export const handleAddAllNewApplications = async (getStoreCount, setTotalApplica
   setShowUndoButton(true);
 };
 
-export const handleUndoAddAllNewApplications = async (getStoreCount, setTotalApplicationsCount, setNewApplicationsCount, setShowUndoButton) => {
+export const onUndoAddAllNewApplications = async (getStoreCount, setTotalApplicationsCount, setNewApplicationsCount, setShowUndoButton) => {
   await undoAddAllNewApplications();
   const totalAppCount = await getStoreCount('env_applications');
   setTotalApplicationsCount(totalAppCount);
@@ -18,7 +18,7 @@ export const handleUndoAddAllNewApplications = async (getStoreCount, setTotalApp
   setShowUndoButton(false);
 };
 
-export const handleAssumeAllConflicts = async (getStoreCount, setConflictCount, setTotalApplicationsCount) => {
+export const onAssumeAllConflicts = async (getStoreCount, setConflictCount, setTotalApplicationsCount) => {
   await assumeAllConflicts();
   const unresolvedConflicts = await getUnresolvedConflictCount();
   setConflictCount(unresolvedConflicts);
@@ -26,7 +26,7 @@ export const handleAssumeAllConflicts = async (getStoreCount, setConflictCount, 
   setTotalApplicationsCount(totalAppCount);
 };
 
-export const handleBackFromReconciliation = async (clearStores, onBack, setSelectedFile, setSelectedNewApplicationsFile, setLoadedCount, setLoadedNewApplicationsCount, setIsNewApplicationsFileValid) => {
+export const onBackFromReconciliation = async (clearStores, onBack, setSelectedFile, setSelectedNewApplicationsFile, setLoadedCount, setLoadedNewApplicationsCount, setIsNewApplicationsFileValid) => {
   await clearStores(['env_applications', 'new_applications', 'new_env_conflicts', 'rec_new_applications']);
   setSelectedFile(null);
   setSelectedNewApplicationsFile(null);

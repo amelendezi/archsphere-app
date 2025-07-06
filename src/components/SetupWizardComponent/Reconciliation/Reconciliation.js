@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useIndexedDB } from '../../../hooks/useIndexedDB';
 import { getNewApplicationsCount, getUnresolvedConflictCount } from '../../../utils/reconciliationUtility';
-import { handleAddAllNewApplications, handleUndoAddAllNewApplications, handleAssumeAllConflicts, handleBackFromReconciliation } from './ReconciliationController';
+import { onAddAllNewApplications, onUndoAddAllNewApplications, onAssumeAllConflicts, onBackFromReconciliation } from './ReconciliationController';
 
 function Reconciliation({ onBack, onClose, setSelectedFile, setSelectedNewApplicationsFile, setLoadedCount, setLoadedNewApplicationsCount, setIsNewApplicationsFileValid }) {
   const { getStoreCount, clearStores } = useIndexedDB();
@@ -142,17 +142,17 @@ function Reconciliation({ onBack, onClose, setSelectedFile, setSelectedNewApplic
           <tr>
             <td style={{ border: '1px solid #ddd', padding: '8px' }}>
               {showUndoButton ? (
-                <button className="reconciliationButtonPrimary" style={{ backgroundColor: 'grey' }} onClick={() => handleUndoAddAllNewApplications(getStoreCount, setTotalApplicationsCount, setNewApplicationsCount, setShowUndoButton)}>
+                <button className="reconciliationButtonPrimary" style={{ backgroundColor: 'grey' }} onClick={() => onUndoAddAllNewApplications(getStoreCount, setTotalApplicationsCount, setNewApplicationsCount, setShowUndoButton)}>
                   Undo Add All
                 </button>
               ) : (
-                <button className="reconciliationButtonPrimary" onClick={() => handleAddAllNewApplications(getStoreCount, setTotalApplicationsCount, setNewApplicationsCount, setShowUndoButton)}>
+                <button className="reconciliationButtonPrimary" onClick={() => onAddAllNewApplications(getStoreCount, setTotalApplicationsCount, setNewApplicationsCount, setShowUndoButton)}>
                   Add All
                 </button>
               )}
             </td>
             <td style={{ border: '1px solid #ddd', padding: '8px' }}>
-              <button className="reconciliationButtonPrimary" onClick={() => handleAssumeAllConflicts(getStoreCount, setConflictCount, setTotalApplicationsCount)}>
+              <button className="reconciliationButtonPrimary" onClick={() => onAssumeAllConflicts(getStoreCount, setConflictCount, setTotalApplicationsCount)}>
                 Assume All
               </button>
             </td>
@@ -163,7 +163,7 @@ function Reconciliation({ onBack, onClose, setSelectedFile, setSelectedNewApplic
       <div style={{ flexGrow: 1 }}></div>
       <div style={{ borderBottom: '1px solid grey', width: '80%', margin: '20px auto 0 auto' }}></div>
       <div className="UploadState-buttons-row">
-        <button className="UploadState-button UploadState-button-close" onClick={() => handleBackFromReconciliation(clearStores, onBack, setSelectedFile, setSelectedNewApplicationsFile, setLoadedCount, setLoadedNewApplicationsCount, setIsNewApplicationsFileValid)}>Back</button>
+        <button className="UploadState-button UploadState-button-close" onClick={() => onBackFromReconciliation(clearStores, onBack, setSelectedFile, setSelectedNewApplicationsFile, setLoadedCount, setLoadedNewApplicationsCount, setIsNewApplicationsFileValid)}>Back</button>
         <button
           className="UploadState-button UploadState-button-next"
           onClick={onClose}
