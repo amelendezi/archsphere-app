@@ -1,11 +1,12 @@
 import { openDB } from 'idb';
+import { detectConflicts } from './conflictDetectionUtility';
 
 const DB_NAME = 'ArchSphereDB';
 const DB_VERSION = 9;
 
 const getDbPromise = () => openDB(DB_NAME, DB_VERSION);
 
-export const calculateAndStoreConflicts = async () => {
+export const orchestrateConflictCalculation = async () => {
   try {
     const db = await getDbPromise();
     const envTx = db.transaction('env_applications', 'readonly');
@@ -22,33 +23,7 @@ export const calculateAndStoreConflicts = async () => {
       return;
     }
 
-    const envAppsMap = new Map(envApps.map(app => [app.ID, app]));
-    const conflicts = [];
-
-    for (const newApp of newApps) {
-      const envApp = envAppsMap.get(newApp.ID);
-
-      if (envApp) {
-        if (JSON.stringify(newApp) !== JSON.stringify(envApp)) {
-          for (const key in newApp) {
-            if (newApp.hasOwnProperty(key) && envApp.hasOwnProperty(key)) {
-              if (newApp[key] !== envApp[key]) {
-                const conflict = {
-                  ID: `${newApp.ID}-${key}`,
-                  'Business Application ID': newApp.ID,
-                  Name: newApp.Name,
-                  'Property Name': key,
-                  'Old Value': envApp[key],
-                  'New Value': newApp[key],
-                  Status: 'unresolved',
-                };
-                conflicts.push(conflict);
-              }
-            }
-          }
-        }
-      }
-    }
+    const conflicts = detectConflicts(envApps, newApps);
 
     const conflictTx = db.transaction('new_env_conflicts', 'readwrite');
     const conflictStore = conflictTx.objectStore('new_env_conflicts');

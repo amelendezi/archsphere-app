@@ -1,44 +1,6 @@
 import { calculateAndStoreConflicts } from '../../../utils/uploadStateUtility';
 
-export const processEnvironmentFileUpload = (file, addApplications, setSelectedFile, setLoadedCount) => {
-  setSelectedFile(file);
-  setLoadedCount(null);
-  if (file) {
-    parseEnvironmentJsonFile(file, async (applications) => {
-      await addApplications(applications, 'env_applications');
-      setLoadedCount(applications.length);
-      await calculateAndStoreConflicts();
-    });
-  }
-};
-
-export const processNewApplicationsFileUpload = (file, addNewApplications, setSelectedNewApplicationsFile, setLoadedNewApplicationsCount, setIsNewApplicationsFileValid) => {
-  if (!file) {
-    setSelectedNewApplicationsFile(null);
-    setLoadedNewApplicationsCount(null);
-    setIsNewApplicationsFileValid(false);
-    return;
-  }
-  setSelectedNewApplicationsFile(file);
-  setLoadedNewApplicationsCount(null);
-  if (file) {
-    parseNewApplicationsJsonFile(file, async (applications) => {
-      await addNewApplications(applications);
-      setLoadedNewApplicationsCount(applications.length);
-      await calculateAndStoreConflicts();
-    });
-  }
-};
-
-export const handleNewApplicationsValidationChange = (isValid, setIsNewApplicationsFileValid) => {
-  setIsNewApplicationsFileValid(isValid);
-};
-
-export const handleNext = (selectedFile, selectedNewApplicationsFile, nextStep) => {
-  if (selectedFile || selectedNewApplicationsFile) {
-    nextStep();
-  }
-};
+import { orchestrateConflictCalculation } from '../../../utils/uploadStateUtility';
 
 export const parseEnvironmentJsonFile = (file, callback) => {
   const reader = new FileReader();
@@ -65,7 +27,7 @@ export const parseEnvironmentJsonFile = (file, callback) => {
   reader.readAsText(file);
 };
 
-export const parseNewApplicationsJsonFile = (file, callback) => {
+export const parseNewApplicationsFile = (file, callback) => {
   const reader = new FileReader();
 
   reader.onload = async (event) => {
@@ -88,4 +50,44 @@ export const parseNewApplicationsJsonFile = (file, callback) => {
   };
 
   reader.readAsText(file);
+};
+
+export const processEnvironmentFileUpload = (file, addApplications, setSelectedFile, setLoadedCount) => {
+  setSelectedFile(file);
+  setLoadedCount(null);
+  if (file) {
+    parseEnvironmentJsonFile(file, async (applications) => {
+      await addApplications(applications, 'env_applications');
+      setLoadedCount(applications.length);
+      await orchestrateConflictCalculation();
+    });
+  }
+};
+
+export const processNewApplicationsFileUpload = (file, addNewApplications, setSelectedNewApplicationsFile, setLoadedNewApplicationsCount, setIsNewApplicationsFileValid) => {
+  if (!file) {
+    setSelectedNewApplicationsFile(null);
+    setLoadedNewApplicationsCount(null);
+    setIsNewApplicationsFileValid(false);
+    return;
+  }
+  setSelectedNewApplicationsFile(file);
+  setLoadedNewApplicationsCount(null);
+  if (file) {
+    parseNewApplicationsFile(file, async (applications) => {
+      await addNewApplications(applications);
+      setLoadedNewApplicationsCount(applications.length);
+      await orchestrateConflictCalculation();
+    });
+  }
+};
+
+export const handleNewApplicationsValidationChange = (isValid, setIsNewApplicationsFileValid) => {
+  setIsNewApplicationsFileValid(isValid);
+};
+
+export const handleNext = (selectedFile, selectedNewApplicationsFile, nextStep) => {
+  if (selectedFile || selectedNewApplicationsFile) {
+    nextStep();
+  }
 };
