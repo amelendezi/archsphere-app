@@ -1,4 +1,3 @@
-
 import { openDB } from 'idb';
 
 const DB_NAME = 'ArchSphereDB';

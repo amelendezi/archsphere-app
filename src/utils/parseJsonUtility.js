@@ -1,4 +1,3 @@
-
 export const parseEnvironmentJsonFile = (file, callback) => {
   const reader = new FileReader();
 
