@@ -1,4 +1,3 @@
-import React from 'react';
 import { useIndexedDB } from '../../../hooks/useIndexedDB';
 import UploadEnvironmentFile from './UploadEnvironmentFile';
 import UploadNewApplicationsFile from './UploadNewApplicationsFile';

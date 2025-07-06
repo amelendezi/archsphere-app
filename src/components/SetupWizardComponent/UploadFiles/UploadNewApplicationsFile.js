@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useIndexedDB } from '../../../hooks/useIndexedDB';
 import { onNewApplicationsFileChange } from './UploadNewApplicationsFileController';
 

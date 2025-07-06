@@ -1,6 +1,5 @@
 import Ajv from 'ajv';
 import applicationSchema from '../../../application.schema.json';
-import { useIndexedDB } from '../../../hooks/useIndexedDB';
 
 const ajv = new Ajv();
 const validate = ajv.compile(applicationSchema);
