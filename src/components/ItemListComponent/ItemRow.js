@@ -1,4 +1,3 @@
-import React from 'react';
 import ItemCell from './ItemCell';
 
 function ItemRow({ item, columns, columnWidths, rowStyle, cellStyle }) {
@@ -10,6 +9,8 @@ function ItemRow({ item, columns, columnWidths, rowStyle, cellStyle }) {
           value={item[column.key]}
           width={columnWidths.get(column.key)}
           cellStyle={cellStyle}
+          item={item}
+          column={column}
         />
       ))}
     </div>

@@ -39,6 +39,14 @@ function ConflictsTable({ refreshTrigger }) {
       minWidth: '110px',
       maxWidth: '110px',
       flexGrow: 0,
+      cellConditionalStyle: (item, columnKey) => {
+        if (columnKey === 'Status') {
+          return {
+            color: item.Status === 'resolved' ? 'green' : 'red',
+          };
+        }
+        return {};
+      },
     },
   ];
 
