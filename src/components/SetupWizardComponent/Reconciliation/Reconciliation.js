@@ -4,6 +4,7 @@ import { countNewApplicationsQuery } from '../../../services/query/countNewAppli
 import { countUnresolvedConflictsQuery } from '../../../services/query/countUnresolvedConflictsQuery';
 import { onAddAllNewApplications, onUndoAddAllNewApplications, onAssumeAllConflicts, onUndoAssumeAllConflicts, onBackFromReconciliation } from './ReconciliationController';
 import { SETUP_ENV_APPLICATIONS_STORE_NAME } from '../../../config/dbConfig';
+import ConflictsTable from '../ConflictsTable/ConflictsTable';
 
 function Reconciliation({ onBack, onClose, setSelectedFile, setSelectedNewApplicationsFile, setLoadedCount, setLoadedNewApplicationsCount, setIsNewApplicationsFileValid }) {
   const { getStoreCount, clearStores } = useIndexedDB();
@@ -169,6 +170,9 @@ const totalAppCount = await getStoreCount(SETUP_ENV_APPLICATIONS_STORE_NAME);
           </tr>
         </tbody>
       </table>      
+      <div style={{ width: '80%', margin: '0 auto' }}>
+        <ConflictsTable />
+      </div>
       <div style={{ flexGrow: 1 }}></div>
       <div style={{ borderBottom: '1px solid grey', width: '80%', margin: '20px auto 0 auto' }}></div>
       <div className="UploadState-buttons-row">
