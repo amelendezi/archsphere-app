@@ -1,5 +1,5 @@
-import { parseEnvironmentJsonFile, parseNewApplicationsFile } from '../utils/parseJsonUtility';
-import { calculateAndStoreConflicts } from '../utils/uploadStateUtility';
+import { parseEnvironmentJsonFile, parseNewApplicationsFile } from '../../../../utils/parseJsonUtility';
+import { calculateAndStoreConflicts } from '../../../../utils/uploadStateUtility';
 
 export const processEnvironmentFileUpload = (file, addApplications, setSelectedFile, setLoadedCount) => {
   setSelectedFile(file);
