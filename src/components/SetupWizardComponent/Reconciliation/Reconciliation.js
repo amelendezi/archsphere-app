@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useIndexedDB } from '../../../hooks/useIndexedDB';
-import { getNewApplicationsCount, getUnresolvedConflictCount } from '../../../utils/reconciliationUtility';
-import { countApplicationConflictsQuery } from '../../../services/query/countApplicationConflictsQuery';
+import { getNewApplicationsCount } from '../../../utils/reconciliationUtility';
+import { countUnresolvedConflictsQuery } from '../../../services/query/countUnresolvedConflictsQuery';
 import { onAddAllNewApplications, onUndoAddAllNewApplications, onAssumeAllConflicts, onBackFromReconciliation } from './ReconciliationController';
 
 function Reconciliation({ onBack, onClose, setSelectedFile, setSelectedNewApplicationsFile, setLoadedCount, setLoadedNewApplicationsCount, setIsNewApplicationsFileValid }) {
@@ -22,11 +22,11 @@ function Reconciliation({ onBack, onClose, setSelectedFile, setSelectedNewApplic
       const totalAppCount = await getStoreCount('env_applications');
       setTotalApplicationsCount(totalAppCount);
 
-      const conflicts = await countApplicationConflictsQuery();
+      const conflicts = await countUnresolvedConflictsQuery();
       setConflictCount(conflicts);
     };
     fetchCountsAndConflicts();
-  }, [getStoreCount]);
+  }, [getStoreCount, conflictCount]);
   return (
     <div style={{ backgroundColor: '#f8f8f8', padding: '20px', borderRadius: '8px' }}>
       <h2 style={{ color: 'black' }}>Reconcile New Applications</h2>      

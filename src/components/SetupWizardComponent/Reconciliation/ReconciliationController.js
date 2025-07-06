@@ -1,4 +1,5 @@
-import { addAllNewApplications, getNewApplicationsCount, undoAddAllNewApplications, assumeAllConflicts, getUnresolvedConflictCount } from '../../../utils/reconciliationUtility';
+import { addAllNewApplications, getNewApplicationsCount, undoAddAllNewApplications, assumeAllConflicts } from '../../../utils/reconciliationUtility';
+import { countUnresolvedConflictsQuery } from '../../../services/query/countUnresolvedConflictsQuery';
 
 export const onAddAllNewApplications = async (getStoreCount, setTotalApplicationsCount, setNewApplicationsCount, setShowUndoButton) => {
   await addAllNewApplications();
@@ -20,7 +21,7 @@ export const onUndoAddAllNewApplications = async (getStoreCount, setTotalApplica
 
 export const onAssumeAllConflicts = async (getStoreCount, setConflictCount, setTotalApplicationsCount) => {
   await assumeAllConflicts();
-  const unresolvedConflicts = await getUnresolvedConflictCount();
+  const unresolvedConflicts = await countUnresolvedConflictsQuery();
   setConflictCount(unresolvedConflicts);
   const totalAppCount = await getStoreCount('env_applications');
   setTotalApplicationsCount(totalAppCount);
