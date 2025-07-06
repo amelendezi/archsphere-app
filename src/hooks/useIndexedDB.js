@@ -30,7 +30,6 @@ export const useIndexedDB = () => {
     const store = tx.objectStore(storeName);
     for (const app of applications) {
       if (app.ID !== undefined && app.ID !== null) {
-        console.log('useIndexedDB: Putting application:', app.ID);
         await store.put(app);
       } else {
         console.error('useIndexedDB: Application is missing a valid ID and cannot be stored:', app);
@@ -45,7 +44,6 @@ export const useIndexedDB = () => {
     const store = tx.objectStore('new_applications');
     for (const app of applications) {
       if (app.ID !== undefined && app.ID !== null) {
-        console.log('useIndexedDB: Putting new application:', app.ID);
         await store.put(app);
       } else {
         console.error('useIndexedDB: New application is missing a valid ID and cannot be stored:', app);
