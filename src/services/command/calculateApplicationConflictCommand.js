@@ -1,19 +1,19 @@
 import { openDB } from 'idb';
 
-import { DB_NAME, DB_VERSION, ENV_APPLICATIONS_STORE_NAME, NEW_APPLICATIONS_STORE_NAME, NEW_ENV_CONFLICTS_STORE_NAME } from '../../config/dbConfig';
+import { DB_NAME, DB_VERSION, SETUP_ENV_APPLICATIONS_STORE_NAME, SETUP_NEW_APPLICATIONS_STORE_NAME, SETUP_CONFLICTS_STORE_NAME } from '../../config/dbConfig';
 
 const getDbPromise = () => openDB(DB_NAME, DB_VERSION);
 
 export const calculateApplicationConflictsCommand = async () => {
   try {
     const db = await getDbPromise();
-    const envTx = db.transaction(ENV_APPLICATIONS_STORE_NAME, 'readonly');
-    const envStore = envTx.objectStore(ENV_APPLICATIONS_STORE_NAME);
+    const envTx = db.transaction(SETUP_ENV_APPLICATIONS_STORE_NAME, 'readonly');
+    const envStore = envTx.objectStore(SETUP_ENV_APPLICATIONS_STORE_NAME);
     const envApps = await envStore.getAll();
     await envTx.done;
 
-    const newAppsTx = db.transaction(NEW_APPLICATIONS_STORE_NAME, 'readonly');
-    const newAppsStore = newAppsTx.objectStore(NEW_APPLICATIONS_STORE_NAME);
+    const newAppsTx = db.transaction(SETUP_NEW_APPLICATIONS_STORE_NAME, 'readonly');
+    const newAppsStore = newAppsTx.objectStore(SETUP_NEW_APPLICATIONS_STORE_NAME);
     const newApps = await newAppsStore.getAll();
     await newAppsTx.done;
 
@@ -23,8 +23,8 @@ export const calculateApplicationConflictsCommand = async () => {
 
     const conflicts = detectConflicts(envApps, newApps);
 
-    const conflictTx = db.transaction(NEW_ENV_CONFLICTS_STORE_NAME, 'readwrite');
-    const conflictStore = conflictTx.objectStore(NEW_ENV_CONFLICTS_STORE_NAME);
+    const conflictTx = db.transaction(SETUP_CONFLICTS_STORE_NAME, 'readwrite');
+    const conflictStore = conflictTx.objectStore(SETUP_CONFLICTS_STORE_NAME);
     await conflictStore.clear();
 
     for (const conflict of conflicts) {

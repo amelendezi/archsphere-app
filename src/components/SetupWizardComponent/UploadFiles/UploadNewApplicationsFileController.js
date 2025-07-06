@@ -1,4 +1,4 @@
-import { NEW_APPLICATIONS_STORE_NAME } from '../../../config/dbConfig';
+import { SETUP_NEW_APPLICATIONS_STORE_NAME } from '../../../config/dbConfig';
 import Ajv from 'ajv';
 import applicationSchema from '../../../application.schema.json';
 
@@ -8,7 +8,7 @@ const validate = ajv.compile(applicationSchema);
 export const onNewApplicationsFileChange = async (event, clearStore, handleFileChange, onValidationChange, setValidationError) => {
   const file = event.target.files[0];
   if (file) {
-    await clearStore(NEW_APPLICATIONS_STORE_NAME);
+    await clearStore(SETUP_NEW_APPLICATIONS_STORE_NAME);
     const reader = new FileReader();
     reader.onload = (e) => {
       try {

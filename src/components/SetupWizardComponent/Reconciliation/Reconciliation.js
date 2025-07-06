@@ -3,7 +3,7 @@ import { useIndexedDB } from '../../../hooks/useIndexedDB';
 import { countNewApplicationsQuery } from '../../../services/query/countNewApplicationsQuery';
 import { countUnresolvedConflictsQuery } from '../../../services/query/countUnresolvedConflictsQuery';
 import { onAddAllNewApplications, onUndoAddAllNewApplications, onAssumeAllConflicts, onUndoAssumeAllConflicts, onBackFromReconciliation } from './ReconciliationController';
-import { ENV_APPLICATIONS_STORE_NAME } from '../../../config/dbConfig';
+import { SETUP_ENV_APPLICATIONS_STORE_NAME } from '../../../config/dbConfig';
 
 function Reconciliation({ onBack, onClose, setSelectedFile, setSelectedNewApplicationsFile, setLoadedCount, setLoadedNewApplicationsCount, setIsNewApplicationsFileValid }) {
   const { getStoreCount, clearStores } = useIndexedDB();
@@ -21,7 +21,7 @@ function Reconciliation({ onBack, onClose, setSelectedFile, setSelectedNewApplic
       const newAppCount = await countNewApplicationsQuery();
       setNewApplicationsCount(newAppCount);
   
-const totalAppCount = await getStoreCount(ENV_APPLICATIONS_STORE_NAME);
+const totalAppCount = await getStoreCount(SETUP_ENV_APPLICATIONS_STORE_NAME);
       setTotalApplicationsCount(totalAppCount);
 
       const conflicts = await countUnresolvedConflictsQuery();

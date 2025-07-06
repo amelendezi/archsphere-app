@@ -1,5 +1,5 @@
 import { calculateApplicationConflictsCommand } from '../../../services/command/calculateApplicationConflictCommand';
-import { ENV_APPLICATIONS_STORE_NAME as SETUP_ENV_APPLICATIONS_STORE_NAME } from '../../../config/dbConfig';
+import { SETUP_ENV_APPLICATIONS_STORE_NAME } from '../../../config/dbConfig';
 
 export const parseEnvironmentJsonFile = (file, callback) => {
   const reader = new FileReader();

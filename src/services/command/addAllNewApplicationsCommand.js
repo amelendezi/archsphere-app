@@ -1,19 +1,19 @@
 import { openDB } from 'idb';
 
-import { DB_NAME, DB_VERSION, ENV_APPLICATIONS_STORE_NAME, NEW_APPLICATIONS_STORE_NAME, REC_NEW_APPLICATIONS_STORE_NAME } from '../../config/dbConfig';
+import { DB_NAME, DB_VERSION, SETUP_ENV_APPLICATIONS_STORE_NAME, SETUP_NEW_APPLICATIONS_STORE_NAME, SETUP_ADDED_APPLICATIONS_STORE_NAME } from '../../config/dbConfig';
 
 const getDbPromise = () => openDB(DB_NAME, DB_VERSION);
 
 export const addAllNewApplicationsCommand = async () => {
   const db = await getDbPromise();
 
-  const newApplicationsTx = db.transaction(NEW_APPLICATIONS_STORE_NAME, 'readonly');
-  const newApplicationsStore = newApplicationsTx.objectStore(NEW_APPLICATIONS_STORE_NAME);
+  const newApplicationsTx = db.transaction(SETUP_NEW_APPLICATIONS_STORE_NAME, 'readonly');
+  const newApplicationsStore = newApplicationsTx.objectStore(SETUP_NEW_APPLICATIONS_STORE_NAME);
   const newApplications = await newApplicationsStore.getAll();
   await newApplicationsTx.done;
 
-  const envApplicationsTx = db.transaction(ENV_APPLICATIONS_STORE_NAME, 'readonly');
-  const envApplicationsStore = envApplicationsTx.objectStore(ENV_APPLICATIONS_STORE_NAME);
+  const envApplicationsTx = db.transaction(SETUP_ENV_APPLICATIONS_STORE_NAME, 'readonly');
+  const envApplicationsStore = envApplicationsTx.objectStore(SETUP_ENV_APPLICATIONS_STORE_NAME);
   const envApplications = await envApplicationsStore.getAll();
   await envApplicationsTx.done;
 
@@ -21,15 +21,15 @@ export const addAllNewApplicationsCommand = async () => {
 
   const applicationsToAdd = newApplications.filter(app => !envApplicationsIds.has(app.ID));
 
-  const envApplicationsWriteTx = db.transaction(ENV_APPLICATIONS_STORE_NAME, 'readwrite');
-  const envApplicationsWriteStore = envApplicationsWriteTx.objectStore(ENV_APPLICATIONS_STORE_NAME);
+  const envApplicationsWriteTx = db.transaction(SETUP_ENV_APPLICATIONS_STORE_NAME, 'readwrite');
+  const envApplicationsWriteStore = envApplicationsWriteTx.objectStore(SETUP_ENV_APPLICATIONS_STORE_NAME);
   for (const app of applicationsToAdd) {
     await envApplicationsWriteStore.put(app);
   }
   await envApplicationsWriteTx.done;
 
-  const recNewApplicationsTx = db.transaction(REC_NEW_APPLICATIONS_STORE_NAME, 'readwrite');
-  const recNewApplicationsStore = recNewApplicationsTx.objectStore(REC_NEW_APPLICATIONS_STORE_NAME);
+  const recNewApplicationsTx = db.transaction(SETUP_ADDED_APPLICATIONS_STORE_NAME, 'readwrite');
+  const recNewApplicationsStore = recNewApplicationsTx.objectStore(SETUP_ADDED_APPLICATIONS_STORE_NAME);
   for (const app of applicationsToAdd) {
     await recNewApplicationsStore.put(app);
   }

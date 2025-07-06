@@ -4,11 +4,11 @@ import { resolveAssumeAllApplicationConflictsCommand } from '../../../services/c
 import { unresolveAssumeAllApplicationConflictsCommand } from '../../../services/command/unresolveAssumeAllApplicationConflictsCommand';
 import { countUnresolvedConflictsQuery } from '../../../services/query/countUnresolvedConflictsQuery';
 import { countNewApplicationsQuery } from '../../../services/query/countNewApplicationsQuery';
-import { ENV_APPLICATIONS_STORE_NAME, NEW_APPLICATIONS_STORE_NAME, NEW_ENV_CONFLICTS_STORE_NAME, REC_NEW_APPLICATIONS_STORE_NAME } from '../../../config/dbConfig';
+import { SETUP_ENV_APPLICATIONS_STORE_NAME, SETUP_NEW_APPLICATIONS_STORE_NAME, SETUP_CONFLICTS_STORE_NAME, SETUP_ADDED_APPLICATIONS_STORE_NAME } from '../../../config/dbConfig';
 
 export const onAddAllNewApplications = async (getStoreCount, setTotalApplicationsCount, setNewApplicationsCount, setShowUndoButton) => {
   await addAllNewApplicationsCommand();
-  const totalAppCount = await getStoreCount(ENV_APPLICATIONS_STORE_NAME);
+  const totalAppCount = await getStoreCount(SETUP_ENV_APPLICATIONS_STORE_NAME);
   setTotalApplicationsCount(totalAppCount);
   const newAppCount = await countNewApplicationsQuery();
   setNewApplicationsCount(newAppCount);
@@ -17,7 +17,7 @@ export const onAddAllNewApplications = async (getStoreCount, setTotalApplication
 
 export const onUndoAddAllNewApplications = async (getStoreCount, setTotalApplicationsCount, setNewApplicationsCount, setShowUndoButton) => {
   await undoAddAllNewApplicationsCommand();
-  const totalAppCount = await getStoreCount(ENV_APPLICATIONS_STORE_NAME);
+  const totalAppCount = await getStoreCount(SETUP_ENV_APPLICATIONS_STORE_NAME);
   setTotalApplicationsCount(totalAppCount);
   const newAppCount = await countNewApplicationsQuery();
   setNewApplicationsCount(newAppCount);
@@ -28,7 +28,7 @@ export const onAssumeAllConflicts = async (getStoreCount, setConflictCount, setT
   await resolveAssumeAllApplicationConflictsCommand();
   const unresolvedConflicts = await countUnresolvedConflictsQuery();
   setConflictCount(unresolvedConflicts);
-  const totalAppCount = await getStoreCount(ENV_APPLICATIONS_STORE_NAME);
+  const totalAppCount = await getStoreCount(SETUP_ENV_APPLICATIONS_STORE_NAME);
   setTotalApplicationsCount(totalAppCount);
   setShowUndoAssumeAllButton(true);
 };
@@ -37,13 +37,13 @@ export const onUndoAssumeAllConflicts = async (getStoreCount, setConflictCount, 
   await unresolveAssumeAllApplicationConflictsCommand();
   const unresolvedConflicts = await countUnresolvedConflictsQuery();
   setConflictCount(unresolvedConflicts);
-  const totalAppCount = await getStoreCount(ENV_APPLICATIONS_STORE_NAME);
+  const totalAppCount = await getStoreCount(SETUP_ENV_APPLICATIONS_STORE_NAME);
   setTotalApplicationsCount(totalAppCount);
   setShowUndoAssumeAllButton(false);
 };
 
 export const onBackFromReconciliation = async (clearStores, onBack, setSelectedFile, setSelectedNewApplicationsFile, setLoadedCount, setLoadedNewApplicationsCount, setIsNewApplicationsFileValid) => {
-  await clearStores([ENV_APPLICATIONS_STORE_NAME, NEW_APPLICATIONS_STORE_NAME, NEW_ENV_CONFLICTS_STORE_NAME, REC_NEW_APPLICATIONS_STORE_NAME]);
+  await clearStores([SETUP_ENV_APPLICATIONS_STORE_NAME, SETUP_NEW_APPLICATIONS_STORE_NAME, SETUP_CONFLICTS_STORE_NAME, SETUP_ADDED_APPLICATIONS_STORE_NAME]);
   setSelectedFile(null);
   setSelectedNewApplicationsFile(null);
   setLoadedCount(null);
