@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useIndexedDB } from '../../../hooks/useIndexedDB';
 import { countNewApplicationsQuery } from '../../../services/query/countNewApplicationsQuery';
 import { countUnresolvedConflictsQuery } from '../../../services/query/countUnresolvedConflictsQuery';
-import { onAddAllNewApplications, onUndoAddAllNewApplications, onAssumeAllConflicts, onBackFromReconciliation } from './ReconciliationController';
+import { onAddAllNewApplications, onUndoAddAllNewApplications, onAssumeAllConflicts, onUndoAssumeAllConflicts, onBackFromReconciliation } from './ReconciliationController';
 
 function Reconciliation({ onBack, onClose, setSelectedFile, setSelectedNewApplicationsFile, setLoadedCount, setLoadedNewApplicationsCount, setIsNewApplicationsFileValid }) {
   const { getStoreCount, clearStores } = useIndexedDB();
@@ -13,6 +13,7 @@ function Reconciliation({ onBack, onClose, setSelectedFile, setSelectedNewApplic
   const [showTooltipConflicts, setShowTooltipConflicts] = useState(false);
   const [showTooltipEnvironmentApplications, setShowTooltipEnvironmentApplications] = useState(false);
   const [showUndoButton, setShowUndoButton] = useState(false);
+  const [showUndoAssumeAllButton, setShowUndoAssumeAllButton] = useState(false);
 
   useEffect(() => {
     const fetchCountsAndConflicts = async () => {
@@ -153,9 +154,15 @@ function Reconciliation({ onBack, onClose, setSelectedFile, setSelectedNewApplic
               )}
             </td>
             <td style={{ border: '1px solid #ddd', padding: '8px' }}>
-              <button className="reconciliationButtonPrimary" onClick={() => onAssumeAllConflicts(getStoreCount, setConflictCount, setTotalApplicationsCount)}>
-                Assume All
-              </button>
+              {showUndoAssumeAllButton ? (
+                <button className="reconciliationButtonPrimary" style={{ backgroundColor: 'grey' }} onClick={() => onUndoAssumeAllConflicts(getStoreCount, setConflictCount, setTotalApplicationsCount, setShowUndoAssumeAllButton)}>
+                  Undo Assume All
+                </button>
+              ) : (
+                <button className="reconciliationButtonPrimary" onClick={() => onAssumeAllConflicts(getStoreCount, setConflictCount, setTotalApplicationsCount, setShowUndoAssumeAllButton)}>
+                  Assume All
+                </button>
+              )}
             </td>
             <td style={{ border: '1px solid #ddd', padding: '8px' }}></td>
           </tr>
