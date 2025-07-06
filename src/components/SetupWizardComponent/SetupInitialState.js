@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import UploadFiles from './UploadFiles/UploadFiles';
-import Reconciliation from './Reconciliation';
+import Reconciliation from './Reconciliation/Reconciliation';
 
 function SetupInitialState({ onClose }) {
   const [step, setStep] = useState(1);

@@ -1,4 +1,4 @@
-import { addAllNewApplications, getNewApplicationsCount, undoAddAllNewApplications, assumeAllConflicts, getUnresolvedConflictCount } from '../utils/reconciliationUtility';
+import { addAllNewApplications, getNewApplicationsCount, undoAddAllNewApplications, assumeAllConflicts, getUnresolvedConflictCount } from '../../../utils/reconciliationUtility';
 
 export const handleAddAllNewApplications = async (getStoreCount, setTotalApplicationsCount, setNewApplicationsCount, setShowUndoButton) => {
   await addAllNewApplications();
