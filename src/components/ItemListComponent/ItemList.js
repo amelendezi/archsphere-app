@@ -65,6 +65,15 @@ function ItemList({ dataFetcher, columns, listMaxWidth, listStyle, headerStyle, 
         newWidths.set(col.key, colWidth - (overflow * (colWidth / currentTotalWidth)));
       });
     }
+    // Adjust if total width is less than container
+    else if (currentTotalWidth < containerWidth) {
+      let underflow = containerWidth - currentTotalWidth;
+      // Add the remaining space to the last column
+      if (columns.length > 0) {
+        const lastColKey = columns[columns.length - 1].key;
+        newWidths.set(lastColKey, newWidths.get(lastColKey) + underflow);
+      }
+    }
 
     setCalculatedColumnWidths(newWidths);
   };

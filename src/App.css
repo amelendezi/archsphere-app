@@ -97,7 +97,7 @@
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   z-index: 1001;
-  width: 50vw;
+  width: 70vw;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -159,8 +159,8 @@
 .UploadState-buttons-row {
   display: flex;
   justify-content: space-between;
-  width: 80%; /* Match the width of the horizontal line */
-  margin: 20px auto 0 auto; /* Center the row and add top margin */
+  width: 100%;
+  margin: 20px 0 0 0;
 }
 
 .reconciliationButtonPrimary {

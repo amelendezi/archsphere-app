@@ -34,7 +34,7 @@ const totalAppCount = await getStoreCount(SETUP_ENV_APPLICATIONS_STORE_NAME);
   return (
     <div style={{ backgroundColor: 'white', padding: '20px', borderRadius: '8px' }}>
       <h2 style={{ color: 'black' }}>Reconcile New Applications</h2>      
-      <table style={{ width: '80%', borderCollapse: 'collapse', border: '1px solid #ddd', margin: '0 auto' }}>
+      <table style={{ width: '100%', borderCollapse: 'collapse', border: '1px solid #ddd', margin: '0 auto' }}>
         <thead>
           <tr>
             <th style={{ border: '1px solid #ddd', padding: '8px', fontWeight: 'normal' }}>
@@ -171,11 +171,11 @@ const totalAppCount = await getStoreCount(SETUP_ENV_APPLICATIONS_STORE_NAME);
           </tr>
         </tbody>
       </table>      
-      <div style={{ width: '80%', margin: '0 auto' }}>
+      <div style={{ width: '100%', margin: '0 auto' }}>
         <ConflictsTable refreshTrigger={refreshConflictsTable} />
       </div>
       <div style={{ flexGrow: 1 }}></div>
-      <div style={{ borderBottom: '1px solid grey', width: '80%', margin: '20px auto 0 auto' }}></div>
+      <div style={{ borderBottom: '1px solid grey', width: '100%', margin: '20px auto 0 auto' }}></div>
       <div className="UploadState-buttons-row">
         <button className="UploadState-button UploadState-button-close" onClick={() => onBackFromReconciliation(clearStores, onBack, setSelectedFile, setSelectedNewApplicationsFile, setLoadedCount, setLoadedNewApplicationsCount, setIsNewApplicationsFileValid)}>Back</button>
         <button
