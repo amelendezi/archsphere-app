@@ -13,11 +13,6 @@ export const getUnresolvedConflictCount = async () => {
   return allConflicts.filter(conflict => conflict.Status === 'unresolved').length;
 };
 
-export const reconcileApplications = async () => {
-  // This function is now empty, as the conflict calculation is done in uploadStateUtility.js
-  return 0;
-};
-
 export const getNewApplicationsCount = async () => {
   const db = await getDbPromise();
 
