@@ -5,8 +5,8 @@ function ConflictsTable({ refreshTrigger }) {
   const conflictColumns = [
     {
       key: 'Business Application ID',
-      header: 'Application ID',
-      minWidth: '110px',
+      header: 'ID',
+      minWidth: '60px',
       flexGrow: 2,
     },
     {
@@ -55,7 +55,7 @@ function ConflictsTable({ refreshTrigger }) {
   };
 
   return (
-    <div style={{ marginTop: '20px', backgroundColor: '#f8f8f8', borderRadius: '8px' }}>
+    <div style={{ marginTop: '20px', backgroundColor: 'white', borderRadius: '8px' }}>
       <h3 style={{ color: 'black', padding: '20px 0px 0px 0px', fontSize: '1em', fontWeight: 'normal', textAlign: 'left' }}>Conflict Details</h3>
       <ItemList
         dataFetcher={conflictDataFetcher}
