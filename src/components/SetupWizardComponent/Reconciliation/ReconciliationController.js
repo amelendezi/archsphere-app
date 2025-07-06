@@ -1,11 +1,12 @@
-import { addAllNewApplications, getNewApplicationsCount, undoAddAllNewApplications, assumeAllConflicts } from '../../../utils/reconciliationUtility';
+import { addAllNewApplications, undoAddAllNewApplications, assumeAllConflicts } from '../../../utils/reconciliationUtility';
 import { countUnresolvedConflictsQuery } from '../../../services/query/countUnresolvedConflictsQuery';
+import { countNewApplicationsQuery } from '../../../services/query/countNewApplicationsQuery';
 
 export const onAddAllNewApplications = async (getStoreCount, setTotalApplicationsCount, setNewApplicationsCount, setShowUndoButton) => {
   await addAllNewApplications();
   const totalAppCount = await getStoreCount('env_applications');
   setTotalApplicationsCount(totalAppCount);
-  const newAppCount = await getNewApplicationsCount();
+  const newAppCount = await countNewApplicationsQuery();
   setNewApplicationsCount(newAppCount);
   setShowUndoButton(true);
 };
@@ -14,7 +15,7 @@ export const onUndoAddAllNewApplications = async (getStoreCount, setTotalApplica
   await undoAddAllNewApplications();
   const totalAppCount = await getStoreCount('env_applications');
   setTotalApplicationsCount(totalAppCount);
-  const newAppCount = await getNewApplicationsCount();
+  const newAppCount = await countNewApplicationsQuery();
   setNewApplicationsCount(newAppCount);
   setShowUndoButton(false);
 };

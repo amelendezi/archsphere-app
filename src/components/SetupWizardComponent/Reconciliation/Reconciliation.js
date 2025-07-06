@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useIndexedDB } from '../../../hooks/useIndexedDB';
-import { getNewApplicationsCount } from '../../../utils/reconciliationUtility';
+import { countNewApplicationsQuery } from '../../../services/query/countNewApplicationsQuery';
 import { countUnresolvedConflictsQuery } from '../../../services/query/countUnresolvedConflictsQuery';
 import { onAddAllNewApplications, onUndoAddAllNewApplications, onAssumeAllConflicts, onBackFromReconciliation } from './ReconciliationController';
 
@@ -16,7 +16,7 @@ function Reconciliation({ onBack, onClose, setSelectedFile, setSelectedNewApplic
 
   useEffect(() => {
     const fetchCountsAndConflicts = async () => {
-      const newAppCount = await getNewApplicationsCount();
+      const newAppCount = await countNewApplicationsQuery();
       setNewApplicationsCount(newAppCount);
 
       const totalAppCount = await getStoreCount('env_applications');
