@@ -1,6 +1,6 @@
 import { openDB } from 'idb';
 
-import { DB_NAME, DB_VERSION, ENV_APPLICATIONS_STORE_NAME } from '../../config/dbConfig';
+import { DB_NAME, DB_VERSION, ENV_APPLICATIONS_STORE_NAME, NEW_ENV_CONFLICTS_STORE_NAME } from '../../config/dbConfig';
 
 const getDbPromise = () => openDB(DB_NAME, DB_VERSION);
 
@@ -13,12 +13,12 @@ export const unresolveSingleApplicationConflictCommand = async (transaction, app
     tx = transaction;
   } else {
     db = await getDbPromise();
-    tx = db.transaction([ENV_APPLICATIONS_STORE_NAME, 'new_env_conflicts'], 'readwrite');
+    tx = db.transaction([ENV_APPLICATIONS_STORE_NAME, NEW_ENV_CONFLICTS_STORE_NAME], 'readwrite');
     isNewTransaction = true;
   }
 
   const envApplicationsStore = tx.objectStore(ENV_APPLICATIONS_STORE_NAME);
-  const newEnvConflictsStore = tx.objectStore('new_env_conflicts');
+  const newEnvConflictsStore = tx.objectStore(NEW_ENV_CONFLICTS_STORE_NAME);
 
   const applicationToUpdate = await envApplicationsStore.get(applicationId);
 

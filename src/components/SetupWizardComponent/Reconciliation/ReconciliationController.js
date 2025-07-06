@@ -4,7 +4,7 @@ import { resolveAssumeAllApplicationConflictsCommand } from '../../../services/c
 import { unresolveAssumeAllApplicationConflictsCommand } from '../../../services/command/unresolveAssumeAllApplicationConflictsCommand';
 import { countUnresolvedConflictsQuery } from '../../../services/query/countUnresolvedConflictsQuery';
 import { countNewApplicationsQuery } from '../../../services/query/countNewApplicationsQuery';
-import { ENV_APPLICATIONS_STORE_NAME } from '../../../config/dbConfig';
+import { ENV_APPLICATIONS_STORE_NAME, NEW_APPLICATIONS_STORE_NAME, NEW_ENV_CONFLICTS_STORE_NAME, REC_NEW_APPLICATIONS_STORE_NAME } from '../../../config/dbConfig';
 
 export const onAddAllNewApplications = async (getStoreCount, setTotalApplicationsCount, setNewApplicationsCount, setShowUndoButton) => {
   await addAllNewApplicationsCommand();
@@ -43,7 +43,7 @@ export const onUndoAssumeAllConflicts = async (getStoreCount, setConflictCount, 
 };
 
 export const onBackFromReconciliation = async (clearStores, onBack, setSelectedFile, setSelectedNewApplicationsFile, setLoadedCount, setLoadedNewApplicationsCount, setIsNewApplicationsFileValid) => {
-  await clearStores([ENV_APPLICATIONS_STORE_NAME, 'new_applications', 'new_env_conflicts', 'rec_new_applications']);
+  await clearStores([ENV_APPLICATIONS_STORE_NAME, NEW_APPLICATIONS_STORE_NAME, NEW_ENV_CONFLICTS_STORE_NAME, REC_NEW_APPLICATIONS_STORE_NAME]);
   setSelectedFile(null);
   setSelectedNewApplicationsFile(null);
   setLoadedCount(null);

@@ -1,24 +1,21 @@
 import { openDB } from 'idb';
 
-import { DB_NAME, DB_VERSION, ENV_APPLICATIONS_STORE_NAME } from '../config/dbConfig';
+import { DB_NAME, DB_VERSION, ENV_APPLICATIONS_STORE_NAME, NEW_APPLICATIONS_STORE_NAME, NEW_ENV_CONFLICTS_STORE_NAME, REC_NEW_APPLICATIONS_STORE_NAME } from '../config/dbConfig';
 
 const getDbPromise = () => openDB(DB_NAME, DB_VERSION, {
   upgrade(db) {
     if (!db.objectStoreNames.contains(ENV_APPLICATIONS_STORE_NAME)) {
       db.createObjectStore(ENV_APPLICATIONS_STORE_NAME, { keyPath: 'ID' });
     }
-    if (!db.objectStoreNames.contains('new_applications')) {
-      db.createObjectStore('new_applications', { keyPath: 'ID' });
+    if (!db.objectStoreNames.contains(NEW_APPLICATIONS_STORE_NAME)) {
+      db.createObjectStore(NEW_APPLICATIONS_STORE_NAME, { keyPath: 'ID' });
     }
-    if (!db.objectStoreNames.contains('new_env_conflicts')) {
-      db.createObjectStore('new_env_conflicts', { keyPath: 'ID' });
+    if (!db.objectStoreNames.contains(NEW_ENV_CONFLICTS_STORE_NAME)) {
+      db.createObjectStore(NEW_ENV_CONFLICTS_STORE_NAME, { keyPath: 'ID' });
     }
-    if (!db.objectStoreNames.contains('rec_new_applications')) {
-      db.createObjectStore('rec_new_applications', { keyPath: 'ID' });
-    }
-    if (!db.objectStoreNames.contains('old_env_applications')) {
-      db.createObjectStore('old_env_applications', { keyPath: 'ID' });
-    }
+    if (!db.objectStoreNames.contains(REC_NEW_APPLICATIONS_STORE_NAME)) {
+      db.createObjectStore(REC_NEW_APPLICATIONS_STORE_NAME, { keyPath: 'ID' });
+    }    
   },
 });
 
@@ -39,8 +36,8 @@ export const useIndexedDB = () => {
 
   const addNewApplications = async (applications) => {
     const db = await getDbPromise();
-    const tx = db.transaction('new_applications', 'readwrite');
-    const store = tx.objectStore('new_applications');
+    const tx = db.transaction(NEW_APPLICATIONS_STORE_NAME, 'readwrite');
+    const store = tx.objectStore(NEW_APPLICATIONS_STORE_NAME);
     for (const app of applications) {
       if (app.ID !== undefined && app.ID !== null) {
         await store.put(app);
@@ -62,8 +59,8 @@ export const useIndexedDB = () => {
 
   const addConflict = async (conflict) => {
     const db = await getDbPromise();
-    const tx = db.transaction('new_env_conflicts', 'readwrite');
-    const store = tx.objectStore('new_env_conflicts');
+    const tx = db.transaction(NEW_ENV_CONFLICTS_STORE_NAME, 'readwrite');
+    const store = tx.objectStore(NEW_ENV_CONFLICTS_STORE_NAME);
     await store.put(conflict);
     await tx.done;
   };

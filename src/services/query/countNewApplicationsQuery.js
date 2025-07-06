@@ -1,14 +1,14 @@
 import { openDB } from 'idb';
 
-import { DB_NAME, DB_VERSION, ENV_APPLICATIONS_STORE_NAME } from '../../config/dbConfig';
+import { DB_NAME, DB_VERSION, ENV_APPLICATIONS_STORE_NAME, NEW_APPLICATIONS_STORE_NAME } from '../../config/dbConfig';
 
 const getDbPromise = () => openDB(DB_NAME, DB_VERSION);
 
 export const countNewApplicationsQuery = async () => {
   const db = await getDbPromise();
 
-  const newApplicationsTx = db.transaction('new_applications', 'readonly');
-  const newApplicationsStore = newApplicationsTx.objectStore('new_applications');
+  const newApplicationsTx = db.transaction(NEW_APPLICATIONS_STORE_NAME, 'readonly');
+  const newApplicationsStore = newApplicationsTx.objectStore(NEW_APPLICATIONS_STORE_NAME);
   const newApplications = await newApplicationsStore.getAll();
   await newApplicationsTx.done;
 

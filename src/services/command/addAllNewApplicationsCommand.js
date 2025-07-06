@@ -1,14 +1,14 @@
 import { openDB } from 'idb';
 
-import { DB_NAME, DB_VERSION, ENV_APPLICATIONS_STORE_NAME } from '../../config/dbConfig';
+import { DB_NAME, DB_VERSION, ENV_APPLICATIONS_STORE_NAME, NEW_APPLICATIONS_STORE_NAME, REC_NEW_APPLICATIONS_STORE_NAME } from '../../config/dbConfig';
 
 const getDbPromise = () => openDB(DB_NAME, DB_VERSION);
 
 export const addAllNewApplicationsCommand = async () => {
   const db = await getDbPromise();
 
-  const newApplicationsTx = db.transaction('new_applications', 'readonly');
-  const newApplicationsStore = newApplicationsTx.objectStore('new_applications');
+  const newApplicationsTx = db.transaction(NEW_APPLICATIONS_STORE_NAME, 'readonly');
+  const newApplicationsStore = newApplicationsTx.objectStore(NEW_APPLICATIONS_STORE_NAME);
   const newApplications = await newApplicationsStore.getAll();
   await newApplicationsTx.done;
 
@@ -28,8 +28,8 @@ export const addAllNewApplicationsCommand = async () => {
   }
   await envApplicationsWriteTx.done;
 
-  const recNewApplicationsTx = db.transaction('rec_new_applications', 'readwrite');
-  const recNewApplicationsStore = recNewApplicationsTx.objectStore('rec_new_applications');
+  const recNewApplicationsTx = db.transaction(REC_NEW_APPLICATIONS_STORE_NAME, 'readwrite');
+  const recNewApplicationsStore = recNewApplicationsTx.objectStore(REC_NEW_APPLICATIONS_STORE_NAME);
   for (const app of applicationsToAdd) {
     await recNewApplicationsStore.put(app);
   }

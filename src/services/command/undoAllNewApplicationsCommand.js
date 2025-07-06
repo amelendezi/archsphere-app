@@ -1,14 +1,14 @@
 import { openDB } from 'idb';
 
-import { DB_NAME, DB_VERSION, ENV_APPLICATIONS_STORE_NAME } from '../../config/dbConfig';
+import { DB_NAME, DB_VERSION, ENV_APPLICATIONS_STORE_NAME, REC_NEW_APPLICATIONS_STORE_NAME } from '../../config/dbConfig';
 
 const getDbPromise = () => openDB(DB_NAME, DB_VERSION);
 
 export const undoAddAllNewApplicationsCommand = async () => {
   const db = await getDbPromise();
 
-  const recNewApplicationsTx = db.transaction('rec_new_applications', 'readonly');
-  const recNewApplicationsStore = recNewApplicationsTx.objectStore('rec_new_applications');
+  const recNewApplicationsTx = db.transaction(REC_NEW_APPLICATIONS_STORE_NAME, 'readonly');
+  const recNewApplicationsStore = recNewApplicationsTx.objectStore(REC_NEW_APPLICATIONS_STORE_NAME);
   const applicationsToRemove = await recNewApplicationsStore.getAll();
   await recNewApplicationsTx.done;
 
@@ -19,7 +19,7 @@ export const undoAddAllNewApplicationsCommand = async () => {
   }
   await envApplicationsTx.done;
 
-  await db.transaction('rec_new_applications', 'readwrite').objectStore('rec_new_applications').clear();
+  await db.transaction(REC_NEW_APPLICATIONS_STORE_NAME, 'readwrite').objectStore(REC_NEW_APPLICATIONS_STORE_NAME).clear();
 
   return applicationsToRemove.length;
 };

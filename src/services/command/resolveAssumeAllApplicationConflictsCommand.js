@@ -1,14 +1,14 @@
 import { openDB } from 'idb';
 import { resolveSingleConflictCommand } from './resolveSingleApplicationConflictCommand';
 
-import { DB_NAME, DB_VERSION, ENV_APPLICATIONS_STORE_NAME } from '../../config/dbConfig';
+import { DB_NAME, DB_VERSION, ENV_APPLICATIONS_STORE_NAME, NEW_ENV_CONFLICTS_STORE_NAME } from '../../config/dbConfig';
 
 const getDbPromise = () => openDB(DB_NAME, DB_VERSION);
 
 export const resolveAssumeAllApplicationConflictsCommand = async () => {
   const db = await getDbPromise();
-  const tx = db.transaction(['new_env_conflicts', ENV_APPLICATIONS_STORE_NAME], 'readwrite');
-  const newEnvConflictsStore = tx.objectStore('new_env_conflicts');
+  const tx = db.transaction([NEW_ENV_CONFLICTS_STORE_NAME, ENV_APPLICATIONS_STORE_NAME], 'readwrite');
+  const newEnvConflictsStore = tx.objectStore(NEW_ENV_CONFLICTS_STORE_NAME);
 
   const conflicts = await newEnvConflictsStore.getAll();
 
