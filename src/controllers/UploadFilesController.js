@@ -1,7 +1,7 @@
 import { parseEnvironmentJsonFile, parseNewApplicationsFile } from '../utils/parseJsonUtility';
 import { calculateAndStoreConflicts } from '../utils/uploadStateUtility';
 
-export const handleEnvironmentFileChange = (file, addApplications, setSelectedFile, setLoadedCount) => {
+export const processEnvironmentFileUpload = (file, addApplications, setSelectedFile, setLoadedCount) => {
   setSelectedFile(file);
   setLoadedCount(null);
   if (file) {
@@ -13,7 +13,7 @@ export const handleEnvironmentFileChange = (file, addApplications, setSelectedFi
   }
 };
 
-export const handleNewApplicationsFileChange = (file, addNewApplications, setSelectedNewApplicationsFile, setLoadedNewApplicationsCount, setIsNewApplicationsFileValid) => {
+export const processNewApplicationsFileUpload = (file, addNewApplications, setSelectedNewApplicationsFile, setLoadedNewApplicationsCount, setIsNewApplicationsFileValid) => {
   if (!file) {
     setSelectedNewApplicationsFile(null);
     setLoadedNewApplicationsCount(null);

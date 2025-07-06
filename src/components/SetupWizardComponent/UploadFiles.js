@@ -2,7 +2,7 @@ import React from 'react';
 import { useIndexedDB } from '../../hooks/useIndexedDB';
 import UploadEnvironmentFile from './UploadEnvironmentFile';
 import UploadNewApplicationsFile from './UploadNewApplicationsFile';
-import { handleEnvironmentFileChange, handleNewApplicationsFileChange, handleNewApplicationsValidationChange, handleNext } from '../../controllers/UploadFilesController';
+import { processEnvironmentFileUpload, processNewApplicationsFileUpload, handleNewApplicationsValidationChange, handleNext } from '../../controllers/UploadFilesController';
 
 function UploadState({
   nextStep,
@@ -38,14 +38,14 @@ function UploadState({
       <div style={{ width: '80%', margin: '0 auto' }}>
         <UploadEnvironmentFile
         selectedFile={selectedFile}
-        handleFileChange={(file) => handleEnvironmentFileChange(file, addApplications, setSelectedFile, setLoadedCount)}
+        handleFileChange={(file) => processEnvironmentFileUpload(file, addApplications, setSelectedFile, setLoadedCount)}
         loadedCount={loadedCount}
         fileInputId="environment-file-upload"
       />
       <div style={{ marginBottom: '20px' }}></div>
       <UploadNewApplicationsFile
         selectedFile={selectedNewApplicationsFile}
-        handleFileChange={(file) => handleNewApplicationsFileChange(file, addNewApplications, setSelectedNewApplicationsFile, setLoadedNewApplicationsCount, setIsNewApplicationsFileValid)}
+        handleFileChange={(file) => processNewApplicationsFileUpload(file, addNewApplications, setSelectedNewApplicationsFile, setLoadedNewApplicationsCount, setIsNewApplicationsFileValid)}
         loadedCount={loadedNewApplicationsCount}
         fileInputId="new-applications-file-upload"
         onValidationChange={(isValid) => handleNewApplicationsValidationChange(isValid, setIsNewApplicationsFileValid)}
