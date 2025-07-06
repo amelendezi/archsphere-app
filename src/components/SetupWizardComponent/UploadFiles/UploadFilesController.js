@@ -1,6 +1,7 @@
 
 
 import { calculateApplicationConflictsCommand } from '../../../services/command/calculateApplicationConflictCommand';
+import { ENV_APPLICATIONS_STORE_NAME } from '../../../config/dbConfig';
 
 export const parseEnvironmentJsonFile = (file, callback) => {
   const reader = new FileReader();
@@ -57,7 +58,7 @@ export const processEnvironmentFileUpload = (file, addApplications, setSelectedF
   setLoadedCount(null);
   if (file) {
     parseEnvironmentJsonFile(file, async (applications) => {
-      await addApplications(applications, 'env_applications');
+      await addApplications(applications, ENV_APPLICATIONS_STORE_NAME);
       setLoadedCount(applications.length);
       await calculateApplicationConflictsCommand();
     });

@@ -1,11 +1,11 @@
 import { openDB } from 'idb';
 
-import { DB_NAME, DB_VERSION } from '../config/dbConfig';
+import { DB_NAME, DB_VERSION, ENV_APPLICATIONS_STORE_NAME } from '../config/dbConfig';
 
 const getDbPromise = () => openDB(DB_NAME, DB_VERSION, {
   upgrade(db) {
-    if (!db.objectStoreNames.contains('env_applications')) {
-      db.createObjectStore('env_applications', { keyPath: 'ID' });
+    if (!db.objectStoreNames.contains(ENV_APPLICATIONS_STORE_NAME)) {
+      db.createObjectStore(ENV_APPLICATIONS_STORE_NAME, { keyPath: 'ID' });
     }
     if (!db.objectStoreNames.contains('new_applications')) {
       db.createObjectStore('new_applications', { keyPath: 'ID' });

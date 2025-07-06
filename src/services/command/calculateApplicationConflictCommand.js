@@ -1,14 +1,14 @@
 import { openDB } from 'idb';
 
-import { DB_NAME, DB_VERSION } from '../../config/dbConfig';
+import { DB_NAME, DB_VERSION, ENV_APPLICATIONS_STORE_NAME } from '../../config/dbConfig';
 
 const getDbPromise = () => openDB(DB_NAME, DB_VERSION);
 
 export const calculateApplicationConflictsCommand = async () => {
   try {
     const db = await getDbPromise();
-    const envTx = db.transaction('env_applications', 'readonly');
-    const envStore = envTx.objectStore('env_applications');
+    const envTx = db.transaction(ENV_APPLICATIONS_STORE_NAME, 'readonly');
+    const envStore = envTx.objectStore(ENV_APPLICATIONS_STORE_NAME);
     const envApps = await envStore.getAll();
     await envTx.done;
 
