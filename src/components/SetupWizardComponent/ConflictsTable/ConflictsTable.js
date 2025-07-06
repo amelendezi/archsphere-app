@@ -1,6 +1,5 @@
-import React from 'react';
 import ItemList from '../../ItemListComponent/ItemList';
-import { getAllConflictsQuery } from '../../../services/query/getAllConflictsQuery';
+import { getAllApplicationConflictsQuery } from '../../../services/query/getAllApplicationConflictsQuery';
 
 function ConflictsTable({ refreshTrigger }) {
   const conflictColumns = [
@@ -44,7 +43,7 @@ function ConflictsTable({ refreshTrigger }) {
   ];
 
   const conflictDataFetcher = async () => {
-    return await getAllConflictsQuery();
+    return await getAllApplicationConflictsQuery();
   };
 
   return (

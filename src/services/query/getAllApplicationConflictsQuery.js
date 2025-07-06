@@ -3,7 +3,7 @@ import { DB_NAME, DB_VERSION, SETUP_CONFLICTS_STORE_NAME } from '../../config/db
 
 const getDbPromise = () => openDB(DB_NAME, DB_VERSION);
 
-export const getAllConflictsQuery = async () => {
+export const getAllApplicationConflictsQuery = async () => {
   const db = await getDbPromise();
   const tx = db.transaction(SETUP_CONFLICTS_STORE_NAME, 'readonly');
   const store = tx.objectStore(SETUP_CONFLICTS_STORE_NAME);
