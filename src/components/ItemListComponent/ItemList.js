@@ -106,7 +106,7 @@ function ItemList({ dataFetcher, columns, listMaxWidth, listStyle, headerStyle, 
 
   return (
     <div ref={listRef} style={{ width: listMaxWidth, ...listStyle }}>
-      <div style={{ display: 'flex', ...headerStyle }}>
+      <div style={{ display: 'flex' }}>
         {columns.map((col) => (
           <div
             key={col.key}
@@ -117,6 +117,7 @@ function ItemList({ dataFetcher, columns, listMaxWidth, listStyle, headerStyle, 
               whiteSpace: 'nowrap',
               overflow: 'hidden',
               textOverflow: 'ellipsis',
+              ...headerStyle
             }}
           >
             {col.header}
