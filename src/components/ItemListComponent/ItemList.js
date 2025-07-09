@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import ItemRow from './ItemRow';
 
-function ItemList({ dataFetcher, columns, listMaxWidth, listStyle, headerStyle, rowStyle, cellStyle, refreshTrigger }) {
+function ItemList({ dataFetcher, columns, listMaxWidth, listStyle, headerStyle, rowStyle, cellStyle, refreshTrigger, actionsColumn }) {
   const [items, setItems] = useState([]);
   const [calculatedColumnWidths, setCalculatedColumnWidths] = useState(new Map());
   const listRef = useRef(null);
@@ -32,6 +32,20 @@ function ItemList({ dataFetcher, columns, listMaxWidth, listStyle, headerStyle, 
       totalMinWidth += minPxWidth;
       totalFlexGrow += (col.flexGrow || 0);
     });
+
+    // Add actionsColumn width if present
+    if (actionsColumn) {
+      let actionsColWidth = 0;
+      if (typeof actionsColumn.width === 'string' && actionsColumn.width.endsWith('px')) {
+        actionsColWidth = parseFloat(actionsColumn.width);
+      } else if (typeof actionsColumn.width === 'string' && actionsColumn.width.endsWith('%')) {
+        actionsColWidth = (parseFloat(actionsColumn.width) / 100) * containerWidth;
+      } else {
+        actionsColWidth = actionsColumn.width; // Assume number in px
+      }
+      newWidths.set('actions', actionsColWidth);
+      totalMinWidth += actionsColWidth;
+    }
 
     let remainingWidth = containerWidth - totalMinWidth;
 
@@ -120,6 +134,7 @@ function ItemList({ dataFetcher, columns, listMaxWidth, listStyle, headerStyle, 
           <div
             key={col.key}
             style={{
+              boxSizing: 'border-box',
               width: calculatedColumnWidths.get(col.key) ? `${calculatedColumnWidths.get(col.key)}px` : 'auto',
               fontWeight: 'bold',
               border: '1px solid #ddd',
@@ -132,6 +147,23 @@ function ItemList({ dataFetcher, columns, listMaxWidth, listStyle, headerStyle, 
             {col.header}
           </div>
         ))}
+        {actionsColumn && (
+          <div
+            key="actions-header"
+            style={{
+              boxSizing: 'border-box',
+              width: calculatedColumnWidths.get('actions') ? `${calculatedColumnWidths.get('actions')}px` : 'auto',
+              fontWeight: 'bold',
+              border: '1px solid #ddd',
+              whiteSpace: 'nowrap',
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+              ...headerStyle
+            }}
+          >
+            {actionsColumn.header}
+          </div>
+        )}
       </div>
       {items.map((item, index) => (
         <ItemRow
@@ -141,6 +173,7 @@ function ItemList({ dataFetcher, columns, listMaxWidth, listStyle, headerStyle, 
           columnWidths={calculatedColumnWidths}
           rowStyle={rowStyle}
           cellStyle={cellStyle}
+          actionsColumn={actionsColumn}
         />
       ))}
     </div>

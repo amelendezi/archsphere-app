@@ -172,7 +172,7 @@ const totalAppCount = await getStoreCount(SETUP_ENV_APPLICATIONS_STORE_NAME);
         </tbody>
       </table>      
       <div style={{ width: '100%', margin: '0 auto' }}>
-        <ConflictsTable refreshTrigger={refreshConflictsTable} />
+        <ConflictsTable refreshTrigger={refreshConflictsTable} setRefreshConflictsTable={setRefreshConflictsTable} />
       </div>
       <div style={{ flexGrow: 1 }}></div>
       <div style={{ borderBottom: '1px solid grey', width: '100%', margin: '20px auto 0 auto' }}></div>

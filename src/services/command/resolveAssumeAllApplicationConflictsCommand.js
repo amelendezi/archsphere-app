@@ -1,5 +1,5 @@
 import { openDB } from 'idb';
-import { resolveSingleConflictCommand } from './resolveSingleApplicationConflictCommand';
+import { resolveSingleApplicationConflictCommand } from './resolveSingleApplicationConflictCommand';
 
 import { DB_NAME, DB_VERSION, SETUP_ENV_APPLICATIONS_STORE_NAME, SETUP_CONFLICTS_STORE_NAME } from '../../config/dbConfig';
 
@@ -15,7 +15,7 @@ export const resolveAssumeAllApplicationConflictsCommand = async () => {
   let resolvedConflictsCount = 0;
   for (const conflict of conflicts) {
     if (conflict.Status === 'unresolved') {
-      await resolveSingleConflictCommand(tx, conflict['Business Application ID'], conflict['Property Name'], conflict['New Value']);
+      await resolveSingleApplicationConflictCommand(tx, conflict['Business Application ID'], conflict['Property Name'], conflict['New Value']);
       resolvedConflictsCount++;
     }
   }
