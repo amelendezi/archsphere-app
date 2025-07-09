@@ -66,13 +66,13 @@ function ConflictsTable({ refreshTrigger, setRefreshConflictsTable }) {
       if (currentStatus === 'resolved' || currentStatus === 'ignored') {
         const undoActionType = currentStatus === 'resolved' ? 'undoResolve' : 'undoIgnore';
         return (
-          <button onClick={() => onAction(undoActionType, item)}>Undo</button>
+          <button className="reconciliationButtonPrimary" style={{ backgroundColor: 'grey' }} onClick={() => onAction(undoActionType, item)}>Undo</button>
         );
       } else {
         return (
           <>
-            <button onClick={() => onAction('resolve', item)}>Resolve</button>
-            <button onClick={() => onAction('ignore', item)} style={{ marginLeft: '5px' }}>Ignore</button>
+            <button className="reconciliationButtonPrimary" onClick={() => onAction('resolve', item)}>Resolve</button>
+            <button className="reconciliationButtonPrimary" onClick={() => onAction('ignore', item)} style={{ marginLeft: '5px', backgroundColor: 'white', color: 'black' }}>Ignore</button>
           </>
         );
       }
