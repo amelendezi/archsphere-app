@@ -66,15 +66,15 @@ function ConflictsTable({ refreshTrigger, setRefreshConflictsTable }) {
         newStatus = 'resolved';
         break;
       case 'ignore':
-        await resolveByIgnoringSingleApplicationConflictCommand(undefined, item['Business Application ID'], item['Property Name']);
-        newStatus = 'ignored';
+        await resolveByIgnoringSingleApplicationConflictCommand(item['Business Application ID'], item['Property Name']);
+        newStatus = 'resolved';
         break;
       case 'undoResolve':
         await unresolveSingleApplicationConflictCommand(undefined, item['Business Application ID'], item['Property Name'], item['Old Value']);
         newStatus = 'unresolved';
         break;
       case 'undoIgnore':
-        await unresolveByIgnoringSingleApplicationConflictCommand(undefined, item['Business Application ID'], item['Property Name']);
+        await unresolveByIgnoringSingleApplicationConflictCommand(item['Business Application ID'], item['Property Name']);
         newStatus = 'unresolved';
         break;
       default:
