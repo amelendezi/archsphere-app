@@ -3,6 +3,7 @@ import { resolveSingleApplicationConflictCommand } from '../../../services/comma
 import { unresolveSingleApplicationConflictCommand } from '../../../services/command/unresolveSingleApplicationConflictCommand';
 import { resolveByIgnoringSingleApplicationConflictCommand } from '../../../services/command/resolveByIgnoringSingleApplicationConflictCommand';
 import { unresolveByIgnoringSingleApplicationConflictCommand } from '../../../services/command/unresolveByIgnoringSingleApplicationConflictCommand';
+import { getAllApplicationConflictsQuery } from '../../../services/query/getAllApplicationConflictsQuery';
 
 export const handleAction = async (actionType, item, setRowActionStates, setRefreshConflictsTable) => {
     const conflictId = `${item['Business Application ID']}-${item['Property Name']}`;
@@ -36,4 +37,8 @@ export const handleAction = async (actionType, item, setRowActionStates, setRefr
     });
     
     setRefreshConflictsTable(prev => !prev);
+};
+
+export const conflictDataFetcher = async () => {
+    return await getAllApplicationConflictsQuery();
 };

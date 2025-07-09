@@ -1,7 +1,6 @@
 import React, { useState, useCallback } from 'react';
 import ItemList from '../../ItemListComponent/ItemList';
-import { getAllApplicationConflictsQuery } from '../../../services/query/getAllApplicationConflictsQuery';
-import { handleAction as handleConflictAction } from './ConflictsTableController';
+import { handleAction as handleConflictAction, conflictDataFetcher } from './ConflictsTableController';
 
 function ConflictsTable({ refreshTrigger, setRefreshConflictsTable }) {
   const [rowActionStates, setRowActionStates] = useState(new Map());
@@ -80,10 +79,6 @@ function ConflictsTable({ refreshTrigger, setRefreshConflictsTable }) {
     },
     onAction: handleAction, // Pass the handler to ItemList
   };
-
-  const conflictDataFetcher = useCallback(async () => {
-    return await getAllApplicationConflictsQuery();
-  }, []);
 
   return (
     <div style={{ marginTop: '20px', backgroundColor: 'white', borderRadius: '8px' }}>
