@@ -1,10 +1,7 @@
 import React, { useState, useCallback } from 'react';
 import ItemList from '../../ItemListComponent/ItemList';
 import { getAllApplicationConflictsQuery } from '../../../services/query/getAllApplicationConflictsQuery';
-import { resolveSingleApplicationConflictCommand } from '../../../services/command/resolveSingleApplicationConflictCommand';
-import { unresolveSingleApplicationConflictCommand } from '../../../services/command/unresolveSingleApplicationConflictCommand';
-import { resolveByIgnoringSingleApplicationConflictCommand } from '../../../services/command/resolveByIgnoringSingleApplicationConflictCommand';
-import { unresolveByIgnoringSingleApplicationConflictCommand } from '../../../services/command/unresolveByIgnoringSingleApplicationConflictCommand';
+import { handleAction as handleConflictAction } from './ConflictsTableController';
 
 function ConflictsTable({ refreshTrigger, setRefreshConflictsTable }) {
   const [rowActionStates, setRowActionStates] = useState(new Map());
@@ -56,41 +53,8 @@ function ConflictsTable({ refreshTrigger, setRefreshConflictsTable }) {
     },
   ];
 
-  const handleAction = useCallback(async (actionType, item) => {
-    const conflictId = `${item['Business Application ID']}-${item['Property Name']}`;
-    let newStatus = '';
-
-    switch (actionType) {
-      case 'resolve':
-        await resolveSingleApplicationConflictCommand(undefined, item['Business Application ID'], item['Property Name'], item['New Value']);
-        newStatus = 'resolved';
-        break;
-      case 'ignore':
-        await resolveByIgnoringSingleApplicationConflictCommand(item['Business Application ID'], item['Property Name']);
-        newStatus = 'resolved';
-        break;
-      case 'undoResolve':
-        await unresolveSingleApplicationConflictCommand(undefined, item['Business Application ID'], item['Property Name'], item['Old Value']);
-        newStatus = 'unresolved';
-        break;
-      case 'undoIgnore':
-        await unresolveByIgnoringSingleApplicationConflictCommand(item['Business Application ID'], item['Property Name']);
-        newStatus = 'unresolved';
-        break;
-      default:
-        return;
-    }
-
-    setRowActionStates(prev => {
-      const newState = new Map(prev);
-      newState.set(conflictId, newStatus);
-      return newState;
-    });
-
-    // Trigger refresh of the ItemList
-    // This will cause ItemList to re-fetch data and update the displayed status
-    // and also re-render the action buttons based on new rowActionStates
-    setRefreshConflictsTable(prev => !prev);
+  const handleAction = useCallback((actionType, item) => {
+    handleConflictAction(actionType, item, setRowActionStates, setRefreshConflictsTable);
   }, [setRefreshConflictsTable]);
 
   const actionsColumn = {
