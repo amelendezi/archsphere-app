@@ -1,9 +1,15 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import ItemList from '../../ItemListComponent/ItemList';
 import { handleAction as handleConflictAction, conflictDataFetcher } from './ConflictsTableController';
 
 function ConflictsTable({ refreshTrigger, setRefreshConflictsTable }) {
   const [rowActionStates, setRowActionStates] = useState(new Map());
+
+  useEffect(() => {
+    // Reset local state when refresh is triggered externally
+    setRowActionStates(new Map());
+  }, [refreshTrigger]);
+
   const conflictColumns = [
     {
       key: 'Business Application ID',
