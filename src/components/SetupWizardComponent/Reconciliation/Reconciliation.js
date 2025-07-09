@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useIndexedDB } from '../../../hooks/useIndexedDB';
 import { countNewApplicationsQuery } from '../../../services/query/countNewApplicationsQuery';
 import { countUnresolvedConflictsQuery } from '../../../services/query/countUnresolvedConflictsQuery';
+import { countResolvedApplicationConflictsQuery } from '../../../services/query/countResolvedApplicationConflictsQuery';
 import { onAddAllNewApplications, onUndoAddAllNewApplications, onAssumeAllConflicts, onUndoAssumeAllConflicts, onBackFromReconciliation } from './ReconciliationController';
 import { SETUP_ENV_APPLICATIONS_STORE_NAME } from '../../../config/dbConfig';
 import ConflictsTable from '../ConflictsTable/ConflictsTable';
@@ -11,6 +12,7 @@ function Reconciliation({ onBack, onClose, setSelectedFile, setSelectedNewApplic
   const [newApplicationsCount, setNewApplicationsCount] = useState(0);
   const [totalApplicationsCount, setTotalApplicationsCount] = useState(0);
   const [conflictCount, setConflictCount] = useState(0);
+  const [resolvedConflictCount, setResolvedConflictCount] = useState(0);
   const [showTooltipNewApplications, setShowTooltipNewApplications] = useState(false);
   const [showTooltipConflicts, setShowTooltipConflicts] = useState(false);
   const [showTooltipEnvironmentApplications, setShowTooltipEnvironmentApplications] = useState(false);
@@ -23,14 +25,25 @@ function Reconciliation({ onBack, onClose, setSelectedFile, setSelectedNewApplic
       const newAppCount = await countNewApplicationsQuery();
       setNewApplicationsCount(newAppCount);
   
-const totalAppCount = await getStoreCount(SETUP_ENV_APPLICATIONS_STORE_NAME);
+      const totalAppCount = await getStoreCount(SETUP_ENV_APPLICATIONS_STORE_NAME);
       setTotalApplicationsCount(totalAppCount);
 
-      const conflicts = await countUnresolvedConflictsQuery();
-      setConflictCount(conflicts);
+      const unresolvedConflicts = await countUnresolvedConflictsQuery();
+      setConflictCount(unresolvedConflicts);
+
+      const resolvedConflicts = await countResolvedApplicationConflictsQuery();
+      setResolvedConflictCount(resolvedConflicts);
     };
     fetchCountsAndConflicts();
-  }, [getStoreCount, conflictCount]);
+  }, [getStoreCount, conflictCount, refreshConflictsTable]);
+
+  useEffect(() => {
+    if (conflictCount === 0 && resolvedConflictCount > 0) {
+      setShowUndoAssumeAllButton(true);
+    } else {
+      setShowUndoAssumeAllButton(false);
+    }
+  }, [conflictCount, resolvedConflictCount]);
   return (
     <div style={{ backgroundColor: 'white', padding: '20px', borderRadius: '8px' }}>
       <h2 style={{ color: 'black' }}>Reconcile New Applications</h2>      
