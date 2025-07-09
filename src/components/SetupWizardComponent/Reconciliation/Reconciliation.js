@@ -47,10 +47,10 @@ function Reconciliation({ onBack, onClose, setSelectedFile, setSelectedNewApplic
   return (
     <div style={{ backgroundColor: 'white', padding: '20px', borderRadius: '8px' }}>
       <h2 style={{ color: 'black' }}>Reconcile New Applications</h2>
-      <div style={{ display: 'flex', justifyContent: 'space-around', textAlign: 'center', margin: '20px 0' }}>
+      <div style={{ display: 'flex', justifyContent: 'center', gap: '40px', textAlign: 'center', margin: '20px 0' }}>
         
         {/* New Applications Tile */}
-        <div style={{ border: '1px solid #ddd', padding: '20px', borderRadius: '8px', width: '30%' }}>
+        <div style={{ border: '1px solid #ddd', padding: '20px', borderRadius: '8px', width: '20%' }}>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '5px' }}>
             <div
               style={{ position: 'relative', display: 'inline-block' }}
@@ -97,7 +97,7 @@ function Reconciliation({ onBack, onClose, setSelectedFile, setSelectedNewApplic
         </div>
 
         {/* Conflicts Tile */}
-        <div style={{ border: '1px solid #ddd', padding: '20px', borderRadius: '8px', width: '30%' }}>
+        <div style={{ border: '1px solid #ddd', padding: '20px', borderRadius: '8px', width: '20%' }}>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '5px' }}>
             <div
               style={{ position: 'relative', display: 'inline-block' }}
@@ -144,7 +144,7 @@ function Reconciliation({ onBack, onClose, setSelectedFile, setSelectedNewApplic
         </div>
 
         {/* Environment Applications Tile */}
-        <div style={{ border: '1px solid #ddd', padding: '20px', borderRadius: '8px', width: '30%' }}>
+        <div style={{ border: '1px solid #ddd', padding: '20px', borderRadius: '8px', width: '20%' }}>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '5px' }}>
             <div
               style={{ position: 'relative', display: 'inline-block' }}
