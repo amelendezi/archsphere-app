@@ -2,7 +2,7 @@ import logo from '../archsphere160.png';
 import '../App.css';
 import React, { useState } from 'react';
 import SetupInitialState from '../components/SetupWizardComponent/SetupInitialState';
-import AppLists from './AppLists';
+import AppListsPage from './AppListsPage';
 
 function AppMainPage() {
   const [showSetup, setShowSetup] = useState(false);
@@ -38,7 +38,7 @@ function AppMainPage() {
         </header>
       )}
       {showSetup && <SetupInitialState onClose={handleCloseSetup} onSetupComplete={handleSetupComplete} />}
-      {showAppLists && <AppLists />}
+      {showAppLists && <AppListsPage />}
     </div>
   );
 }
