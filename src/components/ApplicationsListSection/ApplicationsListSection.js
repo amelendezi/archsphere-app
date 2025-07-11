@@ -14,12 +14,6 @@ const ApplicationsListSection = () => {
   const columns = [
     { key: 'Business Application ID', header: 'Business Application ID', minWidth: '150px', flexGrow: 1 },
     { key: 'Name', header: 'Name', minWidth: '150px', flexGrow: 2 },
-    { key: 'Functional Description', header: 'Functional Description', minWidth: '200px', flexGrow: 3 },
-    { key: 'Portfolio', header: 'Portfolio', minWidth: '100px', flexGrow: 1 },
-    { key: 'Operational status', header: 'Operational Status', minWidth: '120px', flexGrow: 1 },
-    { key: 'Vendor', header: 'Vendor', minWidth: '100px', flexGrow: 1 },
-    { key: 'Managed / Operated By', header: 'Managed / Operated By', minWidth: '150px', flexGrow: 1 },
-    { key: 'Owning Business', header: 'Owning Business', minWidth: '150px', flexGrow: 1 },
     { key: 'Business Application Status', header: 'Business Application Status', minWidth: '150px', flexGrow: 1 },
   ];
 
