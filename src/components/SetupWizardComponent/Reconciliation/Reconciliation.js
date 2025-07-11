@@ -7,7 +7,7 @@ import { onAddAllNewApplications, onUndoAddAllNewApplications, onAssumeAllConfli
 import { SETUP_ENV_APPLICATIONS_STORE_NAME } from '../../../config/dbConfig';
 import ConflictsTable from '../ConflictsTable/ConflictsTable';
 
-function Reconciliation({ onBack, onClose, setSelectedFile, setSelectedNewApplicationsFile, setLoadedCount, setLoadedNewApplicationsCount, setIsNewApplicationsFileValid }) {
+function Reconciliation({ onBack, onClose, onSetupComplete, setSelectedFile, setSelectedNewApplicationsFile, setLoadedCount, setLoadedNewApplicationsCount, setIsNewApplicationsFileValid }) {
   const { getStoreCount, clearStores } = useIndexedDB();
   const [newApplicationsCount, setNewApplicationsCount] = useState(0);
   const [totalApplicationsCount, setTotalApplicationsCount] = useState(0);
@@ -191,7 +191,7 @@ function Reconciliation({ onBack, onClose, setSelectedFile, setSelectedNewApplic
         <button className="UploadState-button UploadState-button-close" onClick={() => onBackFromReconciliation(clearStores, onBack, setSelectedFile, setSelectedNewApplicationsFile, setLoadedCount, setLoadedNewApplicationsCount, setIsNewApplicationsFileValid)}>Back</button>
         <button
           className="UploadState-button UploadState-button-next"
-          onClick={onClose}
+          onClick={onSetupComplete}
         >
           Finish
         </button>

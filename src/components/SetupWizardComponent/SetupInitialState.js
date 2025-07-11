@@ -2,7 +2,7 @@ import { useState } from 'react';
 import UploadFiles from './UploadFiles/UploadFiles';
 import Reconciliation from './Reconciliation/Reconciliation';
 
-function SetupInitialState({ onClose }) {
+function SetupInitialState({ onClose, onSetupComplete }) {
   const [step, setStep] = useState(1);
   const [selectedFile, setSelectedFile] = useState(null);
   const [loadedCount, setLoadedCount] = useState(null);
@@ -45,6 +45,7 @@ function SetupInitialState({ onClose }) {
                 <Reconciliation
                   onBack={prevStep}
                   onClose={onClose}
+                  onSetupComplete={onSetupComplete}
                   setSelectedFile={setSelectedFile}
                   setSelectedNewApplicationsFile={setSelectedNewApplicationsFile}
                   setLoadedCount={setLoadedCount}
