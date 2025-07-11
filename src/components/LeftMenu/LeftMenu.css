@@ -19,6 +19,7 @@
   cursor: pointer;
   transition: background-color 0.3s ease;
   border-radius: 5px; /* Slightly rounded corners */
+  text-align: left; /* Align text to the left */
 }
 
 .left-menu-item:hover {

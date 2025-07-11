@@ -2,7 +2,7 @@ import React from 'react';
 import './LeftMenu.css';
 
 const LeftMenu = () => {
-  const menuItems = ["Assets", "Applications", "Assessments", "Projects"];
+  const menuItems = ["Applications", "Assessments", "Tag Management"];
 
   return (
     <nav className="left-menu-nav">
