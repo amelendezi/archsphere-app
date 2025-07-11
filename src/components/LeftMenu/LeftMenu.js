@@ -30,7 +30,7 @@ const LeftMenu = ({ onMenuItemClick, selectedMenuItem }) => {
       <ul className="left-menu-list">
         <li 
           key="Assets" 
-          className={`left-menu-item ${selectedMenuItem.startsWith('Asset:') ? 'selected' : ''}`}
+          className={`left-menu-item left-menu-item-parent ${selectedMenuItem.startsWith('Asset:') ? 'selected' : ''}`}
           onClick={() => handleItemClick("Assets")}
         >
           <span>Assets</span>
@@ -38,10 +38,11 @@ const LeftMenu = ({ onMenuItemClick, selectedMenuItem }) => {
         </li>
         {showAssetsSubMenu && !loading && !error && (
           <ul className={`left-menu-sub-list ${showAssetsSubMenu ? 'open' : ''}`}>
-            {assets.map((asset) => (
+            {assets.map((asset, index) => (
               <li 
                 key={asset.id} 
                 className={`left-menu-sub-item ${selectedMenuItem === `Asset:${asset.name}` ? 'selected' : ''}`}
+                style={{ animationDelay: `${index * 0.1}s` }} /* Add animation delay */
                 onClick={(e) => {
                   e.stopPropagation(); // Prevent parent li click
                   handleAssetSubMenuItemClick(asset.name);

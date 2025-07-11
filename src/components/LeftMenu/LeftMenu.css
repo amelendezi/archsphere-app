@@ -1,3 +1,9 @@
+.left-menu-item-parent {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .left-menu-nav {
   width: 100%;
   height: 100%;
@@ -15,28 +21,9 @@
 .left-menu-sub-list {
   list-style: none;
   padding: 0;
-  margin: 0;
+  margin: 0; /* Removed margin-top and margin-bottom */
   margin-left: 20px; /* Indent sub-menu items */
-  margin-top: 5px;
-  margin-bottom: 5px;
-}
-
-.left-menu-item {
-  background-color: #3367D6; /* Darker blue shade */
-  color: white;
-  padding: 10px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  border-radius: 5px; /* Slightly rounded corners */
-  text-align: left; /* Align text to the left */
-  display: flex; /* Use flexbox to align content and arrow */
-  justify-content: space-between; /* Push arrow to the right */
-  align-items: center; /* Vertically align content */
-}
-
-.arrow-indicator {
-  font-size: 0.8em;
-  margin-left: 10px;
+  /* Removed max-height and opacity transitions from here */
 }
 
 .left-menu-sub-item {
@@ -48,6 +35,23 @@
   border-radius: 3px;
   text-align: left;
   margin-bottom: 5px; /* Space between sub-menu items */
+  opacity: 0; /* Start hidden for animation */
+  transform: translateY(-10px); /* Start slightly above for slide effect */
+}
+
+.left-menu-sub-list.open .left-menu-sub-item {
+  animation: slideInFade 0.5s ease-out forwards; /* Apply animation */
+}
+
+@keyframes slideInFade {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .left-menu-item:hover,
@@ -59,4 +63,14 @@
 .left-menu-sub-item.selected {
   background-color: #607D8B; /* Grey background for selected item */
   color: white;
+}
+
+.left-menu-item {
+  background-color: #3367D6; /* Darker blue shade */
+  color: white;
+  padding: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  border-radius: 5px; /* Slightly rounded corners */
+  text-align: left; /* Align text to the left */
 }
