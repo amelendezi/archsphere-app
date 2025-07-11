@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import './AppListsPage.css';
 import LeftMenuHeader from '../components/LeftMenuHeader/LeftMenuHeader';
+import LeftMenu from '../components/LeftMenu/LeftMenu';
 
 const AppListsPage = () => {
   const [isLeftMenuOpen, setIsLeftMenuOpen] = useState(true);
@@ -18,7 +19,7 @@ const AppListsPage = () => {
           <LeftMenuHeader />
         </div>
         <div className="left-menu-content">
-          <h2>Left Menu Content</h2>
+          <LeftMenu />
         </div>
       </div>
 
