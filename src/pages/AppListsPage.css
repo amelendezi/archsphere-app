@@ -14,6 +14,7 @@
   box-sizing: border-box;
   transition: width 0.3s ease-in-out, min-width 0.3s ease-in-out; /* Smooth transition for width */
   position: relative; /* For positioning the toggle button */
+  background-color: #E3F2FD; /* Lighter blue background */
 }
 
 .left-menu-pane.closed {
@@ -76,14 +77,14 @@
 }
 
 .toggle-button.left-menu-open {
-  left: 20%; /* Position when menu is open (adjust based on left-menu-pane width) */
+  left: calc(20% - 15px); /* Center of the button aligned with the right border of the leftMenuPane */
 }
 
 .toggle-button.left-menu-closed {
-  left: 0; /* Position when menu is closed */
+  left: 0; /* Position when menu is closed (fully visible) */
 }
 
 .arrow-icon {
   font-size: 1.2em;
-  color: #333;
+  color: #1A73E8; /* Darker blue for the arrow */
 }
