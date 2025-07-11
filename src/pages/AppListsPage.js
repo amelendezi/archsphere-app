@@ -3,12 +3,33 @@ import React, { useState } from 'react';
 import './AppListsPage.css';
 import LeftMenuHeader from '../components/LeftMenuHeader/LeftMenuHeader';
 import LeftMenu from '../components/LeftMenu/LeftMenu';
+import ApplicationsList from '../components/ApplicationsList/ApplicationsList';
+import Assessments from '../components/Assessments/Assessments';
+import TagManagement from '../components/TagManagement/TagManagement';
 
 const AppListsPage = () => {
   const [isLeftMenuOpen, setIsLeftMenuOpen] = useState(true);
+  const [selectedMenuItem, setSelectedMenuItem] = useState('Applications'); // Default selected item
 
   const toggleLeftMenu = () => {
     setIsLeftMenuOpen(!isLeftMenuOpen);
+  };
+
+  const handleMenuItemClick = (menuItem) => {
+    setSelectedMenuItem(menuItem);
+  };
+
+  const renderMainContent = () => {
+    switch (selectedMenuItem) {
+      case 'Applications':
+        return <ApplicationsList />;
+      case 'Assessments':
+        return <Assessments />;
+      case 'Tag Management':
+        return <TagManagement />;
+      default:
+        return <h1>Select an option from the menu</h1>;
+    }
   };
 
   return (
@@ -19,7 +40,7 @@ const AppListsPage = () => {
           <LeftMenuHeader />
         </div>
         <div className="left-menu-content">
-          <LeftMenu />
+          <LeftMenu onMenuItemClick={handleMenuItemClick} />
         </div>
       </div>
 
@@ -37,7 +58,7 @@ const AppListsPage = () => {
 
         {/* Main Content Pane */}
         <div className="main-content-pane">
-          <h3>Main Content Pane</h3>
+          {renderMainContent()}
         </div>
       </div>
     </div>
