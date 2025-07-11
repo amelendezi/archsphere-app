@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 import './ApplicationsListSection.css';
 import ItemList from '../ItemListComponent/ItemList';
 import { useIndexedDB } from '../../hooks/useIndexedDB';
@@ -32,13 +32,14 @@ const ApplicationsListSection = () => {
     }
   };
 
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (detailPaneRef.current && !detailPaneRef.current.contains(event.target)) {
-        setShowDetailPane(false);
-      }
-    };
+  const handleClickOutside = useCallback((event) => {
+    if (detailPaneRef.current && !detailPaneRef.current.contains(event.target)) {
+      setShowDetailPane(false);
+      setSelectedApplication(null); // Deselect item when clicking outside the detail pane
+    }
+  }, [detailPaneRef, setShowDetailPane, setSelectedApplication]);
 
+  useEffect(() => {
     if (showDetailPane) {
       document.addEventListener('mousedown', handleClickOutside);
     } else {
@@ -48,7 +49,7 @@ const ApplicationsListSection = () => {
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
-  }, [showDetailPane]);
+  }, [showDetailPane, handleClickOutside]);
 
   return (
     <div className="applications-list-container">
@@ -66,18 +67,20 @@ const ApplicationsListSection = () => {
 
       {/* Applications Detail Pane */}
       <div ref={detailPaneRef} className={`applications-detail-pane ${showDetailPane ? 'open' : ''}`}>
-        {selectedApplication ? (
-          <>
-            <h2>{selectedApplication.Name}</h2>
-            <div className="application-details">
-              {Object.entries(selectedApplication).map(([key, value]) => (
-                key !== 'Name' && <p key={key}><strong>{key}:</strong> {value}</p>
-              ))}
-            </div>
-          </>
-        ) : (
-          <h3>Applications Detail</h3>
-        )}
+        <div className="applications-detail-inner-section">
+          {selectedApplication ? (
+            <>
+              <h2>{selectedApplication.Name}</h2>
+              <div className="application-details">
+                {Object.entries(selectedApplication).map(([key, value]) => (
+                  key !== 'Name' && key !== 'ID' && <p key={key}><strong>{key}:</strong> {value}</p>
+                ))}
+              </div>
+            </>
+          ) : (
+            <h3>Applications Detail</h3>
+          )}
+        </div>
       </div>
     </div>
   );
