@@ -129,14 +129,13 @@ function ItemList({ dataFetcher, columns, listMaxWidth, listStyle, headerStyle, 
 
   return (
     <div ref={listRef} style={{ width: listMaxWidth, ...listStyle }}>
-      <div style={{ display: 'flex' }}>
+      <div style={{ display: 'flex', marginBottom: '10px' }}>
         {columns.map((col) => (
           <div
             key={col.key}
             style={{
               boxSizing: 'border-box',
               width: calculatedColumnWidths.get(col.key) ? `${calculatedColumnWidths.get(col.key)}px` : 'auto',
-              fontWeight: 'bold',
               whiteSpace: 'nowrap',
               overflow: 'hidden',
               textOverflow: 'ellipsis',
@@ -152,7 +151,6 @@ function ItemList({ dataFetcher, columns, listMaxWidth, listStyle, headerStyle, 
             style={{
               boxSizing: 'border-box',
               width: calculatedColumnWidths.get('actions') ? `${calculatedColumnWidths.get('actions')}px` : 'auto',
-              fontWeight: 'bold',
               whiteSpace: 'nowrap',
               overflow: 'hidden',
               textOverflow: 'ellipsis',

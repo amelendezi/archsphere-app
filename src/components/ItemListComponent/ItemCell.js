@@ -12,6 +12,7 @@ function ItemCell({ value, width, cellStyle, item, column, tooltipValue }) {
     boxSizing: 'border-box',
     width: width ? `${width}px` : 'auto',
     position: 'relative', // Needed for absolute positioning of tooltip
+    padding: '5px', /* Add padding to the cell */
     ...cellStyle,
     ...conditionalStyles,
   };

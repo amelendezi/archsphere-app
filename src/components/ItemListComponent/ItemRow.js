@@ -2,7 +2,13 @@ import ItemCell from './ItemCell';
 
 function ItemRow({ item, columns, columnWidths, rowStyle, cellStyle, actionsColumn }) {
   return (
-    <div style={{ display: 'flex', ...rowStyle }}>
+    <div style={{
+      display: 'flex',
+      marginBottom: '8px', /* Vertical separation */
+      backgroundColor: '#E3F2FD', /* Light blue background */
+      borderRadius: '8px', /* Rounded corners */
+      ...rowStyle
+    }}>
       {columns.map((column) => (
         <ItemCell
           key={column.key}
