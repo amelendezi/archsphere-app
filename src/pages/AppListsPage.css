@@ -3,26 +3,47 @@
   height: 100vh;
   background-color: white;
   color: black;
+  overflow: hidden; /* Hide overflow during animation */
 }
 
 .left-menu-pane {
   width: 20%;
+  min-width: 200px; /* Ensure a minimum width when open */
   border: 1px solid red;
   padding: 10px;
   box-sizing: border-box;
+  transition: width 0.3s ease-in-out, min-width 0.3s ease-in-out; /* Smooth transition for width */
+  position: relative; /* For positioning the toggle button */
+}
+
+.left-menu-pane.closed {
+  width: 0;
+  min-width: 0;
+  padding: 0;
+  border: none;
+  overflow: hidden; /* Hide content when closed */
 }
 
 .main-content-wrapper {
-  width: 80%;
+  flex-grow: 1; /* Allow main content to take remaining space */
   display: flex;
   flex-direction: column;
   border: 1px solid red;
   padding: 10px;
   box-sizing: border-box;
+  transition: width 0.3s ease-in-out; /* Smooth transition for width */
+}
+
+.main-content-wrapper.left-menu-open {
+  width: 80%; /* Adjust width when left menu is open */
+}
+
+.main-content-wrapper.left-menu-closed {
+  width: 100%; /* Take full width when left menu is closed */
 }
 
 .header-menu-pane {
-  height: 10%;
+  height: 25px;
   border: 1px solid red;
   margin-bottom: 10px;
   padding: 10px;
@@ -34,4 +55,35 @@
   border: 1px solid red;
   padding: 10px;
   box-sizing: border-box;
+}
+
+.toggle-button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  z-index: 10; /* Ensure it's above other content */
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  transition: left 0.3s ease-in-out; /* Smooth transition for left position */
+}
+
+.toggle-button.left-menu-open {
+  left: 20%; /* Position when menu is open (adjust based on left-menu-pane width) */
+}
+
+.toggle-button.left-menu-closed {
+  left: 0; /* Position when menu is closed */
+}
+
+.arrow-icon {
+  font-size: 1.2em;
+  color: #333;
 }
