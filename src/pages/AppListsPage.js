@@ -6,6 +6,7 @@ import LeftMenu from '../components/LeftMenu/LeftMenu';
 import ApplicationsList from '../components/ApplicationsList/ApplicationsList';
 import Assessments from '../components/Assessments/Assessments';
 import TagManagement from '../components/TagManagement/TagManagement';
+import AssetComponent from '../components/AssetComponent/AssetComponent';
 
 const AppListsPage = () => {
   const [isLeftMenuOpen, setIsLeftMenuOpen] = useState(true);
@@ -20,6 +21,11 @@ const AppListsPage = () => {
   };
 
   const renderMainContent = () => {
+    if (selectedMenuItem.startsWith('Asset:')) {
+      const assetName = selectedMenuItem.split(':')[1];
+      return <AssetComponent assetName={assetName} />;
+    }
+
     switch (selectedMenuItem) {
       case 'Applications':
         return <ApplicationsList />;
@@ -40,7 +46,7 @@ const AppListsPage = () => {
           <LeftMenuHeader />
         </div>
         <div className="left-menu-content">
-          <LeftMenu onMenuItemClick={handleMenuItemClick} />
+          <LeftMenu onMenuItemClick={handleMenuItemClick} selectedMenuItem={selectedMenuItem} />
         </div>
       </div>
 
