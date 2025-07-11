@@ -1,21 +1,25 @@
 import React, { useState } from 'react';
 import ItemCell from './ItemCell';
 
-function ItemRow({ item, columns, columnWidths, rowStyle, cellStyle, actionsColumn }) {
+function ItemRow({ item, columns, columnWidths, rowStyle, cellStyle, actionsColumn, onRowClick, selectedItem }) {
   const [isHovered, setIsHovered] = useState(false);
+
+  const isSelected = selectedItem && selectedItem.ID === item.ID; // Assuming 'ID' is unique
 
   return (
     <div 
       style={{
         display: 'flex',
         marginBottom: '8px', /* Vertical separation */
-        backgroundColor: isHovered ? '#BBDEFB' : '#E3F2FD', /* Light blue background, darker on hover */
+        backgroundColor: isSelected ? '#90CAF9' : (isHovered ? '#BBDEFB' : '#E3F2FD'), /* Highlight if selected, then hover, then default */
         borderRadius: '8px', /* Rounded corners */
+        cursor: 'pointer', /* Indicate clickable */
         ...rowStyle,
         transition: 'background-color 0.3s ease', /* Smooth transition for hover */
       }}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
+      onClick={() => onRowClick && onRowClick(item)} /* Call onRowClick when clicked */
     >
       {columns.map((column) => (
         <ItemCell

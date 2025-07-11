@@ -18,6 +18,12 @@
   width: 30%;
   border: 1px solid green;
   box-sizing: border-box;
+  text-align: left; /* Align text to the left */
+  padding: 10px; /* Add padding */
+}
+
+.application-details p {
+  margin-bottom: 5px; /* Add some space between properties */
 }
 
 .applications-header-container {

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './ApplicationsListSection.css';
 import ItemList from '../ItemListComponent/ItemList';
 import { useIndexedDB } from '../../hooks/useIndexedDB';
@@ -6,6 +6,7 @@ import { SETUP_ENV_APPLICATIONS_STORE_NAME } from '../../config/dbConfig';
 
 const ApplicationsListSection = () => {
   const { getAllApplications } = useIndexedDB();
+  const [selectedApplication, setSelectedApplication] = useState(null);
 
   const dataFetcher = async () => {
     return await getAllApplications(SETUP_ENV_APPLICATIONS_STORE_NAME);
@@ -17,6 +18,10 @@ const ApplicationsListSection = () => {
     { key: 'Business Application Status', header: 'Business Application Status', minWidth: '150px', flexGrow: 1 },
   ];
 
+  const handleRowClick = (item) => {
+    setSelectedApplication(item);
+  };
+
   return (
     <div className="applications-list-container">
       {/* Applications List Pane */}
@@ -27,13 +32,24 @@ const ApplicationsListSection = () => {
         </div>
         {/* Applications List Container */}
         <div className="applications-list-container-inner">
-          <ItemList dataFetcher={dataFetcher} columns={columns} />
+          <ItemList dataFetcher={dataFetcher} columns={columns} onRowClick={handleRowClick} selectedItem={selectedApplication} />
         </div>
       </div>
 
       {/* Applications Detail Pane */}
       <div className="applications-detail-pane">
-        <h3>Applications Detail</h3>
+        {selectedApplication ? (
+          <>
+            <h2>{selectedApplication.Name}</h2>
+            <div className="application-details">
+              {Object.entries(selectedApplication).map(([key, value]) => (
+                key !== 'Name' && <p key={key}><strong>{key}:</strong> {value}</p>
+              ))}
+            </div>
+          </>
+        ) : (
+          <h3>Applications Detail</h3>
+        )}
       </div>
     </div>
   );

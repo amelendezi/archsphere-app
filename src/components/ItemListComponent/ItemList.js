@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import ItemRow from './ItemRow';
 
-function ItemList({ dataFetcher, columns, listMaxWidth, listStyle, headerStyle, rowStyle, cellStyle, refreshTrigger, actionsColumn }) {
+function ItemList({ dataFetcher, columns, listMaxWidth, listStyle, headerStyle, rowStyle, cellStyle, refreshTrigger, actionsColumn, onRowClick, selectedItem }) {
   const [items, setItems] = useState([]);
   const [calculatedColumnWidths, setCalculatedColumnWidths] = useState(new Map());
   const listRef = useRef(null);
@@ -170,6 +170,8 @@ function ItemList({ dataFetcher, columns, listMaxWidth, listStyle, headerStyle, 
           rowStyle={rowStyle}
           cellStyle={cellStyle}
           actionsColumn={actionsColumn}
+          onRowClick={onRowClick} /* Pass onRowClick */
+          selectedItem={selectedItem} /* Pass selectedItem */
         />
       ))}
     </div>
