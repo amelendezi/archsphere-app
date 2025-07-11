@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import './ApplicationsListSection.css';
 import ItemList from '../ItemListComponent/ItemList';
 import { useIndexedDB } from '../../hooks/useIndexedDB';
@@ -7,6 +7,8 @@ import { SETUP_ENV_APPLICATIONS_STORE_NAME } from '../../config/dbConfig';
 const ApplicationsListSection = () => {
   const { getAllApplications } = useIndexedDB();
   const [selectedApplication, setSelectedApplication] = useState(null);
+  const [showDetailPane, setShowDetailPane] = useState(false);
+  const detailPaneRef = useRef(null);
 
   const dataFetcher = async () => {
     return await getAllApplications(SETUP_ENV_APPLICATIONS_STORE_NAME);
@@ -19,8 +21,34 @@ const ApplicationsListSection = () => {
   ];
 
   const handleRowClick = (item) => {
-    setSelectedApplication(item);
+    if (selectedApplication && selectedApplication.ID === item.ID) {
+      // If the same item is clicked again, deselect it and close the pane
+      setSelectedApplication(null);
+      setShowDetailPane(false);
+    } else {
+      // Otherwise, select the new item and open the pane
+      setSelectedApplication(item);
+      setShowDetailPane(true);
+    }
   };
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (detailPaneRef.current && !detailPaneRef.current.contains(event.target)) {
+        setShowDetailPane(false);
+      }
+    };
+
+    if (showDetailPane) {
+      document.addEventListener('mousedown', handleClickOutside);
+    } else {
+      document.removeEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [showDetailPane]);
 
   return (
     <div className="applications-list-container">
@@ -37,7 +65,7 @@ const ApplicationsListSection = () => {
       </div>
 
       {/* Applications Detail Pane */}
-      <div className="applications-detail-pane">
+      <div ref={detailPaneRef} className={`applications-detail-pane ${showDetailPane ? 'open' : ''}`}>
         {selectedApplication ? (
           <>
             <h2>{selectedApplication.Name}</h2>

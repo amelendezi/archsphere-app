@@ -14,12 +14,33 @@
   box-sizing: border-box;
 }
 
+.applications-list-container {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  border: 1px solid green;
+  box-sizing: border-box;
+  position: relative; /* For positioning the detail pane */
+  overflow: hidden; /* Hide overflow during animation */
+}
+
 .applications-detail-pane {
   width: 30%;
   border: 1px solid green;
   box-sizing: border-box;
   text-align: left; /* Align text to the left */
   padding: 10px; /* Add padding */
+  position: absolute; /* Position absolutely within the container */
+  top: 0;
+  right: -30%; /* Start off-screen to the right */
+  height: 100%;
+  background-color: white; /* Ensure background is white when sliding */
+  transition: right 0.3s ease-out; /* Smooth slide animation */
+  z-index: 10; /* Ensure it's above the list pane */
+}
+
+.applications-detail-pane.open {
+  right: 0; /* Slide into view */
 }
 
 .application-details p {
