@@ -20,7 +20,6 @@ const AppListsPage = () => {
         {/* Main Content Pane */}
         <div className="main-content-pane">
           <h3>Main Content Pane</h3>
-          <h1>Hello World for Lists</h1>
         </div>
       </div>
     </div>
