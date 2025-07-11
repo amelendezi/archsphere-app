@@ -25,7 +25,7 @@ const AppListsPage = () => {
       <div className={`main-content-wrapper ${isLeftMenuOpen ? 'left-menu-open' : 'left-menu-closed'}`}>
         {/* Header Menu Pane */}
         <div className="header-menu-pane">
-          <h3>Header Menu Pane</h3>
+          <h4>Header Menu Pane</h4>
         </div>
 
         {/* Main Content Pane */}
