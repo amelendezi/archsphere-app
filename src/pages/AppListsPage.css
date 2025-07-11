@@ -15,6 +15,25 @@
   transition: width 0.3s ease-in-out, min-width 0.3s ease-in-out; /* Smooth transition for width */
   position: relative; /* For positioning the toggle button */
   background-color: #E3F2FD; /* Lighter blue background */
+  display: flex; /* Enable flexbox for inner rows */
+  flex-direction: column; /* Stack inner rows vertically */
+}
+
+.left-menu-header {
+  height: 35px; /* Same height as HeaderMenuPane */
+  border: 1px solid red;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.left-menu-content {
+  flex-grow: 1; /* Take remaining space */
+  border: 1px solid red;
+  padding: 10px;
+  box-sizing: border-sizing;
 }
 
 .left-menu-pane.closed {

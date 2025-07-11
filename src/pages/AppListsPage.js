@@ -13,7 +13,12 @@ const AppListsPage = () => {
     <div className="app-lists-page-container">
       {/* Left Menu Pane */}
       <div className={`left-menu-pane ${isLeftMenuOpen ? 'open' : 'closed'}`}>
-        <h2>Left Menu Pane</h2>
+        <div className="left-menu-header">
+          <h3>Left Menu Header</h3>
+        </div>
+        <div className="left-menu-content">
+          <h2>Left Menu Content</h2>
+        </div>
       </div>
 
       {/* Toggle Button */}
