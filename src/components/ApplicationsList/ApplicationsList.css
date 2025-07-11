@@ -1,0 +1,41 @@
+.applications-list-container {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  border: 1px solid green;
+  box-sizing: border-box;
+}
+
+.applications-list-pane {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1; /* Takes up remaining space */
+  border: 1px solid green;
+  box-sizing: border-box;
+}
+
+.applications-detail-pane {
+  width: 30%;
+  border: 1px solid green;
+  box-sizing: border-box;
+}
+
+.applications-header-container {
+  height: 35px;
+  border: 1px solid green;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.applications-header-container h3 {
+  margin: 0; /* Remove default margin from h3 */
+}
+
+.applications-list-container-inner {
+  flex-grow: 1;
+  border: 1px solid green;
+  padding: 5px;
+  box-sizing: border-box;
+}

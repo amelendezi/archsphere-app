@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 const ASSETS_DATA = [
   { id: 'rotterdam', name: 'Rotterdam', content: 'This is the Rotterdam asset.' },
   { id: 'rheinland', name: 'Rheinland', content: 'This is the Rheinland asset.' },
+  { id: 'norco', name: 'Norco', content: 'This is the Norco asset.' },
 ];
 
 const useDummyAssets = () => {
