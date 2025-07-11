@@ -7,8 +7,8 @@
 }
 
 .left-menu-pane {
-  width: 20%;
-  min-width: 200px; /* Ensure a minimum width when open */
+  width: 15%;
+  min-width: 150px; /* Slightly increased width */
   border: 1px solid red;
   padding: 10px;
   box-sizing: border-box;
@@ -102,7 +102,7 @@
 }
 
 .toggle-button.left-menu-open {
-  left: calc(20% - 15px); /* Center of the button aligned with the right border of the leftMenuPane */
+  left: calc(15% - 15px); /* Center of the button aligned with the right border of the leftMenuPane */
 }
 
 .toggle-button.left-menu-closed {
