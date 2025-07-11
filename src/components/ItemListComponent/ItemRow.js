@@ -1,14 +1,22 @@
+import React, { useState } from 'react';
 import ItemCell from './ItemCell';
 
 function ItemRow({ item, columns, columnWidths, rowStyle, cellStyle, actionsColumn }) {
+  const [isHovered, setIsHovered] = useState(false);
+
   return (
-    <div style={{
-      display: 'flex',
-      marginBottom: '8px', /* Vertical separation */
-      backgroundColor: '#E3F2FD', /* Light blue background */
-      borderRadius: '8px', /* Rounded corners */
-      ...rowStyle
-    }}>
+    <div 
+      style={{
+        display: 'flex',
+        marginBottom: '8px', /* Vertical separation */
+        backgroundColor: isHovered ? '#BBDEFB' : '#E3F2FD', /* Light blue background, darker on hover */
+        borderRadius: '8px', /* Rounded corners */
+        ...rowStyle,
+        transition: 'background-color 0.3s ease', /* Smooth transition for hover */
+      }}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
       {columns.map((column) => (
         <ItemCell
           key={column.key}
