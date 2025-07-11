@@ -1,7 +1,7 @@
 import React from 'react';
-import './ApplicationsList.css';
+import './ApplicationsListSection.css';
 
-const ApplicationsList = () => {
+const ApplicationsListSection = () => {
   return (
     <div className="applications-list-container">
       {/* Applications List Pane */}
@@ -24,4 +24,4 @@ const ApplicationsList = () => {
   );
 };
 
-export default ApplicationsList;
+export default ApplicationsListSection;
