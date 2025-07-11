@@ -1,0 +1,18 @@
+.left-menu-header-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%; /* Take full height of parent */
+}
+
+.left-menu-header-logo {
+  height: 100%; /* Resize to fit within the height of the leftMenuHeader */
+  width: auto; /* Maintain aspect ratio */
+  margin-right: 10px; /* Space between logo and title */
+}
+
+.left-menu-header-title {
+  margin: 0; /* Remove default margin */
+  font-size: 1.2em; /* Adjust font size as needed */
+  color: black;
+}

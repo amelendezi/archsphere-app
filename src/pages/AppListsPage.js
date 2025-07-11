@@ -1,6 +1,7 @@
 
 import React, { useState } from 'react';
 import './AppListsPage.css';
+import LeftMenuHeader from '../components/LeftMenuHeader/LeftMenuHeader';
 
 const AppListsPage = () => {
   const [isLeftMenuOpen, setIsLeftMenuOpen] = useState(true);
@@ -14,7 +15,7 @@ const AppListsPage = () => {
       {/* Left Menu Pane */}
       <div className={`left-menu-pane ${isLeftMenuOpen ? 'open' : 'closed'}`}>
         <div className="left-menu-header">
-          <h3>Left Menu Header</h3>
+          <LeftMenuHeader />
         </div>
         <div className="left-menu-content">
           <h2>Left Menu Content</h2>
