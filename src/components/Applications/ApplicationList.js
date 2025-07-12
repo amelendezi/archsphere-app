@@ -23,7 +23,7 @@ const ApplicationList = ({ onApplicationSelect }) => {
   }, [getAllApplications]);
 
   const headers = applications.length > 0 ? Object.keys(applications[0]) : [];
-  const excludedHeaders = ["ID", "Vendor", "Operational status", "portfolio", "functional description", "Functional Description", "Owning Business"];
+  const excludedHeaders = ["ID", "Vendor", "Operational status", "portfolio", "functional description", "Functional Description", "Owning Business", "Portfolio"];
   const filteredHeaders = headers.filter(header => !excludedHeaders.includes(header));
 
   const filteredApplications = applications.map(app => {
