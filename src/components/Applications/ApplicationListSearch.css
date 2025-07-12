@@ -1,6 +1,7 @@
 .application-list-search-container {
   padding: 10px;
   border-bottom: 1px solid #eee;
+  text-align: left; /* Align content to the left */
 }
 
 .application-list-search-input {
@@ -9,4 +10,9 @@
   border: 1px solid #ddd;
   border-radius: 4px;
   box-sizing: border-box;
+}
+
+.application-list-search-input:focus {
+  border-color: #ccc; /* Grey border on focus */
+  outline: none; /* Remove default outline */
 }
