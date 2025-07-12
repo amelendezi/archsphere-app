@@ -5,7 +5,7 @@ import { SETUP_ENV_APPLICATIONS_STORE_NAME } from '../../config/dbConfig';
 import ApplicationListRow from './ApplicationListRow';
 import ApplicationListHeader from './ApplicationListHeader';
 
-const ApplicationList = () => {
+const ApplicationList = ({ onApplicationSelect }) => {
   const [applications, setApplications] = useState([]);
   const { getAllApplications } = useIndexedDB();
 
@@ -38,7 +38,7 @@ const ApplicationList = () => {
     <div className="application-list-container">
       {filteredHeaders.length > 0 && <ApplicationListHeader headers={filteredHeaders} />}
       {filteredApplications.map((app, index) => (
-        <ApplicationListRow key={index} record={app} />
+        <ApplicationListRow key={index} record={app} onRowClick={() => onApplicationSelect(applications[index])} />
       ))}
     </div>
   );

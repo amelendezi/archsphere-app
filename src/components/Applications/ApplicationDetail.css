@@ -1,1 +1,18 @@
-/* Add styles for ApplicationDetail component here */
+.application-detail-container {
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+.detail-item {
+  margin-bottom: 10px;
+}
+
+.detail-label {
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+.detail-value {
+  font-style: italic;
+}
