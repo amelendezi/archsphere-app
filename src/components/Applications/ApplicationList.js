@@ -23,12 +23,22 @@ const ApplicationList = () => {
   }, [getAllApplications]);
 
   const headers = applications.length > 0 ? Object.keys(applications[0]) : [];
+  const excludedHeaders = ["ID", "Vendor", "Operational status", "portfolio", "functional description", "Functional Description", "Owning Business"];
+  const filteredHeaders = headers.filter(header => !excludedHeaders.includes(header));
+
+  const filteredApplications = applications.map(app => {
+    const filteredApp = {};
+    filteredHeaders.forEach(header => {
+      filteredApp[header] = app[header];
+    });
+    return filteredApp;
+  });
 
   return (
     <div className="application-list-container">
-      {headers.length > 0 && <ApplicationListHeader headers={headers} />}
-      {applications.map((app) => (
-        <ApplicationListRow key={app.ID} record={app} />
+      {filteredHeaders.length > 0 && <ApplicationListHeader headers={filteredHeaders} />}
+      {filteredApplications.map((app, index) => (
+        <ApplicationListRow key={index} record={app} />
       ))}
     </div>
   );

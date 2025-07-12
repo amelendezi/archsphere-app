@@ -1,8 +1,15 @@
 .application-list-row {
   display: flex;
-  border-bottom: 1px solid #ddd;
+  background-color: #f0f0f0; /* Light grey background */
+  border-radius: 8px; /* Rounded corners */
+  margin-bottom: 10px; /* Space between rows */
+  transition: background-color 0.3s ease; /* Smooth transition for hover */
+}
+
+.application-list-row:hover {
+  background-color: #e0e0e0; /* Slightly darker grey on hover */
 }
 
 .application-list-row:last-child {
-  border-bottom: none;
+  margin-bottom: 0; /* No margin for the last row */
 }
