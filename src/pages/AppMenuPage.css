@@ -71,6 +71,47 @@
   margin: 0; /* Remove default margin from h3 */
 }
 
+.session-profile-icon-container {
+  position: relative;
+  display: inline-block;
+  margin-left: 10px; /* Add some space between icons */
+}
+
+.session-profile-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background-color: #ccc; /* Grey background for the circle */
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.session-profile-tooltip {
+  visibility: hidden;
+  width: 150px;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+  position: absolute;
+  z-index: 1;
+  left: 30px; /* Position to the right of the icon */
+  top: 50%;
+  transform: translateY(-50%);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.session-profile-icon-container:hover .session-profile-tooltip {
+  visibility: visible;
+  opacity: 1;
+}
+
 .main-content-pane {
   flex-grow: 1;
   padding: 10px;

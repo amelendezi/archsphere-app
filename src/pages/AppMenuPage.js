@@ -59,7 +59,14 @@ const AppMenuPage = () => {
       <div className={`main-content-wrapper ${isLeftMenuOpen ? 'left-menu-open' : 'left-menu-closed'}`}>
         {/* Header Menu Pane */}
         <div className="header-menu-pane">
-          <h4>Header Menu Pane</h4>
+          <div className="session-profile-icon-container">
+            <span className="session-profile-icon">?</span>
+            <span className="session-profile-tooltip">Here place the session profile</span>
+          </div>
+          <div className="session-profile-icon-container">
+            <span className="session-profile-icon">?</span>
+            <span className="session-profile-tooltip">Here will be the settings icon</span>
+          </div>
         </div>
 
         {/* Main Content Pane */}
