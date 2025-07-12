@@ -1,16 +1,29 @@
 .applications-container {
   display: flex;
-  height: 100%; /* Make the container fill the height of its parent */
-  border: 1px solid rgb(108, 240, 81); /* Just to see the main container */
+  height: 100%;
+  border: 1px solid rgb(108, 240, 81);
   flex-grow: 1;
+  overflow: hidden;
 }
 
 .application-list-wrapper {
-  flex: 1;
+  width: 100%; /* Default to full width */
   border: 1px solid rgb(108, 240, 81);
+  transition: width 0.3s ease-in-out;
 }
 
 .application-detail-wrapper {
-  flex: 0 0 30%;
+  width: 30%;
+  flex-shrink: 0;
   border: 1px solid rgb(108, 240, 81);
+  transform: translateX(100%);
+  transition: transform 0.3s ease-in-out;
+}
+
+.applications-container.detail-view-open .application-list-wrapper {
+  width: 70%; /* Shrink when detail view is open */
+}
+
+.applications-container.detail-view-open .application-detail-wrapper {
+  transform: translateX(0);
 }

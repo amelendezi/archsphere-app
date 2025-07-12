@@ -6,17 +6,23 @@ import ApplicationDetail from './ApplicationDetail';
 
 const Applications = () => {
   const [selectedApplication, setSelectedApplication] = useState(null);
+  const [isDetailViewOpen, setIsDetailViewOpen] = useState(false);
 
   const handleApplicationSelect = (application) => {
-    setSelectedApplication(application);
+    if (selectedApplication && selectedApplication.ID === application.ID) {
+      setIsDetailViewOpen(!isDetailViewOpen);
+    } else {
+      setSelectedApplication(application);
+      setIsDetailViewOpen(true);
+    }
   };
 
   return (
-    <div className="applications-container">
+    <div className={`applications-container ${isDetailViewOpen ? 'detail-view-open' : ''}`}>
       <div className="application-list-wrapper">
-        <ApplicationList onApplicationSelect={handleApplicationSelect} />
+        <ApplicationList onApplicationSelect={handleApplicationSelect} selectedApplication={selectedApplication} />
       </div>
-      <div className="application-detail-wrapper">
+      <div className={`application-detail-wrapper ${isDetailViewOpen ? 'open' : ''}`}>
         <ApplicationDetail application={selectedApplication} />
       </div>
     </div>
