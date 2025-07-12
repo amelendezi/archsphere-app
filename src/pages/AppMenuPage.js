@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import './AppMenuPage.css';
 import LeftMenuHeader from '../components/LeftMenuHeader/LeftMenuHeader';
 import LeftMenu from '../components/LeftMenu/LeftMenu';
-import ApplicationListPage from '../components/ApplicationsList/ApplicationListPage';
+import Applications from '../components/ApplicationsList/Applications';
 import Assessments from '../components/Assessments/Assessments';
 import TagManagement from '../components/TagManagement/TagManagement';
 import AssetComponent from '../components/AssetComponent/AssetComponent';
@@ -28,7 +28,7 @@ const AppMenuPage = () => {
 
     switch (selectedMenuItem) {
       case 'Applications':
-        return <ApplicationListPage />;
+        return <Applications />;
       case 'Assessments':
         return <Assessments />;
       case 'Tag Management':

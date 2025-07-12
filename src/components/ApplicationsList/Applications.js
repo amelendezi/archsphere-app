@@ -1,7 +1,7 @@
 import React from 'react';
-import './ApplicationListPage.css';
+import './Applications.css';
 
-const ApplicationListPage = () => {
+const Applications = () => {
   return (
     <div className="applications-list-container">
       <div className="application-list-wrapper">
@@ -14,4 +14,4 @@ const ApplicationListPage = () => {
   );
 };
 
-export default ApplicationListPage;
+export default Applications;
