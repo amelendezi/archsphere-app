@@ -1,14 +1,14 @@
-.applications-list-container {
+.applications-container {
   display: flex;
-  border: 2px solid blue; /* Just to see the main container */
+  border: 1px solid rgb(108, 240, 81); /* Just to see the main container */
 }
 
 .application-list-wrapper {
   flex: 1;
-  border: 2px solid green;
+  border: 1px solid rgb(108, 240, 81);
 }
 
 .application-detail-wrapper {
   flex: 0 0 30%;
-  border: 2px solid green;
+  border: 1px solid rgb(108, 240, 81);
 }
