@@ -4,8 +4,9 @@ import { useIndexedDB } from '../../hooks/useIndexedDB';
 import { SETUP_ENV_APPLICATIONS_STORE_NAME } from '../../config/dbConfig';
 import ApplicationListRow from './ApplicationListRow';
 import ApplicationListHeader from './ApplicationListHeader';
+import ApplicationListSearch from './ApplicationListSearch';
 
-const ApplicationList = ({ onApplicationSelect, selectedApplication }) => {
+const ApplicationList = ({ onApplicationSelect, selectedApplication, searchTerm, onSearchTermChange }) => {
   const [applications, setApplications] = useState([]);
   const { getAllApplications } = useIndexedDB();
 
@@ -26,7 +27,11 @@ const ApplicationList = ({ onApplicationSelect, selectedApplication }) => {
   const excludedHeaders = ["ID", "Vendor", "Operational status", "portfolio", "functional description", "Functional Description", "Owning Business", "Portfolio"];
   const filteredHeaders = headers.filter(header => !excludedHeaders.includes(header));
 
-  const filteredApplications = applications.map(app => {
+  const filteredApplications = applications.filter(app =>
+    Object.values(app).some(value =>
+      String(value).toLowerCase().includes(searchTerm.toLowerCase())
+    )
+  ).map(app => {
     const filteredApp = {};
     filteredHeaders.forEach(header => {
       filteredApp[header] = app[header];
@@ -36,6 +41,7 @@ const ApplicationList = ({ onApplicationSelect, selectedApplication }) => {
 
   return (
     <div className="application-list-container">
+      <ApplicationListSearch onSearchTermChange={onSearchTermChange} />
       {filteredHeaders.length > 0 && <ApplicationListHeader headers={filteredHeaders} />}
       {filteredApplications.map((app, index) => (
         <ApplicationListRow

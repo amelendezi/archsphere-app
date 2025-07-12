@@ -1,0 +1,12 @@
+.application-list-search-container {
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+}
+
+.application-list-search-input {
+  width: 20%; /* 20% relative to the width of the applications list */
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
