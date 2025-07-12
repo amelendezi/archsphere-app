@@ -3,7 +3,6 @@ import './Applications.css';
 
 import ApplicationList from './ApplicationList';
 import ApplicationDetail from './ApplicationDetail';
-import ApplicationListSearch from './ApplicationListSearch';
 
 const Applications = () => {
   const [selectedApplication, setSelectedApplication] = useState(null);
