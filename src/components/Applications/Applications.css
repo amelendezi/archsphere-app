@@ -1,7 +1,6 @@
 .applications-container {
   display: flex;
   height: 100%;
-  border: 1px solid rgb(108, 240, 81);
   flex-grow: 1;
   overflow: hidden;
   position: relative; /* Added for absolute positioning of detail wrapper */
@@ -9,7 +8,6 @@
 
 .application-list-wrapper {
   width: 100%; /* Default to full width */
-  border: 1px solid rgb(108, 240, 81);
   transition: width 0.3s ease-in-out;
 }
 
@@ -19,7 +17,6 @@
   position: absolute; /* Removed from flex flow */
   top: 0;
   right: 0;
-  border: 1px solid rgb(108, 240, 81);
   transform: translateX(100%); /* Initially off-screen */
   transition: transform 0.3s ease-in-out;
 }
