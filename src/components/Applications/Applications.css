@@ -4,6 +4,7 @@
   border: 1px solid rgb(108, 240, 81);
   flex-grow: 1;
   overflow: hidden;
+  position: relative; /* Added for absolute positioning of detail wrapper */
 }
 
 .application-list-wrapper {
@@ -14,9 +15,12 @@
 
 .application-detail-wrapper {
   width: 30%;
-  flex-shrink: 0;
+  height: 100%; /* Ensure it fills the height when absolute */
+  position: absolute; /* Removed from flex flow */
+  top: 0;
+  right: 0;
   border: 1px solid rgb(108, 240, 81);
-  transform: translateX(100%);
+  transform: translateX(100%); /* Initially off-screen */
   transition: transform 0.3s ease-in-out;
 }
 
@@ -25,5 +29,5 @@
 }
 
 .applications-container.detail-view-open .application-detail-wrapper {
-  transform: translateX(0);
+  transform: translateX(0); /* Slide the detail view in */
 }
