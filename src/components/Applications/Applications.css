@@ -1,6 +1,8 @@
 .applications-container {
   display: flex;
+  height: 100%; /* Make the container fill the height of its parent */
   border: 1px solid rgb(108, 240, 81); /* Just to see the main container */
+  flex-grow: 1;
 }
 
 .application-list-wrapper {
