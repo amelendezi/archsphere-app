@@ -3,3 +3,13 @@
   overflow-y: auto;
   padding-right: 15px; /* Add some padding to avoid the scrollbar overlapping the content */  
 }
+
+/* Hide scrollbar for WebKit browsers */
+.application-list-container::-webkit-scrollbar {
+  width: 0; /* Hide the scrollbar */
+  background: transparent; /* Optional: make scrollbar track transparent */
+}
+
+.application-list-container::-webkit-scrollbar-thumb {
+  background: transparent; /* Optional: make scrollbar thumb transparent */
+}

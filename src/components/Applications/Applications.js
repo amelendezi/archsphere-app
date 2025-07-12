@@ -12,6 +12,9 @@ const Applications = () => {
   const handleApplicationSelect = (application) => {
     if (selectedApplication && selectedApplication.ID === application.ID) {
       setIsDetailViewOpen(!isDetailViewOpen);
+      if (isDetailViewOpen) { // If detail view is currently open and we are closing it
+        setSelectedApplication(null);
+      }
     } else {
       setSelectedApplication(application);
       setIsDetailViewOpen(true);
