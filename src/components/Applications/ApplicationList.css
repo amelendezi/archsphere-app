@@ -1,5 +1,5 @@
 .application-list-container {
-  height: 100%; /* Make the container fill the height of its parent */
+  height: calc(100% - 40px); /* Slightly reduce height to make last item visible */
   overflow-y: auto;
-  padding-right: 15px; /* Add some padding to avoid the scrollbar overlapping the content */
+  padding-right: 15px; /* Add some padding to avoid the scrollbar overlapping the content */  
 }
