@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import './AppMenuPage.css';
 import LeftMenuHeader from '../components/LeftMenuHeader/LeftMenuHeader';
 import LeftMenu from '../components/LeftMenu/LeftMenu';
-import Applications from '../components/ApplicationsList/Applications';
+import Applications from '../components/Applications/Applications';
 import Assessments from '../components/Assessments/Assessments';
 import TagManagement from '../components/TagManagement/TagManagement';
 import AssetComponent from '../components/AssetComponent/AssetComponent';

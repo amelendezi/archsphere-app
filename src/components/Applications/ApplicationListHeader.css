@@ -1,0 +1,13 @@
+.application-list-header {
+  display: flex;
+  font-weight: bold;
+  border-bottom: 2px solid #ccc;
+  padding-bottom: 5px;
+  margin-bottom: 5px;
+}
+
+.application-list-header-cell {
+  flex: 1;
+  padding: 8px;
+  text-align: center;
+}

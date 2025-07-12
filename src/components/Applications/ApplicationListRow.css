@@ -1,0 +1,8 @@
+.application-list-row {
+  display: flex;
+  border-bottom: 1px solid #ddd;
+}
+
+.application-list-row:last-child {
+  border-bottom: none;
+}

@@ -2,6 +2,7 @@ import React from 'react';
 import './Applications.css';
 
 import ApplicationList from './ApplicationList';
+import ApplicationDetail from './ApplicationDetail';
 
 const Applications = () => {
   return (
@@ -10,7 +11,7 @@ const Applications = () => {
         <ApplicationList />
       </div>
       <div className="application-detail-wrapper">
-        {/* Content for application details will go here */}
+        <ApplicationDetail />
       </div>
     </div>
   );
