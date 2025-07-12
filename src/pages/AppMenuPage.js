@@ -1,14 +1,14 @@
 
 import React, { useState } from 'react';
-import './AppListsPage.css';
+import './AppMenuPage.css';
 import LeftMenuHeader from '../components/LeftMenuHeader/LeftMenuHeader';
 import LeftMenu from '../components/LeftMenu/LeftMenu';
-import ApplicationsList from '../components/ApplicationsList/ApplicationsList';
+import ApplicationListPage from '../components/ApplicationsList/ApplicationListPage';
 import Assessments from '../components/Assessments/Assessments';
 import TagManagement from '../components/TagManagement/TagManagement';
 import AssetComponent from '../components/AssetComponent/AssetComponent';
 
-const AppListsPage = () => {
+const AppMenuPage = () => {
   const [isLeftMenuOpen, setIsLeftMenuOpen] = useState(true);
   const [selectedMenuItem, setSelectedMenuItem] = useState('Applications'); // Default selected item
 
@@ -28,7 +28,7 @@ const AppListsPage = () => {
 
     switch (selectedMenuItem) {
       case 'Applications':
-        return <ApplicationsList />;
+        return <ApplicationListPage />;
       case 'Assessments':
         return <Assessments />;
       case 'Tag Management':
@@ -71,4 +71,4 @@ const AppListsPage = () => {
   );
 };
 
-export default AppListsPage;
+export default AppMenuPage;
