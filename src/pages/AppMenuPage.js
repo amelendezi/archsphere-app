@@ -7,6 +7,7 @@ import Applications from '../components/Applications/Applications';
 import Assessments from '../components/Assessments/Assessments';
 import TagManagement from '../components/TagManagement/TagManagement';
 import AssetComponent from '../components/AssetComponent/AssetComponent';
+import { FaDownload } from 'react-icons/fa';
 
 const AppMenuPage = () => {
   const [isLeftMenuOpen, setIsLeftMenuOpen] = useState(true);
@@ -60,8 +61,8 @@ const AppMenuPage = () => {
         {/* Header Menu Pane */}
         <div className="header-menu-pane">
           <div className="session-profile-icon-container">
-            <span className="session-profile-icon">?</span>
-            <span className="session-profile-tooltip">Here place the session profile</span>
+            <span className="session-profile-icon"><FaDownload style={{ color: '#3367D6', fill: 'white' }} /></span>
+            <span className="session-profile-tooltip">Download saved work</span>
           </div>
           <div className="session-profile-icon-container">
             <span className="session-profile-icon">?</span>
