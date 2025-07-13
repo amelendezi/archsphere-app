@@ -49,7 +49,7 @@ const Applications = () => {
         />
       </div>
       <div className={`application-detail-wrapper ${isDetailViewOpen ? 'open' : ''}`}>
-        <ApplicationDetail key={selectedApplication.ID} application={selectedApplication} />
+        {selectedApplication && <ApplicationDetail key={selectedApplication.ID} application={selectedApplication} />}
       </div>
     </div>
   );

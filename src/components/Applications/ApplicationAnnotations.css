@@ -58,6 +58,7 @@
 .annotation-item {
   border-bottom: 1px solid #eee;
   padding: 10px 0;
+  text-align: left;
 }
 
 .annotation-comment {
