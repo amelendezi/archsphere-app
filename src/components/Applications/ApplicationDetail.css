@@ -4,7 +4,15 @@
   border: 1px solid #ccc; /* Light grey border */
   display: flex;
   flex-direction: column;
-  overflow: hidden; /* Hide any overflowing content and scrollbars */
+  overflow: auto; /* Hide any overflowing content and scrollbars */
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+  height: 100%;
+  box-sizing: border-box;
+}
+
+.application-detail-container::-webkit-scrollbar {
+    display: none;
 }
 
 .application-detail-header {
@@ -21,6 +29,7 @@
 .application-detail-body {
   flex-grow: 1;
   margin-bottom: 15px;
+  margin-top: 10px;
 }
 
 .application-detail-property {
@@ -50,11 +59,31 @@
 .application-detail-property-value {
   font-style: italic;
   color: #777;
+  text-align: left;
 }
 
-.application-detail-annotations {
-  padding-top: 10px;
-  border-top: 1px solid #ddd;
-  font-size: 0.9em;
+
+
+.collapsible-section {
+  margin-bottom: 10px;
+}
+
+.collapsible-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  padding: 5px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.collapsible-header h3 {
+  margin: 0;
+  color: #6cadcf;
+  font-weight: normal;
+}
+
+.collapse-icon {
+  font-size: 0.8em;
   color: #888;
 }

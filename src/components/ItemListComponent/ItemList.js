@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import ItemRow from './ItemRow';
 
 function ItemList({ dataFetcher, columns, listMaxWidth, listStyle, headerStyle, rowStyle, cellStyle, refreshTrigger, actionsColumn }) {
@@ -6,7 +6,7 @@ function ItemList({ dataFetcher, columns, listMaxWidth, listStyle, headerStyle, 
   const [calculatedColumnWidths, setCalculatedColumnWidths] = useState(new Map());
   const listRef = useRef(null);
 
-  const calculateWidths = (containerWidth) => {
+  const calculateWidths = useCallback((containerWidth) => {
     if (!containerWidth || !columns || columns.length === 0) {
       setCalculatedColumnWidths(new Map());
       return;
@@ -90,7 +90,7 @@ function ItemList({ dataFetcher, columns, listMaxWidth, listStyle, headerStyle, 
     }
 
     setCalculatedColumnWidths(newWidths);
-  };
+  }, [columns, actionsColumn]);
 
   useEffect(() => {
     const fetchItems = async () => {
@@ -120,12 +120,13 @@ function ItemList({ dataFetcher, columns, listMaxWidth, listStyle, headerStyle, 
       calculateWidths(listRef.current.offsetWidth);
     }
 
+    const currentListRef = listRef.current;
     return () => {
-      if (listRef.current) {
-        observer.unobserve(listRef.current);
+      if (currentListRef) {
+        observer.unobserve(currentListRef);
       }
     };
-  }, [columns, listMaxWidth]); // Recalculate on column or max width changes
+  }, [columns, listMaxWidth, calculateWidths]); // Recalculate on column or max width changes
 
   return (
     <div ref={listRef} style={{ width: listMaxWidth, ...listStyle }}>
