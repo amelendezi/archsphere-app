@@ -78,15 +78,15 @@ const ApplicationAnnotations = ({ application }) => {
               </div>
             ) : (
               <div>
-                <h4>New Annotation</h4>
+                <h4>Write your annotation below:</h4>
                 <textarea
                   maxLength="250"
                   value={newAnnotation}
                   onChange={(e) => setNewAnnotation(e.target.value)}
                 />
                 <div className="dialog-buttons">
-                  <button onClick={handleAddAnnotation}>Save</button>
-                  <button onClick={closeDialog}>Close</button>
+                  <button className="dialog-btn close-btn" onClick={closeDialog}>Close</button>
+                  <button className="dialog-btn save-btn" onClick={handleAddAnnotation}>Save</button>
                 </div>
               </div>
             )}
