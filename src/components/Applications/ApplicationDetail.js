@@ -4,7 +4,7 @@ import ApplicationAnnotations from './ApplicationAnnotations';
 
 const ApplicationDetail = ({ application }) => {
   const [isBodyVisible, setBodyVisible] = useState(true);
-  const [isAnnotationsVisible, setAnnotationsVisible] = useState(false);
+  const [isAnnotationsVisible, setAnnotationsVisible] = useState(true);
 
   if (!application) {
     return (
