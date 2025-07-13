@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './ApplicationDetail.css';
 
 const ApplicationDetail = ({ application }) => {
+  const [isBodyVisible, setBodyVisible] = useState(true);
+  const [isAnnotationsVisible, setAnnotationsVisible] = useState(false);
+
   if (!application) {
     return (
       <div className="application-detail-container">
@@ -18,25 +21,40 @@ const ApplicationDetail = ({ application }) => {
         <h2>{application.Name}</h2>
       </div>
 
-      <div className="application-detail-body">
-        {Object.entries(application).map(([key, value]) => {
-          // Exclude ID from detail view as well, if it's not needed
-          if (key === "ID") return null;
+      <div className="collapsible-section">
+        <div className="collapsible-header" onClick={() => setBodyVisible(!isBodyVisible)}>
+          <h3>Details</h3>
+          <span className="collapse-icon">{isBodyVisible ? '▲' : '▼'}</span>
+        </div>
+        {isBodyVisible && (
+          <div className="application-detail-body">
+            {Object.entries(application).map(([key, value]) => {
+              if (key === "ID" || key === "Name") return null;
 
-          const isVertical = verticalLayoutProperties.includes(key);
-          const propertyClassName = `application-detail-property ${isVertical ? 'vertical' : 'horizontal'}`;
+              const isVertical = verticalLayoutProperties.includes(key);
+              const propertyClassName = `application-detail-property ${isVertical ? 'vertical' : 'horizontal'}`;
 
-          return (
-            <div key={key} className={propertyClassName}>
-              <div className="application-detail-property-label">{key}:</div>
-              <div className="application-detail-property-value">{value}</div>
-            </div>
-          );
-        })}
+              return (
+                <div key={key} className={propertyClassName}>
+                  <div className="application-detail-property-label">{key}:</div>
+                  <div className="application-detail-property-value">{value}</div>
+                </div>
+              );
+            })}
+          </div>
+        )}
       </div>
 
-      <div className="application-detail-annotations">
-        <p>Here will be annotations.</p>
+      <div className="collapsible-section">
+        <div className="collapsible-header" onClick={() => setAnnotationsVisible(!isAnnotationsVisible)}>
+          <h3>Annotations</h3>
+          <span className="collapse-icon">{isAnnotationsVisible ? '▲' : '▼'}</span>
+        </div>
+        {isAnnotationsVisible && (
+          <div className="application-detail-annotations">
+            <p>Here will be annotations.</p>
+          </div>
+        )}
       </div>
     </div>
   );
