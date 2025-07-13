@@ -52,7 +52,7 @@ const ApplicationDetail = ({ application }) => {
           <span className="collapse-icon">{isAnnotationsVisible ? '▲' : '▼'}</span>
         </div>
         {isAnnotationsVisible && (
-          <ApplicationAnnotations />
+          <ApplicationAnnotations application={application} />
         )}
       </div>
     </div>
