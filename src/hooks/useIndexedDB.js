@@ -121,5 +121,15 @@ export const useIndexedDB = () => {
     await tx.done;
   };
 
-  return { addApplications, addNewApplications, getStoreCount, addConflict, clearStore, clearStores, getAllApplications, getAnnotations, addAnnotation };
+  const deleteAnnotation = async (applicationId, annotationToDelete) => {
+    const db = await getDbPromise();
+    const tx = db.transaction(APP_ANNOTATIONS_STORE_NAME, 'readwrite');
+    const store = tx.objectStore(APP_ANNOTATIONS_STORE_NAME);
+    const existingAnnotations = await store.get(applicationId) || [];
+    const updatedAnnotations = existingAnnotations.filter(annotation => annotation.timestamp !== annotationToDelete.timestamp);
+    await store.put(updatedAnnotations, applicationId);
+    await tx.done;
+  };
+
+  return { addApplications, addNewApplications, getStoreCount, addConflict, clearStore, clearStores, getAllApplications, getAnnotations, addAnnotation, deleteAnnotation };
 };

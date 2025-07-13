@@ -46,6 +46,26 @@
   justify-content: flex-end;
 }
 
+.dialog-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.delete-btn {
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  padding: 0;
+  color: #dc3545;
+}
+
+.delete-btn:hover {
+  color: #a71d2a;
+}
+
 .annotations-header button {
   margin-left: 10px;
 }
@@ -77,6 +97,22 @@
   border-bottom: 1px solid #eee;
   padding: 10px 0;
   text-align: left;
+  cursor: pointer;
+}
+
+.annotation-item:hover {
+  background-color: #f9f9f9;
+}
+
+.annotation-comment-dialog {
+  margin-bottom: 15px;
+  font-size: 1.1em;
+  white-space: pre-wrap; /* Preserve whitespace and newlines */
+}
+
+.annotation-meta-dialog {
+  font-size: 0.9em;
+  color: #888;
 }
 
 .annotation-comment {

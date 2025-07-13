@@ -6,15 +6,16 @@ const ApplicationAnnotations = ({ application }) => {
   const [annotations, setAnnotations] = useState([]);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [newAnnotation, setNewAnnotation] = useState('');
+  const [selectedAnnotation, setSelectedAnnotation] = useState(null);
 
-  const { getAnnotations, addAnnotation } = useIndexedDB();
+  const { getAnnotations, addAnnotation, deleteAnnotation } = useIndexedDB();
 
   const fetchAnnotations = useCallback(async () => {
     if (application) {
       const data = await getAnnotations(application.ID);
-      if (data) {
-        setAnnotations(data);
-      }
+      setAnnotations(data || []);
+    } else {
+      setAnnotations([]);
     }
   }, [application, getAnnotations]);
 
@@ -31,33 +32,71 @@ const ApplicationAnnotations = ({ application }) => {
     }
   }, [application, newAnnotation, addAnnotation, fetchAnnotations]);
 
+  const handleDeleteAnnotation = useCallback(async () => {
+    if (selectedAnnotation) {
+      await deleteAnnotation(application.ID, selectedAnnotation);
+      fetchAnnotations();
+      closeDialog();
+    }
+  }, [application, selectedAnnotation, deleteAnnotation, fetchAnnotations]);
+
+  const openNewAnnotationDialog = () => {
+    setSelectedAnnotation(null);
+    setIsDialogOpen(true);
+  };
+
+  const openViewAnnotationDialog = (annotation) => {
+    setSelectedAnnotation(annotation);
+    setIsDialogOpen(true);
+  };
+
+  const closeDialog = () => {
+    setIsDialogOpen(false);
+    setNewAnnotation('');
+    setSelectedAnnotation(null);
+  };
+
   return (
     <div className="application-annotations-container">
       <div className="annotations-header">
         <h3>Annotations</h3>
-        <button className="new-annotation-btn" onClick={() => setIsDialogOpen(true)}>+</button>
+        <button className="new-annotation-btn" onClick={openNewAnnotationDialog}>+</button>
       </div>
 
       {isDialogOpen && (
         <div className="annotation-dialog">
           <div className="annotation-dialog-content">
-            <h4>New Annotation</h4>
-            <textarea
-              maxLength="250"
-              value={newAnnotation}
-              onChange={(e) => setNewAnnotation(e.target.value)}
-            />
-            <div className="dialog-buttons">
-              <button onClick={handleAddAnnotation}>Save</button>
-              <button onClick={() => setIsDialogOpen(false)}>Close</button>
-            </div>
+            {selectedAnnotation ? (
+              <div>
+                <h4>Annotation Details</h4>
+                <p className="annotation-comment-dialog">{selectedAnnotation.comment}</p>
+                <p className="annotation-meta-dialog">{selectedAnnotation.user} - {new Date(selectedAnnotation.timestamp).toLocaleString()}</p>
+                <div className="dialog-footer">
+                  <button className="delete-btn" onClick={handleDeleteAnnotation}>🗑️</button>
+                  <button onClick={closeDialog}>Close</button>
+                </div>
+              </div>
+            ) : (
+              <div>
+                <h4>New Annotation</h4>
+                <textarea
+                  maxLength="250"
+                  value={newAnnotation}
+                  onChange={(e) => setNewAnnotation(e.target.value)}
+                />
+                <div className="dialog-buttons">
+                  <button onClick={handleAddAnnotation}>Save</button>
+                  <button onClick={closeDialog}>Close</button>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       )}
 
       <div className="annotations-list">
         {annotations.map((annotation, index) => (
-          <div key={index} className="annotation-item">
+          <div key={index} className="annotation-item" onClick={() => openViewAnnotationDialog(annotation)}>
             <p className="annotation-comment">{annotation.comment}</p>
             <p className="annotation-meta">
               {annotation.user} - {new Date(annotation.timestamp).toLocaleString()}
