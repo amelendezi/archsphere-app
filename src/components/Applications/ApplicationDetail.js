@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './ApplicationDetail.css';
+import ApplicationAnnotations from './ApplicationAnnotations';
 
 const ApplicationDetail = ({ application }) => {
   const [isBodyVisible, setBodyVisible] = useState(true);
@@ -51,9 +52,7 @@ const ApplicationDetail = ({ application }) => {
           <span className="collapse-icon">{isAnnotationsVisible ? '▲' : '▼'}</span>
         </div>
         {isAnnotationsVisible && (
-          <div className="application-detail-annotations">
-            <p>Here will be annotations.</p>
-          </div>
+          <ApplicationAnnotations />
         )}
       </div>
     </div>
