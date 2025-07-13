@@ -46,8 +46,26 @@
   justify-content: flex-end;
 }
 
-.dialog-buttons button {
+.annotations-header button {
   margin-left: 10px;
+}
+
+.new-annotation-btn {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  font-size: 20px;
+  line-height: 30px;
+  text-align: center;
+  cursor: pointer;
+  padding: 0;
+}
+
+.new-annotation-btn:hover {
+  background-color: #0056b3;
 }
 
 .annotations-list {

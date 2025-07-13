@@ -35,7 +35,7 @@ const ApplicationAnnotations = ({ application }) => {
     <div className="application-annotations-container">
       <div className="annotations-header">
         <h3>Annotations</h3>
-        <button onClick={() => setIsDialogOpen(true)}>New</button>
+        <button className="new-annotation-btn" onClick={() => setIsDialogOpen(true)}>+</button>
       </div>
 
       {isDialogOpen && (
