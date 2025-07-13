@@ -1,17 +1,23 @@
 import React, { useState } from 'react';
-import './DownloadEnvironment.css';
 import { useIndexedDB } from '../../hooks/useIndexedDB';
-import { SETUP_ENV_APPLICATIONS_STORE_NAME } from '../../config/dbConfig';
+import { SETUP_ENV_APPLICATIONS_STORE_NAME, APP_ANNOTATIONS_STORE_NAME } from '../../config/dbConfig';
+import './DownloadEnvironment.css';
 
 const DownloadEnvironment = ({ onClose }) => {
-  const [includeApplications, setIncludeApplications] = useState(true);
-  const { getAllApplications } = useIndexedDB();
+  const [includeAnnotations, setIncludeAnnotations] = useState(false);
+  const { getAllApplications, getAllStoreData } = useIndexedDB();
 
   const handleDownload = async () => {
-    if (includeApplications) {
+    try {
       const applications = await getAllApplications(SETUP_ENV_APPLICATIONS_STORE_NAME);
-      const data = { applications };
-      const json = JSON.stringify(data, null, 2);
+      let dataToDownload = { applications };
+
+      if (includeAnnotations) {
+        const annotations = await getAllStoreData(APP_ANNOTATIONS_STORE_NAME);
+        dataToDownload.application_annotations = annotations;
+      }
+
+      const json = JSON.stringify(dataToDownload, null, 2);
       const blob = new Blob([json], { type: 'application/json' });
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
@@ -21,26 +27,28 @@ const DownloadEnvironment = ({ onClose }) => {
       a.click();
       document.body.removeChild(a);
       URL.revokeObjectURL(url);
+      onClose();
+    } catch (error) {
+      console.error("Failed to download environment:", error);
     }
-    onClose();
   };
 
   return (
     <div className="download-environment-dialog-overlay">
       <div className="download-environment-dialog">
-        <p>Download the environment.json to use next time you work with the app. This contains all the changes.</p>
-        <div>
-          <input
-            type="checkbox"
-            id="applications-checkbox"
-            checked={includeApplications}
-            onChange={() => setIncludeApplications(!includeApplications)}
+        <h3>Download Options</h3>
+        <div className="checkbox-container">
+          <input 
+            type="checkbox" 
+            id="include-annotations" 
+            checked={includeAnnotations} 
+            onChange={() => setIncludeAnnotations(!includeAnnotations)} 
           />
-          <label htmlFor="applications-checkbox">Applications</label>
+          <label htmlFor="include-annotations">Application Annotations</label>
         </div>
         <div className="button-container">
-          <button className="reconciliationButtonPrimary" style={{ backgroundColor: 'grey' }} onClick={onClose}>Close</button>
           <button className="reconciliationButtonPrimary" onClick={handleDownload}>Download</button>
+          <button className="reconciliationButtonPrimary" onClick={onClose}>Cancel</button>
         </div>
       </div>
     </div>

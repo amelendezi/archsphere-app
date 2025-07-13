@@ -4,7 +4,15 @@ import { onEnvironmentFileInputChange } from './UploadEnvironmentFileController'
 
 function UploadEnvironmentFile({ selectedFile, handleFileChange, loadedCount, fileInputId }) {
   const [showTooltip, setShowTooltip] = useState(false);
-  const { clearStore } = useIndexedDB();
+  const { addApplications, loadAnnotations, clearStore } = useIndexedDB();
+
+  const handleOnChange = (event) => {
+    onEnvironmentFileInputChange(
+      event,
+      handleFileChange,
+      { addApplications, loadAnnotations, clearStore }
+    );
+  };
 
   return (
     <table style={{ width: '100%', borderCollapse: 'collapse', backgroundColor: '#f8f8f8' }}>
@@ -47,7 +55,7 @@ function UploadEnvironmentFile({ selectedFile, handleFileChange, loadedCount, fi
             <label htmlFor={fileInputId} className="UploadState-button UploadState-button-choose-file">
               Choose File
             </label>
-            <input id={fileInputId} type="file" accept=".json" style={{ display: 'none' }} onChange={(event) => onEnvironmentFileInputChange(event, clearStore, handleFileChange)} />
+            <input id={fileInputId} type="file" accept=".json" style={{ display: 'none' }} onChange={handleOnChange} />
           </td>
           <td style={{ padding: '8px', verticalAlign: 'middle', textAlign: 'left', width: '15%' }}>
             <span className="UploadState-file-name" style={{ fontSize: '0.8em' }}>

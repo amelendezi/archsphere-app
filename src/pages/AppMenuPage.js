@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import './AppMenuPage.css';
 import LeftMenuHeader from '../components/LeftMenuHeader/LeftMenuHeader';
@@ -13,7 +12,7 @@ import DownloadEnvironment from '../components/DownloadEnvironment/DownloadEnvir
 const AppMenuPage = () => {
   const [isLeftMenuOpen, setIsLeftMenuOpen] = useState(true);
   const [selectedMenuItem, setSelectedMenuItem] = useState('Applications'); // Default selected item
-  const [showDownloadDialog, setShowDownloadDialog] = useState(false);
+  const [showDownload, setShowDownload] = useState(false);
 
   const toggleLeftMenu = () => {
     setIsLeftMenuOpen(!isLeftMenuOpen);
@@ -63,7 +62,7 @@ const AppMenuPage = () => {
         {/* Header Menu Pane */}
         <div className="header-menu-pane">
           <div className="session-profile-icon-container">
-            <span className="session-profile-icon" onClick={() => setShowDownloadDialog(true)}><FaDownload style={{ color: '#3367D6', fill: 'white' }} /></span>
+            <span className="session-profile-icon" onClick={() => setShowDownload(true)}><FaDownload style={{ color: '#3367D6', fill: 'white' }} /></span>
             <span className="session-profile-tooltip">Download saved work</span>
           </div>
           <div className="session-profile-icon-container">
@@ -76,7 +75,7 @@ const AppMenuPage = () => {
         <div className="main-content-pane">
           {renderMainContent()}
         </div>
-        {showDownloadDialog && <DownloadEnvironment onClose={() => setShowDownloadDialog(false)} />}
+        {showDownload && <DownloadEnvironment onClose={() => setShowDownload(false)} />}
       </div>
     </div>
   );

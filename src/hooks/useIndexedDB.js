@@ -131,5 +131,25 @@ export const useIndexedDB = () => {
     await tx.done;
   };
 
-  return { addApplications, addNewApplications, getStoreCount, addConflict, clearStore, clearStores, getAllApplications, getAnnotations, addAnnotation, deleteAnnotation };
+  const getAllStoreData = async (storeName) => {
+    const db = await getDbPromise();
+    const tx = db.transaction(storeName, 'readonly');
+    const store = tx.objectStore(storeName);
+    const keys = await store.getAllKeys();
+    const values = await store.getAll();
+    return keys.map((key, index) => ({ id: key, annotations: values[index] }));
+  };
+
+  const loadAnnotations = async (annotationsData) => {
+    const db = await getDbPromise();
+    const tx = db.transaction(APP_ANNOTATIONS_STORE_NAME, 'readwrite');
+    const store = tx.objectStore(APP_ANNOTATIONS_STORE_NAME);
+    await store.clear();
+    for (const item of annotationsData) {
+      await store.put(item.annotations, item.id);
+    }
+    await tx.done;
+  };
+
+  return { addApplications, addNewApplications, getStoreCount, addConflict, clearStore, clearStores, getAllApplications, getAnnotations, addAnnotation, deleteAnnotation, getAllStoreData, loadAnnotations };
 };
