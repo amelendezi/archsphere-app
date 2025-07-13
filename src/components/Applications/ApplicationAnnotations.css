@@ -7,7 +7,7 @@
 
 .annotations-header {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
   margin-bottom: 10px;
 }
@@ -149,11 +149,13 @@
   margin-bottom: 15px;
   font-size: 1.1em;
   white-space: pre-wrap; /* Preserve whitespace and newlines */
+  text-align: left;
 }
 
 .annotation-meta-dialog {
   font-size: 0.9em;
   color: #888;
+  text-align: left;
 }
 
 .annotation-comment {

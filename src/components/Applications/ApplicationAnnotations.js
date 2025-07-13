@@ -59,7 +59,6 @@ const ApplicationAnnotations = ({ application }) => {
   return (
     <div className="application-annotations-container">
       <div className="annotations-header">
-        <h3>Annotations</h3>
         <button className="new-annotation-btn" onClick={openNewAnnotationDialog}>+</button>
       </div>
 
@@ -73,7 +72,7 @@ const ApplicationAnnotations = ({ application }) => {
                 <p className="annotation-meta-dialog">{selectedAnnotation.user} - {new Date(selectedAnnotation.timestamp).toLocaleString()}</p>
                 <div className="dialog-footer">
                   <button className="delete-btn" onClick={handleDeleteAnnotation}>🗑️</button>
-                  <button onClick={closeDialog}>Close</button>
+                  <button className="dialog-btn close-btn" onClick={closeDialog}>Close</button>
                 </div>
               </div>
             ) : (
