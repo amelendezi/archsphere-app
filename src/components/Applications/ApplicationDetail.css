@@ -4,6 +4,7 @@
   border: 1px solid #ccc; /* Light grey border */
   display: flex;
   flex-direction: column;
+  overflow: hidden; /* Hide any overflowing content and scrollbars */
 }
 
 .application-detail-header {

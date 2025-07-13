@@ -2,23 +2,19 @@
   height: calc(100% - 40px); /* Slightly reduce height to make last item visible */
   overflow-y: auto;
   padding-right: 15px; /* Add some padding to avoid the scrollbar overlapping the content */  
+  padding-bottom: 10px; /* Add padding to the bottom */
   display: flex;
   flex-direction: column;
+  scrollbar-width: none; /* For Firefox */
+  -ms-overflow-style: none;  /* For Internet Explorer and Edge */
 }
 
-/* Custom scrollbar for WebKit browsers */
+/* Hide scrollbar for WebKit browsers */
 .application-list-container::-webkit-scrollbar {
-  width: 8px; /* Small width for the scrollbar */
+  width: 0; /* Hide the scrollbar */
   background: transparent; /* Make the track transparent */
 }
 
 .application-list-container::-webkit-scrollbar-thumb {
-  background-color: rgba(0, 0, 0, 0.3); /* Semi-transparent black dot */
-  border-radius: 4px; /* Make it round */
-  border: 2px solid transparent; /* Add transparent border to make it smaller */
-  background-clip: padding-box; /* Ensure border doesn't interfere with background */
-}
-
-.application-list-container::-webkit-scrollbar-button {
-  display: none; /* Hide the scrollbar buttons */
+  background: transparent; /* Make the scrollbar thumb transparent */
 }
