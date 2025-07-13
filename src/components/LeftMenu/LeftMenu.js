@@ -9,7 +9,8 @@ const LeftMenu = ({ onMenuItemClick, selectedMenuItem }) => {
   const menuItems = [
     "Applications", 
     "Assessments", 
-    "Tag Management"
+    "Tag Management",
+    "Assets"
   ];
 
   const handleItemClick = (item) => {
@@ -28,39 +29,33 @@ const LeftMenu = ({ onMenuItemClick, selectedMenuItem }) => {
   return (
     <nav className="left-menu-nav">
       <ul className="left-menu-list">
-        <li 
-          key="Assets" 
-          className={`left-menu-item left-menu-item-parent ${selectedMenuItem.startsWith('Asset:') ? 'selected' : ''}`}
-          onClick={() => handleItemClick("Assets")}
-        >
-          <span>Assets</span>
-          <span className="arrow-indicator">{showAssetsSubMenu ? '▲' : '▼'}</span>
-        </li>
-        {showAssetsSubMenu && !loading && !error && (
-          <ul className={`left-menu-sub-list ${showAssetsSubMenu ? 'open' : ''}`}>
-            {assets.map((asset, index) => (
-              <li 
-                key={asset.id} 
-                className={`left-menu-sub-item ${selectedMenuItem === `Asset:${asset.name}` ? 'selected' : ''}`}
-                style={{ animationDelay: `${index * 0.1}s` }} /* Add animation delay */
-                onClick={(e) => {
-                  e.stopPropagation(); // Prevent parent li click
-                  handleAssetSubMenuItemClick(asset.name);
-                }}
-              >
-                {asset.name}
-              </li>
-            ))}
-          </ul>
-        )}
         {menuItems.map((item) => (
-          <li 
-            key={item} 
-            className={`left-menu-item ${selectedMenuItem === item ? 'selected' : ''}`}
-            onClick={() => handleItemClick(item)}
-          >
-            {item}
-          </li>
+          <React.Fragment key={item}>
+            <li 
+              className={`left-menu-item ${selectedMenuItem === item || (item === "Assets" && selectedMenuItem.startsWith('Asset:')) ? 'selected' : ''}`}
+              onClick={() => handleItemClick(item)}
+            >
+              <span>{item}</span>
+              {item === "Assets" && <span className="arrow-indicator">{showAssetsSubMenu ? '▲' : '▼'}</span>}
+            </li>
+            {item === "Assets" && showAssetsSubMenu && !loading && !error && (
+              <ul className={`left-menu-sub-list ${showAssetsSubMenu ? 'open' : ''}`}>
+                {assets.map((asset, index) => (
+                  <li 
+                    key={asset.id} 
+                    className={`left-menu-sub-item ${selectedMenuItem === `Asset:${asset.name}` ? 'selected' : ''}`}
+                    style={{ animationDelay: `${index * 0.1}s` }} /* Add animation delay */
+                    onClick={(e) => {
+                      e.stopPropagation(); // Prevent parent li click
+                      handleAssetSubMenuItemClick(asset.name);
+                    }}
+                  >
+                    {asset.name}
+                  </li>
+                ))}
+              </ul>
+            )}
+          </React.Fragment>
         ))}
       </ul>
     </nav>
