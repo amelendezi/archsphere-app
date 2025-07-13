@@ -8,10 +8,12 @@ import Assessments from '../components/Assessments/Assessments';
 import TagManagement from '../components/TagManagement/TagManagement';
 import AssetComponent from '../components/AssetComponent/AssetComponent';
 import { FaDownload } from 'react-icons/fa';
+import DownloadEnvironment from '../components/DownloadEnvironment/DownloadEnvironment';
 
 const AppMenuPage = () => {
   const [isLeftMenuOpen, setIsLeftMenuOpen] = useState(true);
   const [selectedMenuItem, setSelectedMenuItem] = useState('Applications'); // Default selected item
+  const [showDownloadDialog, setShowDownloadDialog] = useState(false);
 
   const toggleLeftMenu = () => {
     setIsLeftMenuOpen(!isLeftMenuOpen);
@@ -61,7 +63,7 @@ const AppMenuPage = () => {
         {/* Header Menu Pane */}
         <div className="header-menu-pane">
           <div className="session-profile-icon-container">
-            <span className="session-profile-icon"><FaDownload style={{ color: '#3367D6', fill: 'white' }} /></span>
+            <span className="session-profile-icon" onClick={() => setShowDownloadDialog(true)}><FaDownload style={{ color: '#3367D6', fill: 'white' }} /></span>
             <span className="session-profile-tooltip">Download saved work</span>
           </div>
           <div className="session-profile-icon-container">
@@ -74,6 +76,7 @@ const AppMenuPage = () => {
         <div className="main-content-pane">
           {renderMainContent()}
         </div>
+        {showDownloadDialog && <DownloadEnvironment onClose={() => setShowDownloadDialog(false)} />}
       </div>
     </div>
   );
