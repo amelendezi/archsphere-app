@@ -4,7 +4,15 @@
   border: 1px solid #ccc; /* Light grey border */
   display: flex;
   flex-direction: column;
-  overflow: hidden; /* Hide any overflowing content and scrollbars */
+  overflow: auto; /* Hide any overflowing content and scrollbars */
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+  height: 100%;
+  box-sizing: border-box;
+}
+
+.application-detail-container::-webkit-scrollbar {
+    display: none;
 }
 
 .application-detail-header {
