@@ -22,15 +22,14 @@ const ApplicationAnnotations = ({ application }) => {
     fetchAnnotations();
   }, [fetchAnnotations]);
 
-  const handleAddAnnotation = async () => {
+  const handleAddAnnotation = useCallback(async () => {
     if (newAnnotation.trim() !== '') {
       await addAnnotation(application.ID, newAnnotation);
-      const data = await getAnnotations(application.ID);
-      setAnnotations(data);
+      fetchAnnotations();
       setNewAnnotation('');
       setIsDialogOpen(false);
     }
-  };
+  }, [application, newAnnotation, addAnnotation, fetchAnnotations]);
 
   return (
     <div className="application-annotations-container">
