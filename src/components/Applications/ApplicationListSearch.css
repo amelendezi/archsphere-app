@@ -2,6 +2,10 @@
   padding: 10px;
   border-bottom: 1px solid #eee;
   text-align: left; /* Align content to the left */
+  position: sticky;
+  top: 0;
+  background-color: white; /* Ensure background is solid to prevent content showing through */
+  z-index: 1; /* Ensure it stays on top of scrolling content */
 }
 
 .application-list-search-input {
