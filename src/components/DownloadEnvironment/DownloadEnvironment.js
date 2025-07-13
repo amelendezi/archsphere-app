@@ -38,8 +38,10 @@ const DownloadEnvironment = ({ onClose }) => {
           />
           <label htmlFor="applications-checkbox">Applications</label>
         </div>
-        <button onClick={handleDownload}>Download</button>
-        <button onClick={onClose}>Close</button>
+        <div className="button-container">
+          <button className="reconciliationButtonPrimary" style={{ backgroundColor: 'grey' }} onClick={onClose}>Close</button>
+          <button className="reconciliationButtonPrimary" onClick={handleDownload}>Download</button>
+        </div>
       </div>
     </div>
   );
